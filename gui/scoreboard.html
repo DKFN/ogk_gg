@@ -49,7 +49,7 @@ _______/\\\\\_______/\\\\\_____/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\__/\\\\\
             <div class="columns">
                 <div class="column">
                     <h1 class="title is-1">Score Board</h1>
-                    <table class="table">
+                    <table class="table" id="test">
                         <thead>
                             <tr>
                                 <th>RANK</th>
@@ -110,5 +110,12 @@ _______/\\\\\_______/\\\\\_____/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\__/\\\\\
             </div>
         </div>
         <!-- End footer -->
+        <script>
+        function testing()
+        {
+              var table = document.getElementById("test");
+              var row = table.insertRow(0);
+        }
+        </script>
     </body>
 </html>

@@ -33,8 +33,6 @@ AddEvent("OnPlayerDeath", nextWeapons) -- handle the next weapon for the instiga
 
 function OnPlayerChatCommand(player, command, exists)
     if (command == "r") then
-        AddPlayerChat(player, "CURRENT WEAPON :" .. players[player].weapon)
-        AddPlayerChat(player, "Reloading Weapons")
         SetPlayerWeapon(player, weapons[players[player].weapon], 200, true, 1, true)
     end
 end
@@ -49,7 +47,7 @@ function OnPlayerJoin(ply)
     p["level"] = 0
     p["kills"] = 0
     p["deaths"] = 0
-    p["weapon"] = 1
+    p["weapon"] = weapons[1]
     p["steam_id"] = ply
 
     players[ply] = p
@@ -61,15 +59,7 @@ end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
     
 function OnPlayerSpawn(playerid)
-
-    if(players[playerid].weapon == 1) then
-        SetPlayerWeapon(playerid, weapons[1], 200, true, 1, true) -- set l'arme du joueur 
-    else
-        SetPlayerWeapon(playerid, weapons[last] , 200, true, 1, true) -- set l'arme du joueur 
-        AddPlayerChat(playerid, "You die, downgrade of your weapons ! " ..  weapon)
-    end
-
-
+    SetPlayerWeapon(playerid, players[playerid].weapon, 200, true, 1, true)
     CallRemoteEvent(playerid, "setClothe", playerid) -- set la tenue du joueur
     AddPlayerChat( playerid, "You are level " .. players[playerid].level) -- Affiche le niveau du joueur
 end
