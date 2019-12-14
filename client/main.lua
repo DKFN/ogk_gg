@@ -5,6 +5,7 @@ Addtional configuration on the server is necessary.
 
 ]]--
 function OnPlayerSpawn(playerid)
+	-- En vrai les yeux ca fait moche x)
 	EnableFirstPersonCamera(true)
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn)

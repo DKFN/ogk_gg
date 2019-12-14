@@ -6,25 +6,9 @@
     right: 0;
     color: orange;
     text-shadow: -1px 0 black, 0 0.5px black, 0.5px 0 black, 0 -1px black;
+    width: 400px;
+    margin: 20px;
 }
-
-
-@media(max-height: 720px) {
-    .player-hud {
-        width: 300px;
-        margin: 20px;
-        margin-right: 40px;
-    }
-}
-
-
-@media(min-height: 721px) {
-    .player-hud {
-        width: 400px;
-        margin: 20px;
-    }
-}
-
 
 .hudbar {
     display: flex;
@@ -64,13 +48,15 @@
     text-transform: uppercase;
     font-family: smb;
     position: fixed;
-    right: 1px;
+    left: 1px;
+    bottom: 1px;
     margin-top: 24px;
     justify-content: space-around;
     max-height: 500px;
     text-align: right;
     margin-right: 20px;
     opacity: 0.8;
+    font-size: 20px;
 }
 
 .killfeed-row {
@@ -81,7 +67,6 @@
 
 .killfeed-instigator {
     color: green;
-    width: 200px;
 }
 
 .killfeed-weapon {
@@ -96,4 +81,25 @@
 .killfeed-victim {
     color: red;
     text-align: left;
+    width: 200px;
+}
+
+@media(max-height: 1000px) {
+    .hud-title {
+        font-size: 20px;
+    }
+
+    .player-hud {
+        width: 320px;
+        margin: 10px;
+    }
+
+    
+    .hud-titletext-content {
+        font-size: 12px;
+    }
+
+    .killfeed {
+        font-size: 14px;
+    }
 }

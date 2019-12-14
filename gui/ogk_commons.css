@@ -23,6 +23,7 @@
 
 html, pre {
     background-color: transparent;
+    overflow: hidden;
 }
 
 body {
