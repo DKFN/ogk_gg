@@ -19,7 +19,7 @@ function OnPackageStart()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
-AddRemoteEvent("ChangeWeapon", function(killer)
+AddEvent("ChangeWeapon", function(killer)
     if(players[killer].weapon ~= 4) then
         next = players[killer].weapon + 1  -- upgrade the killer weapon
         players[killer].weapon = next
@@ -31,15 +31,12 @@ AddRemoteEvent("ChangeWeapon", function(killer)
     end
 end)
 
-function nextWeapons(playerid, instigator)
-
+function OnPlayerDeath(playerid, killer)
+	CallEvent("ChangeWeapon", killer)
 end
-AddEvent("OnPlayerDeath", nextWeapons) -- handle the next weapon for the instigator
+AddEvent("OnPlayerDeath", OnPlayerDeath)
 
 function OnPlayerChatCommand(player, command, exists)
-    if (command == "r") then
-        SetPlayerWeapon(player, weapons[players[player].weapon], 200, true, 1, true)
-    end
 end
 AddEvent("OnPlayerChatCommand", OnPlayerChatCommand);
 
