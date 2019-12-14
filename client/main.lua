@@ -4,26 +4,6 @@ This script contains the initial weapon configuration for the client.
 Addtional configuration on the server is necessary.
 
 ]]--
-local hud
-
-function OnKeyPress(key)
-	AddPlayerChat(key)
-	if key == "Tab" then
-		SetWebVisibility(scoreboard, WEB_VISIBLE)
-	end
-end
-AddEvent("OnKeyPress", OnKeyPress)
-
-function OnKeyRelease(key)
-	AddPlayerChat(key)
-	if key == "Tab" then
-		SetWebVisibility(scoreboard, WEB_HIDDEN)
-	end
-	if key == "p" then
-		EnableFirstPersonCamera(true)
-	end
-end
-AddEvent("OnKeyRelease", OnKeyRelease)
 function OnPlayerSpawn(playerid)
 	EnableFirstPersonCamera(true)
 end
@@ -35,24 +15,7 @@ function setClothe(player)
 end
 AddRemoteEvent("setClothe", setClothe) -- add 
 
-function OnPackageStart()
-	hud = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
-	LoadWebFile(hud, "http://asset/ogk_onset_gg/gui/ui.html")
-	SetWebAlignment(hud, 0.0, 0.0)
-	SetWebAnchors(hud, 0.0, 0.0, 1.0, 1.0)
-	SetWebVisibility(hud, WEB_VISIBLE)
-
-	scoreboard = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
-	LoadWebFile(scoreboard, "http://asset/ogk_onset_gg/gui/scoreboard.html")
-	SetWebAlignment(scoreboard, 0.0, 0.0)
-	SetWebAnchors(scoreboard, 0.0, 0.0, 1.0, 1.0)
-	SetWebVisibility(scoreboard, WEB_HIDDEN)
-end
-AddEvent("OnPackageStart", OnPackageStart)
-
 AddEvent("OnPackageStart", function()
-	-- TODO: Move to own function
-
 	local Weapon = GetWeaponIdentifier():NewWeapon(1)
 	Weapon:SetWeaponType(0)
 	Weapon:SetWeaponSubType(0)
