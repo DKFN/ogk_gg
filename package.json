@@ -3,6 +3,7 @@
     "version": "0.1",
     "server_scripts": [
         "server/main.lua",
+        "server/gui.lua",
         "server/map.lua"
     ],
     "client_scripts": [

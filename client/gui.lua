@@ -2,10 +2,16 @@
 local hud
 local scoreboard
 
+function SetScoreBoardData(servername) 
+	AddPlayerChat("test" .. servername)
+	
+	ExecuteWebJS(scoreboard, "Testing('" .. servername ..  "')")
+end
+AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
+
 function OnKeyPress(key)
 	if key == "Tab" then
 		CallRemoteEvent("GetScoreBoardData")
-		ExecuteWebJS(scoreboard, "Testing()")
 		SetWebVisibility(scoreboard, WEB_VISIBLE)
 	end
 	
