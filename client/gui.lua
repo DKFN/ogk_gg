@@ -3,7 +3,6 @@ local hud
 local scoreboard
 
 function OnKeyPress(key)
-	AddPlayerChat(key)
 	if key == "Tab" then
 		SetWebVisibility(scoreboard, WEB_VISIBLE)
 	end
@@ -11,7 +10,6 @@ end
 AddEvent("OnKeyPress", OnKeyPress)
 
 function OnKeyRelease(key)
-	AddPlayerChat(key)
 	if key == "Tab" then
 		SetWebVisibility(scoreboard, WEB_HIDDEN)
 	end

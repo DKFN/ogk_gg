@@ -2,18 +2,29 @@
 -- kills: Number
 -- deaths: Number
 -- level : number
--- last_weapon : String 
+-- weapon : String 
 -- ex: players[1] = {}
  
 players = {}
+weapons = {2, 6, 8}
 
 positions = {}
 
--- COMMAND TEST ANIMATION
-AddCommand("animation", function(playerid, animation) -- animation id
-    SetPlayerAnimation(playerid, animation)
-    AddPlayerChat(playerid, "Test" .. playerid)
+
+AddCommand("next", function(playerid)
+    next = players[playerid].weapon + 1  
+    players[playerid].weapon = next
+
+    SetPlayerWeapon(playerid, weapons[next], 200, true, 1, true)
+    AddPlayerChat(playerid, "You kill someone, next weapons !")
 end)
+
+-- COMMAND TEST ANIMATION
+AddCommand("die", function(playerid, animation) -- animation id
+    SetPlayerHealth(playerid, 0)
+end)
+
+
 
 function OnPlayerJoin(ply)
     AddPlayerChatAll("Coucou! " .. ply)
@@ -23,7 +34,7 @@ function OnPlayerJoin(ply)
     p["level"] = 0
     p["kills"] = 0
     p["deaths"] = 0
-    p["last_weapon"] = nil
+    p["weapon"] = nil
     p["steam_id"] = ply
 
     players[ply] = p
@@ -33,9 +44,21 @@ end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
     
 function OnPlayerSpawn(playerid)
-    SetPlayerWeapon(playerid, 2, 200, true, 1, true) -- set l'arme du joueur 
+
+    if(players[playerid].weapon == nil or players[playerid].weapon == 0) then
+        SetPlayerWeapon(playerid, weapons[1], 200, true, 1, true) -- set l'arme du joueur 
+        players[playerid].weapon = 1
+    else
+        weapon = players[playerid].weapon - 1
+        
+        players[playerid].weapon = weapon
+
+        SetPlayerWeapon(playerid, weapons[weapon] , 200, true, 1, true) -- set l'arme du joueur 
+        AddPlayerChat(playerid, "You die, downgrade of your weapons ! " ..  weapon)
+    end
+
+
     CallRemoteEvent(playerid, "setClothe", playerid) -- set la tenue du joueur
     AddPlayerChat( playerid, "You are level " .. players[playerid].level) -- Affiche le niveau du joueur
-    
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn)
