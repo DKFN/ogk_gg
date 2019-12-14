@@ -10,9 +10,7 @@ function OnKeyPress(key)
 	end
 	
 	if key == 'R' then
-
 		CallRemoteEvent("OnPlayerPressReload")
-
     end
 end
 AddEvent("OnKeyPress", OnKeyPress)

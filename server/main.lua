@@ -6,7 +6,7 @@
 -- ex: players[1] = {}
  
 players = {}
-weapons = {2, 6, 8, 4}
+local weapons = { 2, 6, 8, 4, 9, 10, 11}
 
 positions = {}
 
@@ -19,22 +19,33 @@ function OnPackageStart()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
-AddRemoteEvent("ChangeWeapon", function(playerid, killer)
-    if(players[killer].weapon ~= 4) then
-        next = players[killer].weapon + 1  -- upgrade the killer weapon
-        players[killer].weapon = next
-        SetPlayerWeapon(killer, 1, 200, true, 1, true)
-        SetPlayerWeapon(killer, weapons[players[killer].weapon], 200, true, 1, true)
-        
-        AddPlayerChat(killer, "Reloading Weapons")
-        AddPlayerChat(killer, "You kill someone, next weapons !" .. weapons[next])
-        AddPlayerChat(killer, "Weapon level: " .. players[killer].weapon)
-    end
-end) 
-
-function OnPlayerChatCommand(player, command, exists)
+function RefreshWeapons(killer) 
+    SetPlayerWeapon(killer, 1, 200, true, 1, true)
+    local wpn = weapons[players[killer].weapon]
+    SetPlayerWeapon(killer, wpn, 200, true, 1, true)
 end
-AddEvent("OnPlayerChatCommand", OnPlayerChatCommand);
+AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
+
+function level_up(killer)
+    if(players[killer].weapon ~= 4) then
+        local tmp =  players[killer].weapon + 1 -- upgrade the killer weapon
+        players[killer].weapon = tmp
+        AddPlayerChat(killer, "LEVEL UP Weapon level: " .. players[killer].weapon)
+    end
+end
+
+AddEvent("OnPlayerDeath", function(player, instigator)
+	level_up(instigator)
+end)
+
+function OnPlayerChat(player, command, exists)
+    -- Debug Commands
+    if command == "nxt" then
+        AddPlayerChat(player, "CMD getting to next ...")
+        level_up(player)
+    end
+end
+AddEvent("OnPlayerChat", OnPlayerChat)
 
 
 function OnPlayerJoin(ply)
@@ -45,20 +56,19 @@ function OnPlayerJoin(ply)
     p["level"] = 0
     p["kills"] = 0
     p["deaths"] = 0
-    p["weapon"] = weapons[1]
-    p["steam_id"] = ply
+    p["weapon"] = 1
+    p["id"] = ply
 
     players[ply] = p
 
     local spawn_location = spawns["western"]
-
     SetPlayerSpawnLocation( ply, spawn_location[1][1], spawn_location[1][2], spawn_location[1][3], 0 )
 end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
     
 function OnPlayerSpawn(playerid)
-    SetPlayerWeapon(playerid, players[playerid].weapon, 200, true, 1, true)
+    SetPlayerWeapon(playerid, weapons[players[playerid].weapon], 200, true, 1, true)
     CallRemoteEvent(playerid, "setClothe", playerid) -- set la tenue du joueur
-    AddPlayerChat( playerid, "You are level " .. players[playerid].level) -- Affiche le niveau du joueur
+    AddPlayerChat( playerid, "You are level " .. players[playerid].weapon) -- Affiche le niveau du joueur
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
