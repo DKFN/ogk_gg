@@ -1,6 +1,15 @@
 function GetScoreBoardData(player) 
 	local serverName = GetServerName()
-	CallRemoteEvent(player, "SetScoreBoardData", serverName, GetPlayerName(player), players[player].weapon, players[player].deaths, players[player].kills)
+	local PlayerTable = { }
+
+	for t, v in ipairs(GetAllPlayers()) do
+		PlayerTable[v] = {
+			players[t].weapon,
+			players[t].deaths,
+			players[t].kills
+		}
+	end
+	CallRemoteEvent(player, "SetScoreBoardData", serverName, PlayerTable)
 	AddPlayerChatAll("Received the message !" .. serverName)
 end
 AddRemoteEvent("GetScoreBoardData", GetScoreBoardData)
