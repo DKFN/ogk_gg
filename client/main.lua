@@ -5,6 +5,10 @@ Addtional configuration on the server is necessary.
 
 ]]--
 
+AddEvent("OnPlayerDeath", function(player, instigator)
+	print(instigator)
+	CallRemoteEvent("ChangeWeapon", instigator)
+end)
 
 function setClothe(player)
 	SetPlayerClothingPreset(player, math.abs(5))
