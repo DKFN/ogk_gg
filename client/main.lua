@@ -4,10 +4,10 @@ This script contains the initial weapon configuration for the client.
 Addtional configuration on the server is necessary.
 
 ]]--
-function OnPlayerSpawn(playerid)
-	-- En vrai les yeux ca fait moche x)
+function OnPlayerDeath(playerid, killer)
+	CallRemoteEvent("ChangeWeapon", killer)
 end
-AddEvent("OnPlayerSpawn", OnPlayerSpawn)
+AddEvent("OnPlayerDeath", OnPlayerDeath)
 
 
 function setClothe(player)
