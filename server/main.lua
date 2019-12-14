@@ -36,12 +36,14 @@ function level_up(killer)
     if(players[killer].weapon ~= 4) then
         local tmp =  players[killer].weapon + 1 -- upgrade the killer weapon
         players[killer].weapon = tmp
+        players[killer].kills = players[killer].kills + 1
         AddPlayerChat(killer, "LEVEL UP Weapon level: " .. players[killer].weapon)
     end
 end
 
 AddEvent("OnPlayerDeath", function(player, instigator)
     level_up(instigator)
+    players[player].kills = players[player].deaths + 1
     -- BUG [Appuyer sur E pour debloquer]
     Delay(200, function()
         RefreshWeapons(instigator)

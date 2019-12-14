@@ -2,8 +2,10 @@
 local hud
 local scoreboard
 
-function SetScoreBoardData(servername) 
+function SetScoreBoardData(servername, playername, weapon, death, kill) 
 	ExecuteWebJS(scoreboard, "Testing('" .. servername ..  "')")
+	ExecuteWebJS(scoreboard, "RemovePlayers()")
+	ExecuteWebJS(scoreboard, "AddPlayer('" .. playername .."', " .. weapon ..", " .. death ..", " .. kill ..")")
 end
 AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
 

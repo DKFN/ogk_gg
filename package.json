@@ -22,7 +22,8 @@
         "gui/ogk_hud.css",
         "gui/ogk_ui.css",
         "gui/ui.html",
-        "gui/scoreboard.html",
-        "gui/js/scoreboard.js"
+        "gui/js/jquery.js",
+        "gui/js/scoreboard.js",
+        "gui/scoreboard.html"
     ]
 }
