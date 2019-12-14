@@ -7,6 +7,7 @@
  
 players = {}
 local weapons = { 2, 6, 8, 4, 9, 10, 11}
+local current_map = "western"
 
 positions = {}
 
@@ -43,10 +44,11 @@ end
 
 function OnPlayerDeath(player, instigator)
     level_up(instigator)
-    players[player].kills = players[player].deaths + 1
+    players[instigator].kills = players[instigator].kills + 1
+    players[player].deaths = players[player].deaths + 1
     -- BUG [Appuyer sur E pour debloquer]
     for _, plyr in pairs(GetAllPlayers()) do
-        CallRemoteEvent(plyr, "AddFrag", "test", "test", "test")
+        CallRemoteEvent(plyr, "AddFrag", instigator, "test", player)
     end
 
     Delay(200, function()
@@ -68,14 +70,14 @@ function OnPlayerChat(player, command, exists)
 
     if command == "up" then
         AddPlayerChat(player, "Simulating kill")
-        OnPlayerDeath(nil, player)
+        OnPlayerDeath(1, player)
     end
 end
 AddEvent("OnPlayerChat", OnPlayerChat)
 
 
 function OnPlayerJoin(ply)
-    AddPlayerChatAll("Coucou! " .. ply)
+    AddPlayerChatAll("Coucou! " .. GetPlayerName(ply))
     
     -- initation du joueur de base
     p = {}
@@ -87,7 +89,7 @@ function OnPlayerJoin(ply)
 
     players[ply] = p
 
-    local spawn_location = spawns["western"]
+    local spawn_location = spawns[current_map]
     SetPlayerSpawnLocation( ply, spawn_location[1][1], spawn_location[1][2], spawn_location[1][3], 0 )
 end
 AddEvent("OnPlayerJoin", OnPlayerJoin)

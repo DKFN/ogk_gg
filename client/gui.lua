@@ -14,7 +14,7 @@ AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
 
 function AddFrag(killer, weapon, victim) 
 	AddPlayerChat(killer .. weapon .. victim)
-	ExecuteWebJS(hud, "killfeed.registerKill('test', 'test', 'test')")
+	ExecuteWebJS(hud, "killfeed.registerKill('"..GetPlayerName(killer).."', '"..GetPlayerName(victim).."', 'TEST')")
 end
 AddRemoteEvent("AddFrag", AddFrag) 
 
