@@ -42,7 +42,10 @@ end
 
 AddEvent("OnPlayerDeath", function(player, instigator)
     level_up(instigator)
-    -- RefreshWeapons(instigator)
+    -- BUG [Appuyer sur E pour debloquer]
+    Delay(200, function()
+        RefreshWeapons(instigator)
+    end)
 end)
 
 function OnPlayerChat(player, command, exists)
