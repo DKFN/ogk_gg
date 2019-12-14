@@ -23,7 +23,7 @@ function RefreshWeapons(killer)
     -- SetPlayerWeapon(killer, 1, 200, true, 1, true)
     local wpn = weapons[players[killer].weapon]
     AddPlayerChat(killer, "Assigning .... " .. wpn)
-    
+    SetPlayerAnimation(killer, "STOP")
     EquipPlayerWeaponSlot(killer, 2)
     SetPlayerWeapon(killer, wpn, 200, true, 1, true)
     Delay(1000, function()
