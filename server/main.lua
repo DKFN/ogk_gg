@@ -19,7 +19,9 @@ function OnPackageStart()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
-AddRemoteEvent("ChangeWeapon", function(playerid, killer)
+AddRemoteEvent("ChangeWeapon", function(killer)
+    AddPlayerChat(killer, "test")
+    AddPlayerChat("test")
     SetPlayerWeapon(killer, weapons[players[killer].weapon], 200, true, 1, true)
 end)
 
