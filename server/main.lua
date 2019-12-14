@@ -19,7 +19,7 @@ function OnPackageStart()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
-AddRemoteEvent("ChangeWeapon", function(killer)
+AddRemoteEvent("ChangeWeapon", function(playerid, killer)
     if(players[killer].weapon ~= 4) then
         next = players[killer].weapon + 1  -- upgrade the killer weapon
         players[killer].weapon = next
