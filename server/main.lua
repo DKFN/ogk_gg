@@ -42,7 +42,7 @@ end
 
 AddEvent("OnPlayerDeath", function(player, instigator)
     level_up(instigator)
-    -- RefreshWeapons(instigator)
+    RefreshWeapons(instigator)
 end)
 
 function OnPlayerChat(player, command, exists)
