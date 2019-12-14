@@ -11,19 +11,18 @@ weapons = {2, 6, 8}
 positions = {}
 
 
-AddCommand("next", function(playerid)
-    next = players[playerid].weapon + 1  
-    players[playerid].weapon = next
+function nextWeapons(playerid, instigator)
 
-    SetPlayerWeapon(playerid, weapons[next], 200, true, 1, true)
-    AddPlayerChat(playerid, "You kill someone, next weapons !")
-end)
+    next = players[instigator].weapon + 1  
+    players[instigator].weapon = next
 
--- COMMAND TEST ANIMATION
-AddCommand("die", function(playerid, animation) -- animation id
-    SetPlayerHealth(playerid, 0)
-end)
+    last = players[playerid].weapon - 1
+    players[playerid].weapon = last
 
+    SetPlayerWeapon(instigator, weapons[next], 200, true, 1, true)
+    AddPlayerChat(instigator, "You kill someone, next weapons !")
+end
+AddEvent("OnPlayerDeath", nextWeapons) -- handle the next weapon for the instigator
 
 
 function OnPlayerJoin(ply)
@@ -49,11 +48,9 @@ function OnPlayerSpawn(playerid)
         SetPlayerWeapon(playerid, weapons[1], 200, true, 1, true) -- set l'arme du joueur 
         players[playerid].weapon = 1
     else
-        weapon = players[playerid].weapon - 1
-        
-        players[playerid].weapon = weapon
+        last = players[playerid].weapon
 
-        SetPlayerWeapon(playerid, weapons[weapon] , 200, true, 1, true) -- set l'arme du joueur 
+        SetPlayerWeapon(playerid, weapons[last] , 200, true, 1, true) -- set l'arme du joueur 
         AddPlayerChat(playerid, "You die, downgrade of your weapons ! " ..  weapon)
     end
 
@@ -61,4 +58,4 @@ function OnPlayerSpawn(playerid)
     CallRemoteEvent(playerid, "setClothe", playerid) -- set la tenue du joueur
     AddPlayerChat( playerid, "You are level " .. players[playerid].level) -- Affiche le niveau du joueur
 end
-AddEvent("OnPlayerSpawn", OnPlayerSpawn)
+AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
