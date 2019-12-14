@@ -3,8 +3,6 @@ local hud
 local scoreboard
 
 function SetScoreBoardData(servername) 
-	AddPlayerChat("test" .. servername)
-	
 	ExecuteWebJS(scoreboard, "Testing('" .. servername ..  "')")
 end
 AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
