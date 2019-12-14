@@ -41,14 +41,19 @@ function level_up(killer)
     end
 end
 
-AddEvent("OnPlayerDeath", function(player, instigator)
+function OnPlayerDeath(player, instigator)
     level_up(instigator)
     players[player].kills = players[player].deaths + 1
     -- BUG [Appuyer sur E pour debloquer]
+    for _, plyr in pairs(GetAllPlayers()) do
+        CallRemoteEvent(plyr, "AddFrag", "test", "test", "test")
+    end
+
     Delay(200, function()
         RefreshWeapons(instigator)
     end)
-end)
+end
+AddEvent("OnPlayerDeath", OnPlayerDeath)
 
 function OnPlayerChat(player, command, exists)
     -- Debug Commands
@@ -59,6 +64,11 @@ function OnPlayerChat(player, command, exists)
     if command == "refresh" then
         AddPlayerChat(player, "Refreshing weapons ...")
         RefreshWeapons(player)
+    end
+
+    if command == "up" then
+        AddPlayerChat(player, "Simulating kill")
+        OnPlayerDeath(nil, player)
     end
 end
 AddEvent("OnPlayerChat", OnPlayerChat)

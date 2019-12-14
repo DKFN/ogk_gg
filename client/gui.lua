@@ -9,6 +9,12 @@ function SetScoreBoardData(servername, playername, weapon, death, kill)
 end
 AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
 
+function AddFrag(killer, weapon, victim) 
+	AddPlayerChat(killer .. weapon .. victim)
+	ExecuteWebJS(hud, "killfeed.registerKill('test', 'test', 'test')")
+end
+AddRemoteEvent("AddFrag", AddFrag) 
+
 function OnKeyPress(key)
 	if key == "Tab" then
 		CallRemoteEvent("GetScoreBoardData")
