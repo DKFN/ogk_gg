@@ -32,11 +32,6 @@ AddRemoteEvent("ChangeWeapon", function(playerid, killer)
     end
 end) 
 
-function OnPlayerDeath(playerid, killer)
-	CallEvent("ChangeWeapon", killer)
-end
-AddEvent("OnPlayerDeath", OnPlayerDeath)
-
 function OnPlayerChatCommand(player, command, exists)
 end
 AddEvent("OnPlayerChatCommand", OnPlayerChatCommand);

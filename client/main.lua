@@ -6,8 +6,7 @@ Addtional configuration on the server is necessary.
 ]]--
 
 AddEvent("OnPlayerDeath", function(player, instigator)
-	print(instigator)
-	CallRemoteEvent("ChangeWeapon", instigator)
+	CallRemoteEvent("ChangeWeapon", player, instigator)
 end)
 
 function setClothe(player)
