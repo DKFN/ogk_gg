@@ -6,7 +6,7 @@
 -- ex: players[1] = {}
  
 players = {}
-weapons = {2, 6, 8}
+weapons = {2, 6, 8, 4}
 
 positions = {}
 
