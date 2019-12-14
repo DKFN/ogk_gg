@@ -34,5 +34,6 @@ function OnPackageStart()
 	SetWebAlignment(scoreboard, 0.0, 0.0)
 	SetWebAnchors(scoreboard, 0.0, 0.0, 1.0, 1.0)
 	SetWebVisibility(scoreboard, WEB_HIDDEN)
+	ShowHealthHUD(false) 
 end
 AddEvent("OnPackageStart", OnPackageStart)
