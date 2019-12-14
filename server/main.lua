@@ -13,11 +13,8 @@ positions = {}
 
 function nextWeapons(playerid, instigator)
 
-    next = players[instigator].weapon + 1  
+    next = players[instigator].weapon + 1  -- upgrade the killer weapon
     players[instigator].weapon = next
-
-    last = players[playerid].weapon - 1
-    players[playerid].weapon = last
 
     SetPlayerWeapon(instigator, weapons[next], 200, true, 1, true)
     AddPlayerChat(instigator, "You kill someone, next weapons !")
@@ -33,7 +30,7 @@ function OnPlayerJoin(ply)
     p["level"] = 0
     p["kills"] = 0
     p["deaths"] = 0
-    p["weapon"] = nil
+    p["weapon"] = 1
     p["steam_id"] = ply
 
     players[ply] = p
@@ -44,11 +41,10 @@ AddEvent("OnPlayerJoin", OnPlayerJoin)
     
 function OnPlayerSpawn(playerid)
 
-    if(players[playerid].weapon == nil or players[playerid].weapon == 0) then
+    if(players[playerid].weapon == 1) then
         SetPlayerWeapon(playerid, weapons[1], 200, true, 1, true) -- set l'arme du joueur 
-        players[playerid].weapon = 1
     else
-        last = players[playerid].weapon
+        last = players[playerid].weapon - 1
 
         SetPlayerWeapon(playerid, weapons[last] , 200, true, 1, true) -- set l'arme du joueur 
         AddPlayerChat(playerid, "You die, downgrade of your weapons ! " ..  weapon)
