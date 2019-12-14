@@ -18,7 +18,7 @@ function nextWeapons(playerid, instigator)
         players[instigator].weapon = next
         
         SetPlayerWeapon(instigator, weapons[next], 200, true, 1, true)
-        AddPlayerChat(instigator, "You kill someone, next weapons !")
+        AddPlayerChat(instigator, "You kill someone, next weapons !" .. weapons[next])
     end
 end
 AddEvent("OnPlayerDeath", nextWeapons) -- handle the next weapon for the instigator
