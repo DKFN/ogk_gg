@@ -1,0 +1,99 @@
+/* HUD In bottom right */
+.player-hud {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    color: orange;
+    text-shadow: -1px 0 black, 0 0.5px black, 0.5px 0 black, 0 -1px black;
+}
+
+
+@media(max-height: 720px) {
+    .player-hud {
+        width: 300px;
+        margin: 20px;
+        margin-right: 40px;
+    }
+}
+
+
+@media(min-height: 721px) {
+    .player-hud {
+        width: 400px;
+        margin: 20px;
+    }
+}
+
+
+.hudbar {
+    display: flex;
+    max-width: 150px;
+    font-size: 10px;
+}
+
+.hud-top {
+    display: flex;
+    font-family: pxTitle;
+}
+
+.hud-title {
+    font-size: 32px;
+}
+
+.hud-col {
+    border-right: 1px solid orange;
+}
+
+.hud-titletext {
+    text-align: center;
+}
+
+.hud-titletext-content {
+    display: inline;
+    font-family: pxTitle;
+    color: orange;
+    font-size: 16px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 6px;
+    opacity: 0.8;
+}
+
+/* Kill Feed in top right corner */
+.killfeed {
+    text-transform: uppercase;
+    font-family: smb;
+    position: fixed;
+    right: 1px;
+    margin-top: 24px;
+    justify-content: space-around;
+    max-height: 500px;
+    text-align: right;
+    margin-right: 20px;
+    opacity: 0.8;
+}
+
+.killfeed-row {
+    display: flex;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.killfeed-instigator {
+    color: green;
+    width: 200px;
+}
+
+.killfeed-weapon {
+    color: orange;
+    margin-left: 8px;
+    margin-right: 8px;
+    min-width: 50px;
+    max-width: 150px;
+    text-align: center;
+}
+
+.killfeed-victim {
+    color: red;
+    text-align: left;
+}

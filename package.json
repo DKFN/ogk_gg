@@ -1,0 +1,24 @@
+{
+    "author": "OGK",
+    "version": "0.1",
+    "server_scripts": [
+        "server/main.lua"
+    ],
+    "client_scripts": [
+        "client/main.lua"
+    ],
+    "files": [
+        "gui/js/killfeed.js",
+        "gui/images/ogk.png",
+        "gui/images/fh-banniere.png",
+        "gui/fonts/edunline.ttf",
+        "gui/fonts/smb.ttf",
+        "gui/fonts/RingMatrix.ttf",
+        "gui/nuclearbulma.css",
+        "gui/ogk_commons.css",
+        "gui/ogk_hud.css",
+        "gui/ogk_ui.css",
+        "gui/ui.html",
+        "gui/scoreboard.html"
+    ]
+}

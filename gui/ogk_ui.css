@@ -1,0 +1,55 @@
+
+.innertext {
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    font-size: 12px;
+    color: red;
+    z-index: 999999999;
+}
+
+/* MOTD */
+.splash-container {
+    display: flex;
+    justify-content: center;
+}
+
+.oggSplash {
+    font-weight: bolder;
+    color: limegreen;
+    overflow-x: hidden;
+    font-size: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.oggContent {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.notifications-container {
+    padding: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.ogk-footer {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    margin-top: 100px;
+}
+
+.subtitle{
+    font-family: pxTitle, cursive;
+    font-weight: bolder;
+    color: green;
+}
+
+.partner-pad {
+    margin-top: 40px;
+}
+
+.feature-pad {
+    margin-right: 40px;
+}
