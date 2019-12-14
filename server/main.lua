@@ -20,9 +20,15 @@ end
 AddEvent("OnPackageStart", OnPackageStart)
 
 function RefreshWeapons(killer) 
-    SetPlayerWeapon(killer, 1, 200, true, 1, true)
+    -- SetPlayerWeapon(killer, 1, 200, true, 1, true)
     local wpn = weapons[players[killer].weapon]
+    AddPlayerChat(killer, "Assigning .... " .. wpn)
+    
+    EquipPlayerWeaponSlot(killer, 2)
     SetPlayerWeapon(killer, wpn, 200, true, 1, true)
+    Delay(1000, function()
+        EquipPlayerWeaponSlot(killer, 1)
+    end)
 end
 AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
 
@@ -35,7 +41,8 @@ function level_up(killer)
 end
 
 AddEvent("OnPlayerDeath", function(player, instigator)
-	level_up(instigator)
+    level_up(instigator)
+    -- RefreshWeapons(instigator)
 end)
 
 function OnPlayerChat(player, command, exists)
@@ -43,6 +50,10 @@ function OnPlayerChat(player, command, exists)
     if command == "nxt" then
         AddPlayerChat(player, "CMD getting to next ...")
         level_up(player)
+    end
+    if command == "refresh" then
+        AddPlayerChat(player, "Refreshing weapons ...")
+        RefreshWeapons(player)
     end
 end
 AddEvent("OnPlayerChat", OnPlayerChat)

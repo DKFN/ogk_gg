@@ -1,5 +1,5 @@
-function GetScoreBoardData() {
-	-- CallRemoteEvent(player, "SendScoreBoardData", serverName)
+function GetScoreBoardData(player) {
+	CallRemoteEvent(player, "SendScoreBoardData", serverName)
 	local serverName = GetServerName()
 	AddPlayerChatAll("Received the message !" .. serverName)
 }

@@ -4,12 +4,12 @@ local scoreboard
 
 function OnKeyPress(key)
 	if key == "Tab" then
+		CallRemoteEvent("GetScoreBoardData")
 		ExecuteWebJS(scoreboard, "Testing()")
 		SetWebVisibility(scoreboard, WEB_VISIBLE)
-		CallRemoteEvent("GetScoreBoardData")
 	end
 	
-	if key == 'R' then
+	if key == 'E' then
 		CallRemoteEvent("OnPlayerPressReload")
     end
 end
