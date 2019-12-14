@@ -13,11 +13,13 @@ positions = {}
 
 function nextWeapons(playerid, instigator)
 
-    next = players[instigator].weapon + 1  -- upgrade the killer weapon
-    players[instigator].weapon = next
-
-    SetPlayerWeapon(instigator, weapons[next], 200, true, 1, true)
-    AddPlayerChat(instigator, "You kill someone, next weapons !")
+    if(players[instigator].weapon != 3) then
+        next = players[instigator].weapon + 1  -- upgrade the killer weapon
+        players[instigator].weapon = next
+        
+        SetPlayerWeapon(instigator, weapons[next], 200, true, 1, true)
+        AddPlayerChat(instigator, "You kill someone, next weapons !")
+    end
 end
 AddEvent("OnPlayerDeath", nextWeapons) -- handle the next weapon for the instigator
 
