@@ -5,19 +5,19 @@
 /* Custom Fonts */
 @font-face {
     font-family: pxTitle;
-    src: url(fonts/edunline.ttf);
+    src: url(http://asset/ogk_gg/gui/fonts/edunline.ttf);
     color: limegreen;
 }
 
 @font-face {
     font-family: smb;
-    src: url(fonts/smb.ttf);
+    src: url(http://asset/ogk_gg/gui/fonts/smb.ttf);
     color: limegreen;
 }
 
 @font-face {
     font-family: atari;
-    src: url(fonts/RingMatrix.ttf);
+    src: url(http://asset/ogk_gg/gui/fonts/RingMatrix.ttf);
     color: limegreen;
 }
 
