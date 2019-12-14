@@ -14,16 +14,31 @@ spawns = {}
 spawns["western"] = {}
 spawns["western"][1] = {-76573.953125, -164022.0625, 3319.1821289063, 0}
 
+function OnPackageStart()
+    LoadMap()
+end
+AddEvent("OnPackageStart", OnPackageStart)
+
 function nextWeapons(playerid, instigator)
     if(players[instigator].weapon ~= 3) then
         next = players[instigator].weapon + 1  -- upgrade the killer weapon
         players[instigator].weapon = next
         
-        SetPlayerWeapon(instigator, weapons[next], 200, true, 1, true)
+        AddPlayerChat(instigator, "Reloading Weapons")
         AddPlayerChat(instigator, "You kill someone, next weapons !" .. weapons[next])
+        AddPlayerChat(instigator, "Weapon level: " .. players[instigator].weapon)
     end
 end
 AddEvent("OnPlayerDeath", nextWeapons) -- handle the next weapon for the instigator
+
+function OnPlayerChatCommand(player, command, exists)
+    if (command == "r") then
+        AddPlayerChat(player, "CURRENT WEAPON :" .. players[player].weapon)
+        AddPlayerChat(player, "Reloading Weapons")
+        SetPlayerWeapon(player, weapons[players[player].weapon], 200, true, 1, true)
+    end
+end
+AddEvent("OnPlayerChatCommand", OnPlayerChatCommand);
 
 
 function OnPlayerJoin(ply)
@@ -50,8 +65,6 @@ function OnPlayerSpawn(playerid)
     if(players[playerid].weapon == 1) then
         SetPlayerWeapon(playerid, weapons[1], 200, true, 1, true) -- set l'arme du joueur 
     else
-        last = players[playerid].weapon - 1
-
         SetPlayerWeapon(playerid, weapons[last] , 200, true, 1, true) -- set l'arme du joueur 
         AddPlayerChat(playerid, "You die, downgrade of your weapons ! " ..  weapon)
     end

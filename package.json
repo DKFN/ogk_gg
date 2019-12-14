@@ -2,7 +2,8 @@
     "author": "OGK",
     "version": "0.1",
     "server_scripts": [
-        "server/main.lua"
+        "server/main.lua",
+        "server/map.lua"
     ],
     "client_scripts": [
         "client/main.lua",
