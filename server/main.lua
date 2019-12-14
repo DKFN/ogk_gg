@@ -10,9 +10,11 @@ weapons = {2, 6, 8, 4}
 
 positions = {}
 
+spawns = {}
+spawns["western"] = {}
+spawns["western"][1] = {-76573.953125, -164022.0625, 3319.1821289063, 0}
 
 function nextWeapons(playerid, instigator)
-
     if(players[instigator].weapon ~= 3) then
         next = players[instigator].weapon + 1  -- upgrade the killer weapon
         players[instigator].weapon = next
@@ -37,7 +39,9 @@ function OnPlayerJoin(ply)
 
     players[ply] = p
 
-    SetPlayerSpawnLocation( ply, -76573.953125, -164022.0625, 3319.1821289063, 0 )
+    local spawn_location = spawns["western"]
+
+    SetPlayerSpawnLocation( ply, spawn_location[1][1], spawn_location[1][2], spawn_location[1][3], 0 )
 end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
     
