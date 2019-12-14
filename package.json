@@ -3,8 +3,7 @@
     "version": "0.1",
     "server_scripts": [
         "server/main.lua",
-        "server/map.lua",
-        "server/gui.lua"
+        "server/map.lua"
     ],
     "client_scripts": [
         "client/main.lua",
@@ -22,6 +21,7 @@
         "gui/ogk_hud.css",
         "gui/ogk_ui.css",
         "gui/ui.html",
-        "gui/scoreboard.html"
+        "gui/scoreboard.html",
+        "gui/js/scoreboard.js"
     ]
 }

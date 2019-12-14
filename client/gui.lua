@@ -5,12 +5,8 @@ local scoreboard
 function OnKeyPress(key)
 	if key == "Tab" then
 
-		-- fix visible bug
-		if IsValidTimer(sb_timer) then
-			DestroyTimer(sb_timer)
-		end
-		sb_timer = CreateTimer(UpdateScoreboardData, 1500)
-		UpdateScoreboardData()
+		ExecuteWebJS(scoreboard, "Testing()")
+		
 		SetWebVisibility(scoreboard, WEB_VISIBLE)
 	end
 end
@@ -37,18 +33,3 @@ function OnPackageStart()
 	SetWebVisibility(scoreboard, WEB_HIDDEN)
 end
 AddEvent("OnPackageStart", OnPackageStart)
-
---- SCOREBOARD
-function UpdateScoreboardData()
-	CallRemoteEvent("UpdateScoreboardData")
-end
-
-function OnGetScoreboardData(servername, count, maxplayers, players)
-	--print(servername, count, maxplayers)
-	ExecuteWebJS(scoreboard, "testing()")
-	--print("OnGetScoreboardData "..#players)
-	--for k, v in ipairs(players) do
-	--	ExecuteWebJS(scoreboard, "AddPlayer("..k..", '"..v[1].."', '"..v[2].."', '"..v[3].."')")
-	--end
-end
-AddRemoteEvent("OnGetScoreboardData", OnGetScoreboardData)
