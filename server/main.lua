@@ -23,6 +23,7 @@ AddRemoteEvent("ChangeWeapon", function(killer)
     if(players[killer].weapon ~= 4) then
         next = players[killer].weapon + 1  -- upgrade the killer weapon
         players[killer].weapon = next
+        SetPlayerWeapon(killer, 1, 200, true, 1, true)
         SetPlayerWeapon(killer, weapons[players[killer].weapon], 200, true, 1, true)
         
         AddPlayerChat(killer, "Reloading Weapons")
