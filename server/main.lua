@@ -20,19 +20,19 @@ end
 AddEvent("OnPackageStart", OnPackageStart)
 
 AddRemoteEvent("ChangeWeapon", function(killer)
-    AddPlayerChat(killer, "test")
-    SetPlayerWeapon(killer, weapons[players[killer].weapon], 200, true, 1, true)
+    if(players[killer].weapon ~= 4) then
+        next = players[killer].weapon + 1  -- upgrade the killer weapon
+        players[killer].weapon = next
+        SetPlayerWeapon(killer, weapons[players[killer].weapon], 200, true, 1, true)
+        
+        AddPlayerChat(killer, "Reloading Weapons")
+        AddPlayerChat(killer, "You kill someone, next weapons !" .. weapons[next])
+        AddPlayerChat(killer, "Weapon level: " .. players[killer].weapon)
+    end
 end)
 
 function nextWeapons(playerid, instigator)
-    if(players[instigator].weapon ~= 4) then
-        next = players[instigator].weapon + 1  -- upgrade the killer weapon
-        players[instigator].weapon = next
-        
-        AddPlayerChat(instigator, "Reloading Weapons")
-        AddPlayerChat(instigator, "You kill someone, next weapons !" .. weapons[next])
-        AddPlayerChat(instigator, "Weapon level: " .. players[instigator].weapon)
-    end
+
 end
 AddEvent("OnPlayerDeath", nextWeapons) -- handle the next weapon for the instigator
 
