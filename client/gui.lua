@@ -4,8 +4,9 @@ local scoreboard
 
 function OnKeyPress(key)
 	if key == "Tab" then
-		
+		ExecuteWebJS(scoreboard, "Testing()")
 		SetWebVisibility(scoreboard, WEB_VISIBLE)
+		CallRemoteEvent("GetScoreBoardData")
 	end
 	
 	if key == 'R' then
