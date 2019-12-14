@@ -57,23 +57,6 @@ class KillFeed {
 
  const killFeedInstance = new KillFeed();
 
- /**
-  * The code below is the code used to simulate the behavior of the gamemode
-  */
- const fakeKills = [
-    ["Deadly", "MP5", "Souidiere"],
-    ["Katz", "AK-47", "Test"],
-    ["Katz", "KNIFE", "Dogz"],
-    ["Inteus", "HR", "Wizard"],
-    ["KATSU", "ROCKET LAUNCHER", "GREEN HOUSE"]
-];
-
- const fakeEvents = setInterval(() => {
-     const e = fakeKills[Math.round(Math.random() * fakeKills.length - 1)];
-     killFeedInstance.registerKill(e[0], e[2], e[1])
- }, 860)
-
  // Attaching public functions so Onset can call Them 
-
  window.killfeed = killFeedInstance;
 
