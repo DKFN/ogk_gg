@@ -4,10 +4,6 @@ This script contains the initial weapon configuration for the client.
 Addtional configuration on the server is necessary.
 
 ]]--
-function OnPlayerDeath(playerid, killer)
-	CallRemoteEvent("ChangeWeapon", killer)
-end
-AddEvent("OnPlayerDeath", OnPlayerDeath)
 
 
 function setClothe(player)
