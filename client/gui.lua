@@ -21,11 +21,16 @@ function UpdatePlayerInfo(level)
 	AddPlayerChat(level)
 	local weapon = GetPlayerWeapon()
 end
-
 AddRemoteEvent("UpdatePlayerInfo", UpdatePlayerInfo) 
 
+function PlayerChangeLevel(newLevel)
+	AddPlayerChat(newLevel)
+	ExecuteWebJS(hud, "ChangePlayerLevel('"..newLevel.."')")
+end
+AddRemoteEvent("PlayerChangeLevel", PlayerChangeLevel)
+
 AddRemoteEvent("WarnDesynchro", function()
-	ExecuteWebJS(hud, "Warn('[LEVEL UP] NE VISEZ PLUS - NE RECHARGEZ PLUS')")
+	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[LEVEL UP]</span> NE VISEZ PLUS - NE RECHARGEZ PLUS')")
 end)
 
 AddRemoteEvent("WelcomeToServer", function()
@@ -63,6 +68,12 @@ AddEvent("OnKeyRelease", OnKeyRelease)
 function OnPlayerSpawn(playerid)
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn)
+
+function refresh_health()
+	local ply_health = GetPlayerHealth()
+	local weapon, ammo, inmag = GetPlayerWeapon()
+	ExecuteWebJS(hud, "RefreshPlayerBar("..ply_health..","..inmag..")")
+end
 
 function OnPackageStart()
 	hud = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)

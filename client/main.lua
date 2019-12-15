@@ -11,18 +11,27 @@ AddRemoteEvent("setClothe", setClothe)
 
 function notifyServerOfCurrentWeapon()
 	local equipped_slot = GetPlayerEquippedWeaponSlot()
-	local weapon, ammo = GetPlayerWeapon()
+	local weapon, ammo = GetPlayerWeapon() -- Do not put equipped slot as we swap users slot as hack
 	CallRemoteEvent("PlayerCheckWeaponSynchro", weapon, equipped_slot)	
 end
 
-function refresh_watcher()
+-- Watchers
+function weapon_refresher()
 	Delay(30, function()
 		notifyServerOfCurrentWeapon()
-        refresh_watcher()
+        weapon_refresher()
     end)
 end
 
+function ui_refresher()
+	Delay(5, function()
+        refresh_health()
+		ui_refresher()
+	end)
+end
+
 AddEvent("OnPackageStart", function()
-	refresh_watcher()
+	weapon_refresher()
+	ui_refresher()
 end)
 

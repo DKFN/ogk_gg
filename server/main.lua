@@ -5,7 +5,7 @@
 -- weapon : String 
 -- ex: players[1] = {}
  
-local players = {}
+players = {}
 local weapons = { 2, 6, 8, 12, 14, 15, 19, 20, 4 }
 local MAX_WEAPONS = 9
 local current_map = "western"
@@ -43,13 +43,14 @@ AddRemoteEvent("PlayerCheckWeaponSynchro", function(player, weapon, equipped_slo
 end)
 
 
-function RefreshWeapons(killer) 
-    -- SetPlayerWeapon(killer, 1, 200, true, 1, true)
+function RefreshWeapons(killer)
+    SetPlayerAnimation(killer, "STOP")
     local wpn = weapons[players[killer].weapon]
     AddPlayerChat(killer, "Assigning .... " .. wpn)
     SetPlayerAnimation(killer, "STOP")
     EquipPlayerWeaponSlot(killer, 2)
     SetPlayerWeapon(killer, wpn, 200, true, 1, true)
+    SetPlayerAnimation(killer, "STOP")
     Delay(1000, function()
         EquipPlayerWeaponSlot(killer, 1)
     end)
@@ -61,7 +62,8 @@ function level_up(killer)
         local tmp =  players[killer].weapon + 1 -- upgrade the killer weapon
         players[killer].weapon = tmp
         players[killer].kills = players[killer].kills + 1
-        AddPlayerChat(killer, "LEVEL UP Weapon level: " .. players[killer].weapon)
+        CallRemoteEvent(killer, "PlayerChangeLevel", tostring(players[killer].weapon))
+        -- AddPlayerChat(killer, "LEVEL UP Weapon level: " .. players[killer].weapon)
     end
 end
 
@@ -80,6 +82,8 @@ function OnPlayerDeath(player, instigator)
 
     players[instigator].kills = players[instigator].kills + 1
     players[player].deaths = players[player].deaths + 1
+
+    RefreshWeapons(instigator)
 end
 
 AddEvent("OnPlayerDeath", OnPlayerDeath)
@@ -101,7 +105,6 @@ function OnPlayerChat(player, command, exists)
     if command == "up" then
         OnPlayerDeath(player, player)
         level_up(player)
-        RefreshWeapons(player)
     end
 end
 AddEvent("OnPlayerChat", OnPlayerChat)
@@ -127,7 +130,7 @@ function OnPlayerJoin(ply)
     AddPlayerChat( ply, "warn : Displays aim warn message")
     AddPlayerChat( ply, "refresh : Refresh weapons assignements")
     players[ply]["fist_spawn"] = 1;
-    
+        
     -- Initial spawn
     assign_spawn(ply)
     
@@ -144,19 +147,23 @@ function OnPlayerSpawn(playerid)
         players[playerid]["fist_spawn"] = 0;
         Delay(700, function()
             SetPlayerSpectate(playerid, true)
-            CallRemoteEvent(playerid, "WelcomeToServer")
+            CallRemoteEvent(playerid, "PlayerChangeLevel", 1)
         end)
     end
 
     SetPlayerSpectate(playerid, false)
     SetPlayerHealth(playerid, 9999)
+    AddPlayerChat(playerid, "Anti Spawn Kill: actif")
     Delay(50, function()
-        SetPlayerHealth(playerid, 100)
         CallRemoteEvent(playerid, "JoiningParty")
         local wpn = weapons[players[playerid].weapon]
         SetPlayerWeapon(playerid, wpn, 200, true, 1, true)
         CallRemoteEvent(playerid, "setClothe", playerid) -- set la tenue du joueur
         AddPlayerChat( playerid, "You are level " .. players[playerid].weapon) -- Affiche le niveau du joueur
+    end)
+    Delay(1000, function()
+        AddPlayerChat(playerid, "Anti Spawn Kill: inactif")
+        SetPlayerHealth(playerid, 100)
     end)
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
