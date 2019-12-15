@@ -10,6 +10,5 @@ function GetScoreBoardData(player)
 		}
 	end
 	CallRemoteEvent(player, "SetScoreBoardData", serverName, PlayerTable)
-	AddPlayerChatAll("Received the message !" .. serverName)
 end
 AddRemoteEvent("GetScoreBoardData", GetScoreBoardData)

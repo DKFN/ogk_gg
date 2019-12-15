@@ -1,5 +1,5 @@
-function Testing(servername) {
-    document.getElementById("serverAndVersion").innerHTML = servername;
+function ServerVersion(servername) {
+    document.getElementById("serverAndVersion").innerHTML = '<b>' + servername + '</b>';
 }
 
 function RemovePlayers() {

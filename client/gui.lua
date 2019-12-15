@@ -2,7 +2,7 @@ local hud
 local scoreboard
 
 function SetScoreBoardData(servername, players) 
-	ExecuteWebJS(scoreboard, "Testing('" .. servername ..  "')")
+	ExecuteWebJS(scoreboard, "ServerVersion('"..servername.."')")
 	ExecuteWebJS(scoreboard, "RemovePlayers()")
 
 	for k, v in ipairs(players) do
@@ -11,8 +11,7 @@ function SetScoreBoardData(servername, players)
 end
 AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
 
-function AddFrag(killer, weapon, victim) 
-	AddPlayerChat(killer .. weapon .. victim)
+function AddFrag(killer, weapon, victim)
 	ExecuteWebJS(hud, "killfeed.registerKill('"..GetPlayerName(killer).."', '"..GetPlayerName(victim).."', 'TEST')")
 end
 AddRemoteEvent("AddFrag", AddFrag) 
@@ -27,7 +26,7 @@ AddRemoteEvent("UpdatePlayerInfo", UpdatePlayerInfo)
 
 AddRemoteEvent("WarnNextLevel", function()
 	AddPlayerChat("WarnNextLevel")
-	ExecuteWebJS("warnNextLevel()")
+	ExecuteWebJS(hud, "WarnNextLevel()")
 end)
 
 

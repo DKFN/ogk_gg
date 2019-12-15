@@ -1,11 +1,7 @@
-function updatePlayerBar(level, rank) {
-
-}
-
-function warnNextLevel() {
+function WarnNextLevel() {
     const warnerContainer = document.getElementById("warnNextLevel");
     warnerContainer.style.display = "block";
     setTimeout(() => {
-        warnerContainer.style.display = "hidden";
+        warnerContainer.style.display = "none";
     }, 3000);
 }
