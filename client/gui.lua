@@ -24,8 +24,8 @@ end
 
 AddRemoteEvent("UpdatePlayerInfo", UpdatePlayerInfo) 
 
-AddRemoteEvent("WarnNextLevel", function()
-	ExecuteWebJS(hud, "Warn('NE VISEZ PLUS POUR PASSER NIVEAU')")
+AddRemoteEvent("WarnDesynchro", function()
+	ExecuteWebJS(hud, "Warn('[LEVEL UP] NE VISEZ PLUS - NE RECHARGEZ PLUS')")
 end)
 
 AddRemoteEvent("WelcomeToServer", function()

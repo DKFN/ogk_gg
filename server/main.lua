@@ -5,7 +5,7 @@
 -- weapon : String 
 -- ex: players[1] = {}
  
-players = {}
+local players = {}
 local weapons = { 2, 6, 8, 12, 14, 15, 19, 20, 4 }
 local MAX_WEAPONS = 9
 local current_map = "western"
@@ -23,7 +23,7 @@ spawns["western"][5] = {-82072.0546875, -161787.203125, 3223.7658691406, 0}
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
-    local assigned_spawn = spawn_location[Random(1, 5)]
+    local assigned_spawn = spawn_location[Random(3, 3)]
     SetPlayerSpawnLocation( player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3], 0 )
 end
 
@@ -32,6 +32,17 @@ function OnPackageStart()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
+-- This function is responsible to check synchronisation state between client and server because Talos broke something T_T
+AddRemoteEvent("PlayerCheckWeaponSynchro", function(player, weapon, equipped_slot)
+    if weapons[players[player].weapon] ~= weapon then
+        AddPlayerChat(player, "[DESYNCHRO WEAPON] PLY : "..player.." Weapon : ".. weapon .. "Supposed" .. players[player].weapon)
+        AddPlayerChat(player, "[DESYNCHRO WEAPON] Reloading ...")
+        CallRemoteEvent(player, "WarnDesynchro")
+        RefreshWeapons(player)
+    end
+end)
+
+
 function RefreshWeapons(killer) 
     -- SetPlayerWeapon(killer, 1, 200, true, 1, true)
     local wpn = weapons[players[killer].weapon]
@@ -39,8 +50,6 @@ function RefreshWeapons(killer)
     SetPlayerAnimation(killer, "STOP")
     EquipPlayerWeaponSlot(killer, 2)
     SetPlayerWeapon(killer, wpn, 200, true, 1, true)
-    SetPlayerWeapon(killer, wpn, 200, false, 2, true)
-    SetPlayerWeapon(killer, wpn, 200, false, 3, true)
     Delay(1000, function()
         EquipPlayerWeaponSlot(killer, 1)
     end)
@@ -57,17 +66,6 @@ function level_up(killer)
 end
 
 -- This function waits until the plays does not AIM and will then change the level of the player
-function try_autoPass(instigator)
-    Delay(20, function()
-        if IsPlayerAiming(instigator) or IsPlayerReloading(instigator) then
-            CallRemoteEvent(instigator, "WarnNextLevel")
-            try_autoPass(instigator)
-        else
-            RefreshWeapons(instigator)
-        end
-    end)
-end
-
 function OnPlayerDeath(player, instigator)
     assign_spawn(player)
     for _, plyr in pairs(GetAllPlayers()) do
@@ -82,8 +80,6 @@ function OnPlayerDeath(player, instigator)
 
     players[instigator].kills = players[instigator].kills + 1
     players[player].deaths = players[player].deaths + 1
-
-    try_autoPass(instigator)
 end
 
 AddEvent("OnPlayerDeath", OnPlayerDeath)
@@ -139,6 +135,7 @@ function OnPlayerJoin(ply)
     Delay(1500, function()
         SetPlayerHealth(ply, 0)
     end)
+    
 end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
     
@@ -158,8 +155,6 @@ function OnPlayerSpawn(playerid)
         CallRemoteEvent(playerid, "JoiningParty")
         local wpn = weapons[players[playerid].weapon]
         SetPlayerWeapon(playerid, wpn, 200, true, 1, true)
-        SetPlayerWeapon(playerid, wpn, 200, false, 2, true)
-        SetPlayerWeapon(playerid, wpn, 200, false, 3, true)
         CallRemoteEvent(playerid, "setClothe", playerid) -- set la tenue du joueur
         AddPlayerChat( playerid, "You are level " .. players[playerid].weapon) -- Affiche le niveau du joueur
     end)
