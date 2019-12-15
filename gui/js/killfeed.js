@@ -46,9 +46,11 @@ class KillFeed {
 
     cleaner(_this) {
         return () => {
-            _this.killFeedEntries.forEach(kfe => {
-                if (kfe.timeOfEntry + ROW_TIME_TO_LIVE < Date.now()) {
+            _this.killFeedEntries.forEach((kfe, i) => {
+                const expired = kfe.timeOfEntry + ROW_TIME_TO_LIVE < Date.now();
+                if (expired) {
                     document.getElementById(`kf_${kfe.timeOfEntry}`).innerHTML = "";
+                    delete _this.killFeedEntries[i];
                 }
             });
         }

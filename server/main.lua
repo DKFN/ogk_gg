@@ -42,19 +42,32 @@ function level_up(killer)
     end
 end
 
+-- This function waits until the plays does not AIM and will then change the level of the player
+function try_autoPass(instigator)
+    Delay(20, function()
+        if IsPlayerAiming(instigator) then
+            CallRemoteEvent(instigator, "WarnNextLevel")
+            try_autoPass(instigator)
+        else
+            RefreshWeapons(instigator)
+        end
+    end)
+end
+
 function OnPlayerDeath(player, instigator)
+    -- TODO: Before level up check that player has changed weapon and not on previous one
     level_up(instigator)
+
     players[instigator].kills = players[instigator].kills + 1
     players[player].deaths = players[player].deaths + 1
-    -- BUG [Appuyer sur E pour debloquer]
+
     for _, plyr in pairs(GetAllPlayers()) do
         CallRemoteEvent(plyr, "AddFrag", instigator, "test", player)
     end
 
-    Delay(200, function()
-        RefreshWeapons(instigator)
-    end)
+    try_autoPass(instigator)
 end
+
 AddEvent("OnPlayerDeath", OnPlayerDeath)
 
 function OnPlayerChat(player, command, exists)
@@ -71,6 +84,10 @@ function OnPlayerChat(player, command, exists)
     if command == "up" then
         AddPlayerChat(player, "Simulating kill")
         OnPlayerDeath(1, player)
+    end
+
+    if command == "warn" then
+        CallRemoteEvent(player, "WarnNextLevel")
     end
 end
 AddEvent("OnPlayerChat", OnPlayerChat)

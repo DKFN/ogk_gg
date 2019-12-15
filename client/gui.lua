@@ -1,4 +1,3 @@
-
 local hud
 local scoreboard
 
@@ -17,6 +16,20 @@ function AddFrag(killer, weapon, victim)
 	ExecuteWebJS(hud, "killfeed.registerKill('"..GetPlayerName(killer).."', '"..GetPlayerName(victim).."', 'TEST')")
 end
 AddRemoteEvent("AddFrag", AddFrag) 
+
+function UpdatePlayerInfo(level) 
+	AddPlayerChat(level)
+	local weapon = GetPlayerWeapon()
+	weapon.
+	ExecuteWebJS(hud, "updatePlayerBar('"..GetPlayerName(killer).."', '"..GetPlayerName(victim).."', 'TEST')")
+end
+AddRemoteEvent("UpdatePlayerInfo", UpdatePlayerInfo) 
+
+AddRemoteEvent("WarnNextLevel", function()
+	AddPlayerChat("WarnNextLevel")
+	ExecuteWebJS("warnNextLevel()")
+end)
+
 
 function OnKeyPress(key)
 	if key == "Tab" then
