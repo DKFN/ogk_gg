@@ -4,9 +4,9 @@ function GetScoreBoardData(player)
 
 	for t, v in ipairs(GetAllPlayers()) do
 		PlayerTable[v] = {
-			players[t].weapon,
-			players[t].deaths,
-			players[t].kills
+			players[v].weapon,
+			players[v].deaths,
+			players[v].kills
 		}
 	end
 	CallRemoteEvent(player, "SetScoreBoardData", serverName, PlayerTable)
