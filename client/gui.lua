@@ -46,6 +46,10 @@ function OnKeyPress(key)
 		CallRemoteEvent("GetScoreBoardData")
 		SetWebVisibility(scoreboard, WEB_VISIBLE)
 	end
+
+	if key == "O" then
+		SetWebVisibility(hud, WEB_HIDDEN)
+	end
 end
 AddEvent("OnKeyPress", OnKeyPress)
 
