@@ -27,6 +27,8 @@ function RefreshWeapons(killer)
     SetPlayerAnimation(killer, "STOP")
     EquipPlayerWeaponSlot(killer, 2)
     SetPlayerWeapon(killer, wpn, 200, true, 1, true)
+    SetPlayerWeapon(killer, wpn, 200, false, 2, true)
+    SetPlayerWeapon(killer, wpn, 200, false, 3, true)
     Delay(1000, function()
         EquipPlayerWeaponSlot(killer, 1)
     end)
@@ -62,7 +64,7 @@ function OnPlayerDeath(player, instigator)
     players[player].deaths = players[player].deaths + 1
 
     for _, plyr in pairs(GetAllPlayers()) do
-        CallRemoteEvent(plyr, "AddFrag", instigator, "test", player)
+        CallRemoteEvent(plyr, "AddFrag", GetPlayerName(instigator), "test", GetPlayerName(player))
     end
 
     try_autoPass(instigator)
@@ -108,6 +110,11 @@ function OnPlayerJoin(ply)
 
     local spawn_location = spawns[current_map]
     SetPlayerSpawnLocation( ply, spawn_location[1][1], spawn_location[1][2], spawn_location[1][3], 0 )
+
+    AddPlayerChat( ply, '////DEBUG TOOLS/////')
+    AddPlayerChat( ply, "up : To auto up 1 lvl")
+    AddPlayerChat( ply, "warn : Displays aim warn message")
+    AddPlayerChat( ply, "refresh : Refresh weapons assignements")
 end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
     

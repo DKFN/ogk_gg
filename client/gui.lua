@@ -12,20 +12,18 @@ end
 AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
 
 function AddFrag(killer, weapon, victim)
-	ExecuteWebJS(hud, "killfeed.registerKill('"..GetPlayerName(killer).."', '"..GetPlayerName(victim).."', 'TEST')")
+	ExecuteWebJS(hud, "killfeed.registerKill('"..killer.."', '"..victim.."', 'TEST')")
 end
 AddRemoteEvent("AddFrag", AddFrag) 
 
 function UpdatePlayerInfo(level) 
 	AddPlayerChat(level)
 	local weapon = GetPlayerWeapon()
-	weapon.
-	ExecuteWebJS(hud, "updatePlayerBar('"..GetPlayerName(killer).."', '"..GetPlayerName(victim).."', 'TEST')")
 end
+
 AddRemoteEvent("UpdatePlayerInfo", UpdatePlayerInfo) 
 
 AddRemoteEvent("WarnNextLevel", function()
-	AddPlayerChat("WarnNextLevel")
 	ExecuteWebJS(hud, "WarnNextLevel()")
 end)
 
@@ -35,10 +33,6 @@ function OnKeyPress(key)
 		CallRemoteEvent("GetScoreBoardData")
 		SetWebVisibility(scoreboard, WEB_VISIBLE)
 	end
-	
-	if key == 'E' then
-		CallRemoteEvent("OnPlayerPressReload")
-    end
 end
 AddEvent("OnKeyPress", OnKeyPress)
 
@@ -48,6 +42,10 @@ function OnKeyRelease(key)
 	end
 end
 AddEvent("OnKeyRelease", OnKeyRelease)
+
+function OnPlayerSpawn(playerid)
+end
+AddEvent("OnPlayerSpawn", OnPlayerSpawn)
 
 function OnPackageStart()
 	hud = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
@@ -61,6 +59,6 @@ function OnPackageStart()
 	SetWebAlignment(scoreboard, 0.0, 0.0)
 	SetWebAnchors(scoreboard, 0.0, 0.0, 1.0, 1.0)
 	SetWebVisibility(scoreboard, WEB_HIDDEN)
-	ShowHealthHUD(false) 
+	ShowHealthHUD(false)
 end
 AddEvent("OnPackageStart", OnPackageStart)
