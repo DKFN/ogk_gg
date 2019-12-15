@@ -1,11 +1,12 @@
 local hud
 local scoreboard
 
+-- Server Sent Events
 function SetScoreBoardData(servername, players) 
 	ExecuteWebJS(scoreboard, "ServerVersion('"..servername.."')")
 	ExecuteWebJS(scoreboard, "RemovePlayers()")
 
-	for k, v in ipairs(players) do
+	for k, v in pairs(players) do
 		ExecuteWebJS(scoreboard, "AddPlayer('"..GetPlayerName(k).."', "..v[1]..", "..v[2]..", "..v[3]..")")
 	end
 end
@@ -24,10 +25,22 @@ end
 AddRemoteEvent("UpdatePlayerInfo", UpdatePlayerInfo) 
 
 AddRemoteEvent("WarnNextLevel", function()
-	ExecuteWebJS(hud, "WarnNextLevel()")
+	ExecuteWebJS(hud, "Warn('NE VISEZ PLUS POUR PASSER NIVEAU')")
 end)
 
+AddRemoteEvent("WelcomeToServer", function()
+	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
+	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
+	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
+	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
+	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
+end)
 
+AddRemoteEvent("JoiningParty", function()
+	ExecuteWebJS(hud, "Warn('Noubliez pas de recharger votre arme')")
+end)
+
+-- Client Sent Events
 function OnKeyPress(key)
 	if key == "Tab" then
 		CallRemoteEvent("GetScoreBoardData")

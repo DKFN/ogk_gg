@@ -13,7 +13,7 @@ positions = {}
 
 spawns = {}
 spawns["western"] = {}
-spawns["western"][1] = {-76573.953125, -164022.0625, 3319.1821289063, 0}
+spawns["western"][1] = {-76523.953125, -164042.0625, 3340.1821289063, 0}
 
 function OnPackageStart()
     LoadMap()
@@ -57,15 +57,18 @@ function try_autoPass(instigator)
 end
 
 function OnPlayerDeath(player, instigator)
+    for _, plyr in pairs(GetAllPlayers()) do
+        CallRemoteEvent(plyr, "AddFrag", GetPlayerName(instigator), "test", GetPlayerName(player))
+    end
+    -- Prevents suicide
+    if player == instigator then
+        return 
+    end
     -- TODO: Before level up check that player has changed weapon and not on previous one
     level_up(instigator)
 
     players[instigator].kills = players[instigator].kills + 1
     players[player].deaths = players[player].deaths + 1
-
-    for _, plyr in pairs(GetAllPlayers()) do
-        CallRemoteEvent(plyr, "AddFrag", GetPlayerName(instigator), "test", GetPlayerName(player))
-    end
 
     try_autoPass(instigator)
 end
@@ -83,13 +86,13 @@ function OnPlayerChat(player, command, exists)
         RefreshWeapons(player)
     end
 
-    if command == "up" then
-        AddPlayerChat(player, "Simulating kill")
-        OnPlayerDeath(1, player)
-    end
-
     if command == "warn" then
         CallRemoteEvent(player, "WarnNextLevel")
+    end
+    if command == "up" then
+        OnPlayerDeath(player, player)
+        level_up(player)
+        RefreshWeapons(player)
     end
 end
 AddEvent("OnPlayerChat", OnPlayerChat)
@@ -105,22 +108,48 @@ function OnPlayerJoin(ply)
     p["deaths"] = 0
     p["weapon"] = 1
     p["id"] = ply
+    p["fist_spawn"] = 1;
 
     players[ply] = p
 
-    local spawn_location = spawns[current_map]
-    SetPlayerSpawnLocation( ply, spawn_location[1][1], spawn_location[1][2], spawn_location[1][3], 0 )
-
+    SetPlayerHealth(ply, 99999) -- Avoids spawn kill
     AddPlayerChat( ply, '////DEBUG TOOLS/////')
     AddPlayerChat( ply, "up : To auto up 1 lvl")
     AddPlayerChat( ply, "warn : Displays aim warn message")
     AddPlayerChat( ply, "refresh : Refresh weapons assignements")
+    players[ply]["fist_spawn"] = 1;
+    
+    -- Initial spawn
+    local spawn_location = spawns["western"]
+    local assigned_first_spawn = spawn_location[1]
+    SetPlayerSpawnLocation( ply, assigned_first_spawn[1], assigned_first_spawn[2], assigned_first_spawn[3], 0 )
+
+    
+    -- True spawn in the game, fixes jump in the ocean on slow connections
+    Delay(1500, function()
+        SetPlayerHealth(ply, 0)
+        SetPlayerSpawnLocation( ply, assigned_first_spawn[1], assigned_first_spawn[2], assigned_first_spawn[3], 0 )
+    end)
 end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
     
 function OnPlayerSpawn(playerid)
-    SetPlayerWeapon(playerid, weapons[players[playerid].weapon], 200, true, 1, true)
-    CallRemoteEvent(playerid, "setClothe", playerid) -- set la tenue du joueur
-    AddPlayerChat( playerid, "You are level " .. players[playerid].weapon) -- Affiche le niveau du joueur
+    if players[playerid]["fist_spawn"] == 1 then
+        players[playerid]["fist_spawn"] = 0;
+        Delay(700, function()
+            SetPlayerSpectate(playerid, true)
+            CallRemoteEvent(playerid, "WelcomeToServer")
+        end)
+    end
+
+    SetPlayerSpectate(playerid, false)
+    SetPlayerHealth(playerid, 9999)
+    Delay(50, function()
+        SetPlayerHealth(playerid, 100)
+        CallRemoteEvent(playerid, "JoiningParty")
+        SetPlayerWeapon(playerid, weapons[players[playerid].weapon], 200, true, 1, true)
+        CallRemoteEvent(playerid, "setClothe", playerid) -- set la tenue du joueur
+        AddPlayerChat( playerid, "You are level " .. players[playerid].weapon) -- Affiche le niveau du joueur
+    end)
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 

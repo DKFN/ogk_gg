@@ -3,10 +3,11 @@ function InitWarnNextLevel() {
     warnerContainer.style.display = "none";
 }
 
-function WarnNextLevel() {
-    const warnerContainer = document.getElementById("warnContainer");
-    warnerContainer.style.display = "block";
-    setTimeout(() => {
-        warnerContainer.style.display = "none";
-    }, 3000);
+function Warn(message) {
+        const warnerContainer = document.getElementById("warnContainer");
+        warnerContainer.style.display = "block";
+        warnerContainer.innerHTML = "<b>" + message + "</b>"
+        setTimeout(() => {
+            warnerContainer.style.display = "none";
+        }, 3000);
 }
