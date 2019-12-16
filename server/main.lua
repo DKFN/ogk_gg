@@ -3,8 +3,8 @@ player_count = 0
 local weapons = { 2, 6, 8, 12, 14, 15, 19, 20, 4 }
 local MAX_WEAPONS = 9
 
--- current_map = "shoots"
-current_map = "western"
+current_map = "shoots"
+-- current_map = "western"
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
@@ -104,7 +104,6 @@ function OnPlayerJoin(ply)
     Delay(1500, function()
         SetPlayerHealth(ply, 0)
     end)
-    
 end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
 
@@ -126,10 +125,16 @@ function OnPlayerSpawn(playerid)
     SetPlayerHealth(playerid, 9999)
     AddPlayerChat(playerid, "Anti Spawn Kill: actif")
     Delay(50, function()
+        -- Changin weapons for player
         local wpn = weapons[players[playerid].weapon]
         CallRemoteEvent(playerid, "PlayerChangeLevel",players[playerid].weapon) -- Affiche le niveau du joueur
         SetPlayerWeapon(playerid, wpn, 200, true, 1, true)
-        CallRemoteEvent(playerid, "setClothe", playerid) -- set la tenue du joueur
+
+        -- Avoids nude players
+        for _, v in ipairs(GetAllPlayers()) do
+            CallRemoteEvent(playerid, "setClothe", v)
+            CallRemoteEvent(v, "setClothe", playerid) -- set la tenue du joueur
+        end
     end)
     Delay(1000, function()
         AddPlayerChat(playerid, "Anti Spawn Kill: inactif")

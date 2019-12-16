@@ -26,8 +26,8 @@ function Warn(message) {
 }
 
 const zeroIsRed = (num) => num === 0 
-? '<b style="color: red">' + num + "</b>"
-: "<b>" + num + "</b>"
+    ? '<b style="color: red">' + num + "</b>"
+    : "<b>" + num + "</b>";
 
 function RefreshPlayerBar(health, ammo) {
     const healthContainer = document.getElementById("health");
@@ -39,7 +39,7 @@ function RefreshPlayerBar(health, ammo) {
     else
         warnMagazine.style.display = "none";
 
-    healthContainer.innerHTML = zeroIsRed(health)
+    healthContainer.innerHTML = zeroIsRed(Math.round(health))
     ammoContainer.innerHTML = zeroIsRed(ammo)
 }
 
