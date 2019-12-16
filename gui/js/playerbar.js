@@ -32,6 +32,13 @@ const zeroIsRed = (num) => num === 0
 function RefreshPlayerBar(health, ammo) {
     const healthContainer = document.getElementById("health");
     const ammoContainer = document.getElementById("ammo");
+    const warnMagazine = document.getElementById("reload-prompt");
+
+    if (ammo === 0)
+        warnMagazine.style.display = "block";
+    else
+        warnMagazine.style.display = "none";
+
     healthContainer.innerHTML = zeroIsRed(health)
     ammoContainer.innerHTML = zeroIsRed(ammo)
 }

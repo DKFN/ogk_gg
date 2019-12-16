@@ -30,7 +30,7 @@ end
 AddRemoteEvent("PlayerChangeLevel", PlayerChangeLevel)
 
 AddRemoteEvent("WarnDesynchro", function()
-	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[LEVEL UP]</span> NE VISEZ PLUS - NE RECHARGEZ PLUS')")
+	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[LEVEL UP]</span>  ARME : <ICI ARME>')")
 end)
 
 AddRemoteEvent("WelcomeToServer", function()

@@ -126,11 +126,10 @@ function OnPlayerSpawn(playerid)
     SetPlayerHealth(playerid, 9999)
     AddPlayerChat(playerid, "Anti Spawn Kill: actif")
     Delay(50, function()
-        CallRemoteEvent(playerid, "JoiningParty")
         local wpn = weapons[players[playerid].weapon]
+        CallRemoteEvent(playerid, "PlayerChangeLevel",players[playerid].weapon) -- Affiche le niveau du joueur
         SetPlayerWeapon(playerid, wpn, 200, true, 1, true)
         CallRemoteEvent(playerid, "setClothe", playerid) -- set la tenue du joueur
-        AddPlayerChat( playerid, "You are level " .. players[playerid].weapon) -- Affiche le niveau du joueur
     end)
     Delay(1000, function()
         AddPlayerChat(playerid, "Anti Spawn Kill: inactif")
