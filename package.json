@@ -3,6 +3,8 @@
     "version": "0.1",
     "server_scripts": [
         "server/main.lua",
+        "server/debug.lua",
+        "server/spawn.lua",
         "server/gui.lua",
         "server/map.lua"
     ],
