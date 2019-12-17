@@ -48,8 +48,8 @@
     text-transform: uppercase;
     font-family: smb;
     position: fixed;
-    left: 1px;
-    bottom: 1px;
+    right: 1px;
+    top: 1px;
     margin-top: 24px;
     justify-content: space-around;
     max-height: 500px;
@@ -61,8 +61,8 @@
 
 .killfeed-row {
     display: flex;
-    min-width: 300px;
-    max-width: 500px;
+    min-width: 400px;
+    max-width: 800px;
 }
 
 .killfeed-instigator {
@@ -81,7 +81,7 @@
 .killfeed-victim {
     color: red;
     text-align: left;
-    width: 200px;
+    width: 300px;
 }
 
  #warnNextLevel {
@@ -101,9 +101,6 @@
     text-align: center;
     bottom: 0;
     color: red;
-}
-
-.ogk-flex {
 }
 
 @media(max-height: 1000px) {

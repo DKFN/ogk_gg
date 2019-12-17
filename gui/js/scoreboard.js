@@ -7,7 +7,7 @@ function RemovePlayers() {
 }
 
 function AddPlayer(name, weapon, kills, deaths) {
-    $('#playertable').append('<tr class="player"><td>' + name + '</td><td>' + weapon + '/4</td><td>' + kills + '</td><td>' + deaths + '</td></tr>');
+    $('#playertable').append('<tr class="player"><td>' + name + '</td><td>' + weapon + '/9</td><td>' + kills + '</td><td>' + deaths + '</td></tr>');
 }
 
 function PlayerWonGame(winner) {
@@ -17,12 +17,11 @@ function PlayerWonGame(winner) {
 
     document.getElementById('scoreboardContents').style.display = "none";
 
-    text.innerHTML = "<b><h3 class='content is-3'>" + winner + "<h3></b>";
+    text.innerHTML = "<b><h4 class='is-4'>" + winner + "<h4></b>";
 
     container.style.opacity = 0;
     container.width = "toggle";
-    text.style.fontSize = "92px";
-    text.style.color = "black"
+    text.style.fontSize = "64px";
     text.style.fontWeight = "bolder"
 
     // OGK GG SPLASH DISAPEAR

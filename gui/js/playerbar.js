@@ -36,10 +36,11 @@ function RefreshPlayerBar(health, ammo, weapon, weapon_next) {
     const weaponName = document.getElementById("weaponsName");
     const weaponNext = document.getElementById("weaponsNext");
 
-    if (ammo === 0)
+    if (ammo === 0) {
         warnMagazine.style.display = "block";
-    else
+    } else {
         warnMagazine.style.display = "none";
+    }
 
     weaponName.innerHTML = weapon;
     weaponNext.innerHTML = weapon_next;

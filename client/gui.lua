@@ -6,6 +6,10 @@ function SetScoreBoardData(servername, players)
 	ExecuteWebJS(scoreboard, "ServerVersion('"..servername.."')")
 	ExecuteWebJS(scoreboard, "RemovePlayers()")
 
+	-- table.sort(players, function(ply1, ply2)
+	-- 	return ply1.kills > ply2.kills
+	-- end)
+
 	for k, v in pairs(players) do
 		ExecuteWebJS(scoreboard, "AddPlayer('"..v[1].."', "..v[2]..", "..v[3]..", "..v[4]..")")
 	end
@@ -109,9 +113,11 @@ function OnPackageStart()
 	SetWebVisibility(scoreboard, WEB_HIDDEN)
 	ShowHealthHUD(false)
 	ShowWeaponHUD(false)
+
 	-- Someone found fix, ask discord
+	-- here is the fix
 	EnableFirstPersonCamera(true)
-	SetNearClipPlane(20)
+	SetNearClipPlane(15)
 	
 end
 AddEvent("OnPackageStart", OnPackageStart)

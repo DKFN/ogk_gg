@@ -1,8 +1,10 @@
+OGK_GG_DEBUG = false
+
 players = {}
 player_count = 0
 
-local weapons = { 2, 6, 8, 12, 14, 15, 19, 20, 4 }
-weapons_name = { "Pistol", "Shotgun", "SMG", "Ak-47", "Rifle", "Rifle 2", "Rifle 3", "Sniper", "1 Shot Gun" }
+local weapons = { 9, 8, 12, 14, 15, 19, 20, 6, 4 }
+weapons_name = { "MAC10", "SMG", "Ak-47", "Rifle", "Rifle 2", "Rifle 3", "Sniper", "Shotgun", "#1 Gun" }
 
 MAX_WEAPONS = 9
 
@@ -11,10 +13,10 @@ current_map = "western"
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
-    -- local assigned_spawn = spawn_location[Random(1, spawns_max[current_map])]
-    local assigned_spawn = spawn_location[Random(4, 4)]
+    local assigned_spawn = spawn_location[Random(1, spawns_max[current_map])]
+    -- local assigned_spawn = spawn_location[Random(4, 4)]
     
-    SetPlayerSpawnLocation( player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3], 0 )
+    SetPlayerSpawnLocation( player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3] + (player * 10), 0 )
 end
 
 function OnPackageStart()
@@ -25,8 +27,6 @@ AddEvent("OnPackageStart", OnPackageStart)
 -- This function is responsible to check synchronisation state between client and server because Talos broke something T_T
 AddRemoteEvent("PlayerCheckWeaponSynchro", function(player, weapon, equipped_slot)
     if weapons[players[player].weapon] ~= weapon then
-        -- AddPlayerChat(player, "[DESYNCHRO WEAPON] PLY : "..player.." Weapon : ".. weapon .. "Supposed" .. players[player].weapon)
-        -- AddPlayerChat(player, "[DESYNCHRO WEAPON] Reloading ...")
         CallRemoteEvent(player, "WarnDesynchro")
         RefreshWeapons(player)
     end
@@ -100,13 +100,16 @@ function OnPlayerJoin(ply)
     players[ply] = p
 
     SetPlayerHealth(ply, 99999) -- Avoids spawn kill
-    AddPlayerChat( ply, '////DEBUG TOOLS/////')
-    AddPlayerChat( ply, "up : To auto up 1 lvl")
-    AddPlayerChat( ply, "warn : Displays aim warn message")
-    AddPlayerChat( ply, "refresh : Refresh weapons assignements")
-    AddPlayerChat( ply, "noclip : nonoclip to disable")
+    if OGK_GG_DEBUG then
+        AddPlayerChat( ply, '////DEBUG TOOLS/////')
+        AddPlayerChat( ply, "up : To auto up 1 lvl")
+        AddPlayerChat( ply, "warn : Displays aim warn message")
+        AddPlayerChat( ply, "refresh : Refresh weapons assignements")
+        AddPlayerChat( ply, "noclip : nonoclip to disable")
+        AddPlayerChat( ply, "win : pay me a beer and insta win ze game")
+    end
+
     AddPlayerChat( ply, "kill : suicide")
-    AddPlayerChat( ply, "win : pay me a beer and insta win ze game")
     players[ply]["fist_spawn"] = 1;
         
     -- Initial spawn
@@ -136,9 +139,17 @@ function OnPlayerSpawn(playerid)
         end)
     end
 
+    local defaultCloth = 1
     -- Avoids nude players
     for _, v in ipairs(GetAllPlayers()) do
-        CallRemoteEvent(playerid, "setClothe", v, players[v].cloth) -- set la tenu des joueurs pour le joueur
+        local assigned_cloth -- Production bug found during playtest
+        if (players[v]) then
+            assigned_cloth = players[v].cloth
+        else
+            assigned_cloth = defaultCloth
+        end
+
+        CallRemoteEvent(playerid, "setClothe", assigned_cloth) -- set la tenu des joueurs pour le joueur
         CallRemoteEvent(v, "setClothe", playerid, players[playerid].cloth) -- set la tenue du joueur pour les autres joueurs
     end
 
@@ -157,7 +168,7 @@ function OnPlayerSpawn(playerid)
     end)
 
     -- Anti spawn kill disable
-    Delay(1000, function()
+    Delay(2000, function()
         SetPlayerHealth(playerid, 100)
     end)
 end
@@ -174,7 +185,7 @@ AddEvent("PlayerWin", function(winner)
             -- AddPlayerChat(v, "Game restarted")
             SetPlayerHealth(v, 0)
             players[v].kills = 0
-            players[v].death = 0
+            players[v].deaths = 0
             players[v].weapon = 1
             CallRemoteEvent(v, "GameRestarting")
         end)
