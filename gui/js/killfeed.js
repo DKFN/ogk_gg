@@ -10,7 +10,7 @@
             ${killRow.instigator}
         </div>
         <div class="killfeed-weapon">
-            [${killRow.weapon}]
+            ${killRow.weapon}
         </div>
         <div class="killfeed-victim">
             ${killRow.victim}

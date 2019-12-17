@@ -13,7 +13,7 @@ end
 AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
 
 function AddFrag(killer, weapon, victim)
-	ExecuteWebJS(hud, "killfeed.registerKill('"..killer.."', '"..victim.."', 'TEST')")
+	ExecuteWebJS(hud, "killfeed.registerKill('"..killer.."', '"..victim.."', '===>')")
 end
 AddRemoteEvent("AddFrag", AddFrag) 
 
@@ -30,11 +30,11 @@ end
 AddRemoteEvent("PlayerChangeLevel", PlayerChangeLevel)
 
 AddRemoteEvent("WarnDesynchro", function()
-	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[LEVEL UP]</span>  ARME : <ICI ARME>')")
+	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[LEVEL UP]</span>')")
 end)
 
 AddRemoteEvent("GameRestarting", function()
-	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[ATTENTION]</span> LA PARTIE COMMENCE')")
+	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[WARNING]</span> GAME STARTING')")
 end)
 
 AddRemoteEvent("WelcomeToServer", function()
@@ -101,5 +101,8 @@ function OnPackageStart()
 	SetWebVisibility(scoreboard, WEB_HIDDEN)
 	ShowHealthHUD(false)
 	ShowWeaponHUD(false)
+	-- Someone found fix, ask discord
+	-- EnableFirstPersonCamera(true)
+	
 end
 AddEvent("OnPackageStart", OnPackageStart)

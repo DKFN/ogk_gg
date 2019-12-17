@@ -8,7 +8,9 @@ current_map = "western"
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
-    local assigned_spawn = spawn_location[Random(1, spawns_max[current_map])]
+    -- local assigned_spawn = spawn_location[Random(1, spawns_max[current_map])]
+    local assigned_spawn = spawn_location[Random(4, 4)]
+    
     SetPlayerSpawnLocation( player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3], 0 )
 end
 
@@ -50,7 +52,7 @@ function level_up(killer)
         CallRemoteEvent(killer, "PlayerChangeLevel", tostring(players[killer].weapon))
         -- AddPlayerChat(killer, "LEVEL UP Weapon level: " .. players[killer].weapon)
     else
-        CallEvent("PlayerWin", instigator)
+        CallEvent("PlayerWin", killer)
     end
 end
 
@@ -101,6 +103,7 @@ function OnPlayerJoin(ply)
     AddPlayerChat( ply, "refresh : Refresh weapons assignements")
     AddPlayerChat( ply, "noclip : nonoclip to disable")
     AddPlayerChat( ply, "kill : suicide")
+    AddPlayerChat( ply, "win : pay me a beer and insta win ze game")
     players[ply]["fist_spawn"] = 1;
         
     -- Initial spawn
