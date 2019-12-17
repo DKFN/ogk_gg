@@ -49,7 +49,7 @@ class KillFeed {
             _this.killFeedEntries.forEach((kfe, i) => {
                 const expired = kfe.timeOfEntry + ROW_TIME_TO_LIVE < Date.now();
                 if (expired) {
-                    document.getElementById(`kf_${kfe.timeOfEntry}`).innerHTML = "";
+                    document.getElementById(`kf_${kfe.timeOfEntry}`).outerHTML = "";
                     delete _this.killFeedEntries[i];
                 }
             });

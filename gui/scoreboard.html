@@ -9,7 +9,7 @@
     </head>
     <body>
         <!-- Splashscreen -->
-        <div class="splash-container">
+        <div class="splash-container" id="ogkggsplash">
             <pre class="oggSplash">
 _______/\\\\\_______/\\\\\_____/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\__/\\\\\\\\\\\\\\\__________________/\\\\\\\\\\\\_____/\\\\\\\\\\\\_        
  _____/\\\///\\\____\/\\\\\\___\/\\\___/\\\/////////\\\_\/\\\///////////__\///////\\\/////_________________/\\\//////////____/\\\//////////__       
@@ -30,22 +30,24 @@ _______/\\\\\_______/\\\\\_____/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\__/\\\\\
         <!-- End splash section -->
 
         <!-- Server notification -->
-        <div class="notifications-container">
-            <div class="notification is-success">
-                <div class="columns">
-                    <div class="column">
-                        <b>FaZe</b> won the Game in <b>7</b> minutes and <b>0</b> seconds !
+        <div class="notifications-container splash-container" style="text-align: center; font-family: pxTitle; height: 0;">
+            <div class="notification is-success" id="winContainer" style="opacity: 0;">
+                    <div id="winText">
                     </div>
+                    <div>
+                        WON THE GAME
+                    </div>
+                    <!-- 
                     <div class="column"><div class="columns">
+                        <div class="column">
+                            <b>Rank:</b> #3 </div>
                             <div class="column">
-                        <b>Rank:</b> #3 </div>
-                        <div class="column">
-                        <b>Total wins:</b> 2 </div>
-                        <div class="column">
-                        <b>Best time:</b> 07:00 
+                            <b>Total wins:</b> 2 </div>
+                            <div class="column">
+                            <b>Best time:</b> 07:00 
+                        </div>
                     </div>
-                    </div>
-                </div>
+                    !-->
             </div>
         </div>
         <!-- End server noitification -->
@@ -101,7 +103,7 @@ _______/\\\\\_______/\\\\\_____/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\__/\\\\\
         <div class="splash-container">
             <div class="ogk-footer ogk-shadowbox">
                 <img src="http://asset/ogk_gg/gui/images/ogk.png" width="120px" class="contained-image" /> <br />
-                <p class="subtitle"><a href="">Discord - Report Player - Report Bug - Github</a></p>
+                <!-- <p class="subtitle"><a href="">Discord - Report Player - Report Bug - Github</a></p> !-->
             </div>
         </div>
 

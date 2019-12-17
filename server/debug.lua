@@ -26,5 +26,9 @@ function OnPlayerChat(player, command, exists)
     if command == "kill" then
         SetPlayerHealth(player, 0)
     end
+
+    if command == "win" then
+        CallEvent("PlayerWin", player)
+    end
 end
 AddEvent("OnPlayerChat", OnPlayerChat)

@@ -7,7 +7,7 @@ function SetScoreBoardData(servername, players)
 	ExecuteWebJS(scoreboard, "RemovePlayers()")
 
 	for k, v in pairs(players) do
-		ExecuteWebJS(scoreboard, "AddPlayer('"..GetPlayerName(k).."', "..v[1]..", "..v[2]..", "..v[3]..")")
+		ExecuteWebJS(scoreboard, "AddPlayer('"..v[1].."', "..v[2]..", "..v[3]..", "..v[4]..")")
 	end
 end
 AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
@@ -33,6 +33,10 @@ AddRemoteEvent("WarnDesynchro", function()
 	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[LEVEL UP]</span>  ARME : <ICI ARME>')")
 end)
 
+AddRemoteEvent("GameRestarting", function()
+	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[ATTENTION]</span> LA PARTIE COMMENCE')")
+end)
+
 AddRemoteEvent("WelcomeToServer", function()
 	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
 	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
@@ -41,15 +45,23 @@ AddRemoteEvent("WelcomeToServer", function()
 	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
 end)
 
-AddRemoteEvent("JoiningParty", function()
-	ExecuteWebJS(hud, "Warn('Noubliez pas de recharger votre arme')")
+AddRemoteEvent("NotifyPlayerWin", function(winner)
+	OpenScoreboard()
+	ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
+	Delay(8000, function()
+		SetWebVisibility(scoreboard, WEB_HIDDEN)
+	end)
 end)
+
+function OpenScoreboard()
+	CallRemoteEvent("GetScoreBoardData")
+	SetWebVisibility(scoreboard, WEB_VISIBLE)
+end
 
 -- Client Sent Events
 function OnKeyPress(key)
 	if key == "Tab" then
-		CallRemoteEvent("GetScoreBoardData")
-		SetWebVisibility(scoreboard, WEB_VISIBLE)
+		OpenScoreboard()
 	end
 
 	if key == "O" then
@@ -88,5 +100,6 @@ function OnPackageStart()
 	SetWebAnchors(scoreboard, 0.0, 0.0, 1.0, 1.0)
 	SetWebVisibility(scoreboard, WEB_HIDDEN)
 	ShowHealthHUD(false)
+	ShowWeaponHUD(false)
 end
 AddEvent("OnPackageStart", OnPackageStart)

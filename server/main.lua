@@ -3,8 +3,8 @@ player_count = 0
 local weapons = { 2, 6, 8, 12, 14, 15, 19, 20, 4 }
 local MAX_WEAPONS = 9
 
-current_map = "shoots"
--- current_map = "western"
+-- current_map = "shoots"
+current_map = "western"
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
@@ -20,8 +20,8 @@ AddEvent("OnPackageStart", OnPackageStart)
 -- This function is responsible to check synchronisation state between client and server because Talos broke something T_T
 AddRemoteEvent("PlayerCheckWeaponSynchro", function(player, weapon, equipped_slot)
     if weapons[players[player].weapon] ~= weapon then
-        AddPlayerChat(player, "[DESYNCHRO WEAPON] PLY : "..player.." Weapon : ".. weapon .. "Supposed" .. players[player].weapon)
-        AddPlayerChat(player, "[DESYNCHRO WEAPON] Reloading ...")
+        -- AddPlayerChat(player, "[DESYNCHRO WEAPON] PLY : "..player.." Weapon : ".. weapon .. "Supposed" .. players[player].weapon)
+        -- AddPlayerChat(player, "[DESYNCHRO WEAPON] Reloading ...")
         CallRemoteEvent(player, "WarnDesynchro")
         RefreshWeapons(player)
     end
@@ -31,7 +31,7 @@ end)
 function RefreshWeapons(killer)
     SetPlayerAnimation(killer, "STOP")
     local wpn = weapons[players[killer].weapon]
-    AddPlayerChat(killer, "Assigning .... " .. wpn)
+    -- AddPlayerChat(killer, "Assigning .... " .. wpn)
     SetPlayerAnimation(killer, "STOP")
     EquipPlayerWeaponSlot(killer, 2)
     SetPlayerWeapon(killer, wpn, 200, true, 1, true)
@@ -49,6 +49,8 @@ function level_up(killer)
         players[killer].kills = players[killer].kills + 1
         CallRemoteEvent(killer, "PlayerChangeLevel", tostring(players[killer].weapon))
         -- AddPlayerChat(killer, "LEVEL UP Weapon level: " .. players[killer].weapon)
+    else
+        CallEvent("PlayerWin", instigator)
     end
 end
 
@@ -58,16 +60,19 @@ function OnPlayerDeath(player, instigator)
     for _, plyr in pairs(GetAllPlayers()) do
         CallRemoteEvent(plyr, "AddFrag", GetPlayerName(instigator), "test", GetPlayerName(player))
     end
+    
+    players[player].deaths = players[player].deaths + 1
     -- Prevents suicide
     if player == instigator then
         return 
     end
-    -- TODO: Before level up check that player has changed weapon and not on previous one
-    level_up(instigator)
 
     players[instigator].kills = players[instigator].kills + 1
-    players[player].deaths = players[player].deaths + 1
 
+    -- TODO: Before level up check that player has changed weapon and not on previous one
+    if players[instigator].weapon == MAX_WEAPONS then
+    end
+    level_up(instigator)
     RefreshWeapons(instigator)
 end
 
@@ -85,6 +90,7 @@ function OnPlayerJoin(ply)
     p["weapon"] = 1
     p["id"] = ply
     p["fist_spawn"] = 1;
+    p["cloth"] = Random(1, 9)
 
     players[ply] = p
 
@@ -113,6 +119,7 @@ end)
 
     
 function OnPlayerSpawn(playerid)
+    -- First spawn setup
     if players[playerid]["fist_spawn"] == 1 then
         players[playerid]["fist_spawn"] = 0;
         Delay(700, function()
@@ -121,24 +128,47 @@ function OnPlayerSpawn(playerid)
         end)
     end
 
+    -- Avoids nude players
+    for _, v in ipairs(GetAllPlayers()) do
+        CallRemoteEvent(playerid, "setClothe", v, players[v].cloth) -- set la tenu des joueurs pour le joueur
+        CallRemoteEvent(v, "setClothe", playerid, players[playerid].cloth) -- set la tenue du joueur pour les autres joueurs
+    end
+
+    -- Anti spawn kill enable
     SetPlayerSpectate(playerid, false)
     SetPlayerHealth(playerid, 9999)
-    AddPlayerChat(playerid, "Anti Spawn Kill: actif")
+    -- AddPlayerChat(playerid, "Anti Spawn Kill: actif")
+
+    -- After spawn operations
     Delay(50, function()
         -- Changin weapons for player
         local wpn = weapons[players[playerid].weapon]
         CallRemoteEvent(playerid, "PlayerChangeLevel",players[playerid].weapon) -- Affiche le niveau du joueur
         SetPlayerWeapon(playerid, wpn, 200, true, 1, true)
 
-        -- Avoids nude players
-        for _, v in ipairs(GetAllPlayers()) do
-            CallRemoteEvent(playerid, "setClothe", v)
-            CallRemoteEvent(v, "setClothe", playerid) -- set la tenue du joueur
-        end
     end)
+
+    -- Anti spawn kill disable
     Delay(1000, function()
-        AddPlayerChat(playerid, "Anti Spawn Kill: inactif")
         SetPlayerHealth(playerid, 100)
     end)
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
+
+AddEvent("PlayerWin", function(winner)
+    local winner_name = GetPlayerName(winner)
+    for _, v in ipairs(GetAllPlayers()) do
+        CallRemoteEvent(v, "NotifyPlayerWin", winner_name)
+        SetPlayerSpectate(v, true)
+
+        -- AddPlayerChat(v, "Restarting game ...")
+        Delay(8000, function()
+            -- AddPlayerChat(v, "Game restarted")
+            SetPlayerHealth(v, 0)
+            players[v].kills = 0
+            players[v].death = 0
+            players[v].weapon = 1
+            CallRemoteEvent(v, "GameRestarting")
+        end)
+    end
+end)
