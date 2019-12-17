@@ -66,6 +66,7 @@ end
 function OnKeyPress(key)
 	if key == "Tab" then
 		OpenScoreboard()
+		SetWebVisibility(hud, WEB_HIDDEN)
 	end
 
 	if key == "O" then
@@ -76,6 +77,7 @@ AddEvent("OnKeyPress", OnKeyPress)
 
 function OnKeyRelease(key)
 	if key == "Tab" then
+		SetWebVisibility(hud, WEB_VISIBLE)
 		SetWebVisibility(scoreboard, WEB_HIDDEN)
 	end
 end
