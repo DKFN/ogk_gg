@@ -12,6 +12,8 @@ function SetScoreBoardData(servername, players)
 end
 AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
 
+
+
 function AddFrag(killer, weapon, victim)
 	ExecuteWebJS(hud, "killfeed.registerKill('"..killer.."', '"..victim.."', '===>')")
 end
@@ -35,6 +37,7 @@ end)
 
 AddRemoteEvent("GameRestarting", function()
 	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[WARNING]</span> GAME STARTING')")
+	SetWebVisibility(hud, WEB_VISIBLE)
 end)
 
 AddRemoteEvent("WelcomeToServer", function()
@@ -47,9 +50,10 @@ end)
 
 AddRemoteEvent("NotifyPlayerWin", function(winner)
 	OpenScoreboard()
+	SetWebVisibility(hud, WEB_HIDDEN)
 	ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
 	Delay(8000, function()
-		SetWebVisibility(scoreboard, WEB_HIDDEN)
+		SetWebVisibility(scoreboard, WEB_HIDDEN) 
 	end)
 end)
 
@@ -81,11 +85,13 @@ function OnPlayerSpawn(playerid)
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn)
 
-function refresh_health()
+function SetUIData(weapon_name, weapon_next) 
 	local ply_health = GetPlayerHealth()
 	local weapon, ammo, inmag = GetPlayerWeapon()
-	ExecuteWebJS(hud, "RefreshPlayerBar("..ply_health..","..inmag..")")
+
+	ExecuteWebJS(hud, "RefreshPlayerBar("..ply_health..","..inmag.. ",'" .. weapon_name .. "','" .. weapon_next .. "')")
 end
+AddRemoteEvent("SetUIData", SetUIData)
 
 function OnPackageStart()
 	hud = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)

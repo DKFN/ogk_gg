@@ -13,3 +13,29 @@ function GetScoreBoardData(player)
 	CallRemoteEvent(player, "SetScoreBoardData", serverName, PlayerTable)
 end
 AddRemoteEvent("GetScoreBoardData", GetScoreBoardData)
+
+function GetWeaponName(player) 
+	-- current weapon id
+	local tmp = players[player].weapon
+	local tmp_weapon = ""
+	local tmp_next = ""
+
+	if(tmp ~= MAX_WEAPONS) then
+		
+		-- current weapon name
+		tmp_weapon = weapons_name[tmp]
+		
+		-- next weapon name
+		tmp_next = weapons_name[tmp + 1]
+
+	else
+		tmp_weapon = "1 SHOT GUN"
+
+		tmp_next = "WIN"
+	end
+
+	CallRemoteEvent(player, "SetUIData", tmp_weapon, tmp_next)
+
+
+end
+AddRemoteEvent("GetWeaponName", GetWeaponName)

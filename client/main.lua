@@ -25,10 +25,11 @@ end
 
 function ui_refresher()
 	Delay(5, function()
-        refresh_health()
+		CallRemoteEvent("GetWeaponName")
 		ui_refresher()
 	end)
 end
+
 
 AddEvent("OnPackageStart", function()
 	weapon_refresher()

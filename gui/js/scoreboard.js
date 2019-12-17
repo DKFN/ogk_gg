@@ -15,7 +15,9 @@ function PlayerWonGame(winner) {
     const text = document.getElementById("winText");
     const splash = $("#ogkggsplash");
 
-    text.innerHTML = "<b>" + winner + "</b>";
+    document.getElementById('scoreboardContents').style.display = "none";
+
+    text.innerHTML = "<b><h3 class='content is-3'>" + winner + "<h3></b>";
 
     container.style.opacity = 0;
     container.width = "toggle";
@@ -61,12 +63,13 @@ function PlayerWonGame(winner) {
         $("#winContainer").animate({
             opacity: 1,
             width: "1000px",
-            height: "200px",
+            height: "250px",
         }, 1000);
     }, 1800);
 
     setTimeout(() => {
         text.innerHTML = '';
+        document.getElementById('scoreboardContents').style.display = "block";
         $("#winContainer").animate({
             width: "0px",
             height: "0px",
