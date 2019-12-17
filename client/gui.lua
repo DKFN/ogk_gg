@@ -110,7 +110,8 @@ function OnPackageStart()
 	ShowHealthHUD(false)
 	ShowWeaponHUD(false)
 	-- Someone found fix, ask discord
-	-- EnableFirstPersonCamera(true)
+	EnableFirstPersonCamera(true)
+	SetNearClipPlane(20)
 	
 end
 AddEvent("OnPackageStart", OnPackageStart)
