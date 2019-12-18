@@ -43,7 +43,7 @@ end
 AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
 
 function level_up(killer)
-    if(players[killer].weapon ~= Ladder.size()) then
+    if(players[killer].weapon ~= Ladder.getLevelMax()) then
         local tmp =  players[killer].weapon + 1 -- upgrade the killer weapon
         players[killer].weapon = tmp
         players[killer].kills = players[killer].kills + 1
@@ -70,7 +70,7 @@ function OnPlayerDeath(player, instigator)
     players[instigator].kills = players[instigator].kills + 1
 
     -- TODO: Before level up check that player has changed weapon and not on previous one
-    if players[instigator].weapon == Ladder.size() then
+    if players[instigator].weapon == Ladder.getLevelMax() then
     end
     level_up(instigator)
     RefreshWeapons(instigator)

@@ -20,6 +20,6 @@ function Ladder.getWeaponId(level)
     return weapons[level].id
 end
 
-function Ladder.size()
+function Ladder.getLevelMax()
     return #weapons
 end
