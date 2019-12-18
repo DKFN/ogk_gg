@@ -1,4 +1,4 @@
-OGK_GG_DEBUG = true
+OGK_GG_DEBUG = false
 
 players = {}
 player_count = 0
