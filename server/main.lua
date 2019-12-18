@@ -1,4 +1,4 @@
-OGK_GG_DEBUG = false
+OGK_GG_DEBUG = true
 
 players = {}
 player_count = 0
@@ -37,13 +37,14 @@ function RefreshWeapons(killer)
     SetPlayerAnimation(killer, "STOP")
     local wpn = weapons[players[killer].weapon]
     -- AddPlayerChat(killer, "Assigning .... " .. wpn)
-    SetPlayerAnimation(killer, "STOP")
+    SetPlayerWeapon(killer, 1, 200, false, 1, false) -- Fixes the need to reload the weapon
+    -- SetPlayerAnimation(killer, "STOP")
     EquipPlayerWeaponSlot(killer, 2)
     SetPlayerWeapon(killer, wpn, 200, true, 1, true)
-    SetPlayerAnimation(killer, "STOP")
-    Delay(1000, function()
-        EquipPlayerWeaponSlot(killer, 1)
-    end)
+    -- SetPlayerAnimation(killer, "STOP")
+    -- Delay(1000, function()
+    --     EquipPlayerWeaponSlot(killer, 1)
+    -- end)
 end
 AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
 
@@ -78,7 +79,7 @@ function OnPlayerDeath(player, instigator)
     if players[instigator].weapon == MAX_WEAPONS then
     end
     level_up(instigator)
-    RefreshWeapons(instigator)
+    -- RefreshWeapons(instigator)
 end
 
 AddEvent("OnPlayerDeath", OnPlayerDeath)

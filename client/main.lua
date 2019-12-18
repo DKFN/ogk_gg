@@ -35,4 +35,3 @@ AddEvent("OnPackageStart", function()
 	weapon_refresher()
 	ui_refresher()
 end)
-
