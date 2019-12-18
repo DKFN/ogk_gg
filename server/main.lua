@@ -1,12 +1,7 @@
-OGK_GG_DEBUG = false
+OGK_GG_DEBUG = true
 
 players = {}
 player_count = 0
-
-local weapons = { 9, 8, 12, 14, 15, 19, 20, 6, 4 }
-weapons_name = { "MAC10", "SMG", "Ak-47", "Rifle", "Rifle 2", "Rifle 3", "Sniper", "Shotgun", "#1 Gun" }
-
-MAX_WEAPONS = #weapons
 
 -- current_map = "shoots"
 current_map = "western"
@@ -26,7 +21,7 @@ AddEvent("OnPackageStart", OnPackageStart)
 
 -- This function is responsible to check synchronisation state between client and server because Talos broke something T_T
 AddRemoteEvent("PlayerCheckWeaponSynchro", function(player, weapon, equipped_slot)
-    if weapons[players[player].weapon] ~= weapon then
+    if Ladder.getWeaponId(players[player].weapon) ~= weapon then
         CallRemoteEvent(player, "WarnDesynchro")
         RefreshWeapons(player)
     end
@@ -35,7 +30,7 @@ end)
 -- Reassigns player weapon to current level weapon
 function RefreshWeapons(killer)
     SetPlayerAnimation(killer, "STOP")
-    local wpn = weapons[players[killer].weapon]
+    local wpn = Ladder.getWeaponId(players[killer].weapon)
     -- AddPlayerChat(killer, "Assigning .... " .. wpn)
     SetPlayerAnimation(killer, "STOP")
     EquipPlayerWeaponSlot(killer, 2)
@@ -48,7 +43,7 @@ end
 AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
 
 function level_up(killer)
-    if(players[killer].weapon ~= MAX_WEAPONS) then
+    if(players[killer].weapon ~= Ladder.size()) then
         local tmp =  players[killer].weapon + 1 -- upgrade the killer weapon
         players[killer].weapon = tmp
         players[killer].kills = players[killer].kills + 1
@@ -75,7 +70,7 @@ function OnPlayerDeath(player, instigator)
     players[instigator].kills = players[instigator].kills + 1
 
     -- TODO: Before level up check that player has changed weapon and not on previous one
-    if players[instigator].weapon == MAX_WEAPONS then
+    if players[instigator].weapon == Ladder.size() then
     end
     level_up(instigator)
     RefreshWeapons(instigator)
@@ -161,7 +156,7 @@ function OnPlayerSpawn(playerid)
     -- After spawn operations
     Delay(50, function()
         -- Changin weapons for player
-        local wpn = weapons[players[playerid].weapon]
+        local wpn = Ladder.getWeaponId(players[playerid].weapon)
         CallRemoteEvent(playerid, "PlayerChangeLevel",players[playerid].weapon) -- Affiche le niveau du joueur
         SetPlayerWeapon(playerid, wpn, 200, true, 1, true)
 
