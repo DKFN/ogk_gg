@@ -21,7 +21,7 @@ function GetWeaponName(player)
 	local tmp_next = ""
 
 	tmp_weapon = Ladder.getWeaponName(tmp) 
-	if(tmp ~= Ladder.size()) then
+	if(tmp ~= Ladder.getLevelMax()) then
 		tmp_next = Ladder.getWeaponName(tmp + 1)
 	else
 		tmp_next = "WIN"
