@@ -130,7 +130,7 @@ end)
 function OnPlayerSpawn(playerid)
     -- First spawn setup
     if players[playerid]["fist_spawn"] == 1 then
-        SetPlayerPropertyValue(playerid, "weapons_name", 1, true)
+        
 
         players[playerid]["fist_spawn"] = 0;
         Delay(700, function()
