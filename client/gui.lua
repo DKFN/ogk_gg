@@ -121,8 +121,3 @@ function OnPackageStart()
 	
 end
 AddEvent("OnPackageStart", OnPackageStart)
-
-AddEvent("OnPackageStop", function()
-	SetWebVisibility(hud, WEB_HIDDEN)
-	SetWebVisibility(scoreboard, WEB_HIDDEN)
-end)
