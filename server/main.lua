@@ -52,7 +52,7 @@ function level_up(killer)
     if(players[killer].weapon ~= MAX_WEAPONS) then
         local tmp =  players[killer].weapon + 1 -- upgrade the killer weapon
         players[killer].weapon = tmp
-        players[killer].kills = players[killer].kills + 1
+        -- players[killer].kills = players[killer].kills + 1 // Kills counted twice ?
         CallRemoteEvent(killer, "PlayerChangeLevel", tostring(players[killer].weapon))
         -- AddPlayerChat(killer, "LEVEL UP Weapon level: " .. players[killer].weapon)
     else
