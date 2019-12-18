@@ -52,7 +52,8 @@ AddRemoteEvent("WelcomeToServer", function()
 	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
 end)
 
-AddRemoteEvent("NotifyPlayerWin", function(winner)
+AddRemoteEvent("NotifyPlayerWin", function(winner, x, y, z)
+	ThrowFirework(x, y, z)
 	OpenScoreboard()
 	SetWebVisibility(hud, WEB_HIDDEN)
 	ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
@@ -60,6 +61,12 @@ AddRemoteEvent("NotifyPlayerWin", function(winner)
 		SetWebVisibility(scoreboard, WEB_HIDDEN) 
 	end)
 end)
+
+function ThrowFirework(x, y, z)
+	for i=1,12 do 
+		CreateFireworks(i, x, y, z + 600, 60.0 + i * 5.0, 0.0, 0.0)
+	end
+end
 
 function OpenScoreboard()
 	CallRemoteEvent("GetScoreBoardData")
@@ -121,3 +128,5 @@ function OnPackageStart()
 	
 end
 AddEvent("OnPackageStart", OnPackageStart)
+
+

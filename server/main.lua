@@ -6,7 +6,7 @@ player_count = 0
 local weapons = { 9, 8, 12, 14, 15, 19, 20, 6, 4 }
 weapons_name = { "MAC10", "SMG", "Ak-47", "Rifle", "Rifle 2", "Rifle 3", "Sniper", "Shotgun", "#1 Gun" }
 
-MAX_WEAPONS = 9
+MAX_WEAPONS = #weapons
 
 -- current_map = "shoots"
 current_map = "western"
@@ -176,9 +176,13 @@ AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player 
 
 AddEvent("PlayerWin", function(winner)
     local winner_name = GetPlayerName(winner)
+
+    local x, y, z = GetPlayerLocation(winner)
+
     for _, v in ipairs(GetAllPlayers()) do
-        CallRemoteEvent(v, "NotifyPlayerWin", winner_name)
+        CallRemoteEvent(v, "NotifyPlayerWin", winner_name, x, y, z)
         SetPlayerSpectate(v, true)
+
 
         -- AddPlayerChat(v, "Restarting game ...")
         Delay(8000, function()
