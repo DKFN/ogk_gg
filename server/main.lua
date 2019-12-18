@@ -50,6 +50,10 @@ AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
 
 function level_up(killer)
     if(players[killer].weapon ~= MAX_WEAPONS) then
+        if (GetPlayerWeapon(killer, 1) ~= weapons[players[killer].weapon]) then
+            return
+        end
+
         local tmp =  players[killer].weapon + 1 -- upgrade the killer weapon
         players[killer].weapon = tmp
         -- players[killer].kills = players[killer].kills + 1 // Kills counted twice ?
