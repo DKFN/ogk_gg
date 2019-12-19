@@ -1,4 +1,3 @@
-local hud
 local scoreboard
 
 -- Server Sent Events
@@ -16,33 +15,11 @@ function SetScoreBoardData(servername, players)
 end
 AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
 
-
-
-function AddFrag(killer, weapon, victim)
-	ExecuteWebJS(hud, "killfeed.registerKill('"..killer.."', '"..victim.."', '===>')")
-end
-AddRemoteEvent("AddFrag", AddFrag) 
-
 function UpdatePlayerInfo(level) 
 	AddPlayerChat(level)
 	local weapon = GetPlayerWeapon()
 end
 AddRemoteEvent("UpdatePlayerInfo", UpdatePlayerInfo) 
-
-function PlayerChangeLevel(newLevel)
-	AddPlayerChat(newLevel)
-	ExecuteWebJS(hud, "ChangePlayerLevel('"..newLevel.."')")
-end
-AddRemoteEvent("PlayerChangeLevel", PlayerChangeLevel)
-
-AddRemoteEvent("WarnDesynchro", function()
-	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[LEVEL UP]</span>')")
-end)
-
-AddRemoteEvent("GameRestarting", function()
-	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[WARNING]</span> GAME STARTING')")
-	SetWebVisibility(hud, WEB_VISIBLE)
-end)
 
 AddRemoteEvent("WelcomeToServer", function()
 	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
@@ -55,7 +32,7 @@ end)
 AddRemoteEvent("NotifyPlayerWin", function(winner, x, y, z)
 	ThrowFirework(x, y, z)
 	OpenScoreboard()
-	SetWebVisibility(hud, WEB_HIDDEN)
+	HUD.setVisibility(WEB_HIDDEN)
 	ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
 	Delay(8000, function()
 		SetWebVisibility(scoreboard, WEB_HIDDEN) 
@@ -77,18 +54,18 @@ end
 function OnKeyPress(key)
 	if key == "Tab" then
 		OpenScoreboard()
-		SetWebVisibility(hud, WEB_HIDDEN)
+		HUD.setVisibility(WEB_HIDDEN)
 	end
 
 	if key == "O" then
-		SetWebVisibility(hud, WEB_HIDDEN)
+		HUD.setVisibility(WEB_HIDDEN)
 	end
 end
 AddEvent("OnKeyPress", OnKeyPress)
 
 function OnKeyRelease(key)
 	if key == "Tab" then
-		SetWebVisibility(hud, WEB_VISIBLE)
+		HUD.setVisibility(WEB_VISIBLE)
 		SetWebVisibility(scoreboard, WEB_HIDDEN)
 	end
 end
@@ -98,20 +75,8 @@ function OnPlayerSpawn(playerid)
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn)
 
-function SetUIData(weapon_name, weapon_next) 
-	local ply_health = GetPlayerHealth()
-	local weapon, ammo, inmag = GetPlayerWeapon()
-
-	ExecuteWebJS(hud, "RefreshPlayerBar("..ply_health..","..inmag.. ",'" .. weapon_name .. "','" .. weapon_next .. "')")
-end
-AddRemoteEvent("SetUIData", SetUIData)
-
 function OnPackageStart()
-	hud = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
-	LoadWebFile(hud, "http://asset/ogk_gg/gui/ui.html")
-	SetWebAlignment(hud, 0.0, 0.0)
-	SetWebAnchors(hud, 0.0, 0.0, 1.0, 1.0)
-	SetWebVisibility(hud, WEB_VISIBLE)
+	HUD.init()
 
 	scoreboard = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
 	LoadWebFile(scoreboard, "http://asset/ogk_gg/gui/scoreboard.html")
