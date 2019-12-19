@@ -94,7 +94,8 @@ function OnPlayerJoin(ply)
     p["deaths"] = 0
     p["weapon"] = 1
     p["id"] = ply
-    p["fist_spawn"] = 1;
+    p["victory"] = 0
+    p["fist_spawn"] = 1
     p["cloth"] = Random(1, 9)
 
     players[ply] = p
@@ -176,6 +177,8 @@ AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player 
 
 AddEvent("PlayerWin", function(winner)
     local winner_name = GetPlayerName(winner)
+
+    players[winner].victory = players[winner].victory + 1 -- add 1 to player victory count
 
     local x, y, z = GetPlayerLocation(winner)
 

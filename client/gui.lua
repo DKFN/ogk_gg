@@ -11,7 +11,7 @@ function SetScoreBoardData(servername, players)
 	-- end)
 
 	for k, v in pairs(players) do
-		ExecuteWebJS(scoreboard, "AddPlayer('"..v[1].."', "..v[2]..", "..v[3]..", "..v[4]..")")
+		ExecuteWebJS(scoreboard, "AddPlayer('"..v[1].."', "..v[2]..", "..v[3]..", "..v[4].."," .. v[5] .. ")")
 	end
 end
 AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)

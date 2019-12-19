@@ -8,7 +8,8 @@ function GetScoreBoardData(player)
 				GetPlayerName(v),
 				players[v].weapon,
 				players[v].kills,
-				players[v].deaths
+				players[v].deaths,
+				players[v].victory
 			}
 		end
 	end
