@@ -2,6 +2,7 @@
     "author": "OGK",
     "version": "0.1",
     "server_scripts": [
+        "common/logger.lua",
         "server/main.lua",
         "server/debug.lua",
         "server/spawn.lua",
@@ -10,6 +11,7 @@
         "server/weapon_ladder.lua"
     ],
     "client_scripts": [
+        "common/logger.lua",
         "client/main.lua",
         "client/gui.lua"
     ],
