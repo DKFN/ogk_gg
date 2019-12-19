@@ -32,21 +32,26 @@ function RefreshWeapons(killer)
     SetPlayerAnimation(killer, "STOP")
     local wpn = Ladder.getWeaponId(players[killer].weapon)
     -- AddPlayerChat(killer, "Assigning .... " .. wpn)
-    SetPlayerAnimation(killer, "STOP")
+    SetPlayerWeapon(killer, 1, 200, false, 1, false) -- Fixes the need to reload the weapon
+    -- SetPlayerAnimation(killer, "STOP")
     EquipPlayerWeaponSlot(killer, 2)
     SetPlayerWeapon(killer, wpn, 200, true, 1, true)
-    SetPlayerAnimation(killer, "STOP")
-    Delay(1000, function()
-        EquipPlayerWeaponSlot(killer, 1)
-    end)
+    -- SetPlayerAnimation(killer, "STOP")
+    -- Delay(1000, function()
+    --     EquipPlayerWeaponSlot(killer, 1)
+    -- end)
 end
 AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
 
 function level_up(killer)
     if(players[killer].weapon ~= Ladder.getLevelMax()) then
+        if (GetPlayerWeapon(killer, 1) ~= Ladder.getWeaponId(players[killer].weapon)) then
+            return
+        end
+        
         local tmp =  players[killer].weapon + 1 -- upgrade the killer weapon
         players[killer].weapon = tmp
-        players[killer].kills = players[killer].kills + 1
+        -- players[killer].kills = players[killer].kills + 1 // Kills counted twice ?
         CallRemoteEvent(killer, "PlayerChangeLevel", tostring(players[killer].weapon))
         -- AddPlayerChat(killer, "LEVEL UP Weapon level: " .. players[killer].weapon)
     else
@@ -73,7 +78,7 @@ function OnPlayerDeath(player, instigator)
     if players[instigator].weapon == Ladder.getLevelMax() then
     end
     level_up(instigator)
-    RefreshWeapons(instigator)
+    -- RefreshWeapons(instigator)
 end
 
 AddEvent("OnPlayerDeath", OnPlayerDeath)

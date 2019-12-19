@@ -33,5 +33,9 @@ function OnPlayerChat(player, command, exists)
     if command == "kill" then
         SetPlayerHealth(player, 0)
     end
+
+    local playerName = GetPlayerName(player)
+    local message = command
+    AddPlayerChatAll(""..playerName.." : "..message)   
 end
 AddEvent("OnPlayerChat", OnPlayerChat)
