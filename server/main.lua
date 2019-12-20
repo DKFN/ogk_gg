@@ -81,9 +81,6 @@ function OnPlayerDeath(player, instigator)
     players[instigator].kills = players[instigator].kills + 1
 
     -- Do not call 
-    if players[instigator].weapon == Ladder.getLevelMax() then
-        return
-    end
     level_up(instigator)
 end
 
