@@ -4,10 +4,10 @@ players = {}
 player_count = 0
 
 -- current_map = "shoots"
-current_map = "western"
+current_map = "armory"
 
-avaible_map = {"western", "shoots", "paradise_ville", "chemistry"}
-avaible_map_count = 4
+avaible_map = {"western", "armory",  "shoots" } -- "paradise_ville", "chemistry"}
+avaible_map_count = 3
 last_map = 1
 
 function assign_spawn(player)
