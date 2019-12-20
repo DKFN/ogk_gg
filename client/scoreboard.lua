@@ -17,6 +17,10 @@ function Scoreboard.setVisibility(visibility)
     SetWebVisibility(scoreboard, visibility)
 end
 
+function Scoreboard.hide()
+    SetWebVisibility(scoreboard, WEB_HIDDEN)
+end
+
 function Scoreboard.showWinner(winner)
     ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
 end
