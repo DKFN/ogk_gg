@@ -3,7 +3,7 @@ OGK_GG_DEBUG = true
 players = {}
 player_count = 0
 
--- current_map = "shoots"
+-- current_map = "armory"
 current_map = "armory"
 
 avaible_map = {"western", "armory"} -- "paradise_ville", "chemistry"}
@@ -187,10 +187,17 @@ AddEvent("PlayerWin", function(winner)
     if(next_map ~= last_map) then
         current_map = avaible_map[next_map]
         last_map = next_map
+        
+        local max_players_next = spawns_max[current_map]
+
+        if(max_players_next < GetPlayerCount()) then
+           CallEvent('PlayerWin', winner)
+           return
+        end
+        
     else
-        local next_map = Random(1, avaible_map_count)
-        current_map = avaible_map[next_map]
-        last_map = next_map
+        CallEvent('PlayerWin', winner)
+        return
     end
     
     local winner_name = GetPlayerName(winner)
