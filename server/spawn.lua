@@ -1,6 +1,7 @@
 
 spawns = {}
 spawns_max = {}
+busy_spawns = {}
 
 -- Approved maps
 spawns["western"] = {}

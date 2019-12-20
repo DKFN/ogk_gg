@@ -14,7 +14,10 @@ function assign_spawn(player)
     local spawn_location = spawns[current_map]
     local spawn_idx = Random(1, spawns_max[current_map])
     local assigned_spawn = spawn_location[spawn_idx]
-
+    
+    if spawn_idx == p["last_spawn_index"] then
+        assign_spawn(player)
+    end
     p["last_spawn_index"] = assigned_spawn
     -- local assigned_spawn = spawn_location[Random(4, 4)]
     
@@ -28,9 +31,10 @@ AddEvent("OnPackageStart", OnPackageStart)
 
 -- This function is responsible to check synchronisation state between client and server because Talos broke something T_T
 AddRemoteEvent("PlayerCheckWeaponSynchro", function(player, weapon, equipped_slot)
-    if Ladder.getWeaponId(players[player].weapon) ~= weapon then
-        CallRemoteEvent(player, "WarnDesynchro")
+    local weaponid = players[player].weapon
+    if Ladder.getWeaponId(weaponid) ~= weapon then
         RefreshWeapons(player)
+        -- print("Refreshing weapons for player " .. player .. " Supposed weapon : " .. weapon .. " Current : " .. weaponid)
     end
 end)
 
@@ -99,7 +103,7 @@ function OnPlayerJoin(ply)
     p["victory"] = 0
     p["fist_spawn"] = 1
     p["last_spawn_index"] = 0
-    p["cloth"] = Random(1, 9)
+    p["cloth"] = Random(2, 9)
 
     players[ply] = p
 
