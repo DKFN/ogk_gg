@@ -29,7 +29,7 @@ spawns["armory"][3] = { -15648.6054, 133113.5625, 1561.6047, 0 }
 spawns["armory"][4] = { -14610.5712, 132762.9218, 1561.6047, 0 }
 spawns["armory"][5] = { -15727.7382, 134334.6718, 1561.6047, 0 }
 spawns["armory"][6] = { -14436.0136, 134896.2343, 1561.6047, 0 }
-spawns["armory"] = 6
+spawns_max["armory"] = 6
 
 -- (Seems not fun)
 spawns["shoots"] = {}
