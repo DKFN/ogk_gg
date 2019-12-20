@@ -29,19 +29,21 @@ const zeroIsRed = (num) => num === 0
     ? '<b style="color: red">' + num + "</b>"
     : "<b>" + num + "</b>";
 
-function RefreshPlayerBar(health, ammo, weapon, weapon_next) {
+function RefreshPlayerBar(health, ammo, weapon, weapon_next, mapName) {
     const healthContainer = document.getElementById("health");
     const ammoContainer = document.getElementById("ammo");
     const warnMagazine = document.getElementById("reload-prompt");
     const weaponName = document.getElementById("weaponsName");
     const weaponNext = document.getElementById("weaponsNext");
-
+    
     if (ammo === 0) {
         warnMagazine.style.display = "block";
     } else {
         warnMagazine.style.display = "none";
     }
 
+    document.getElementById("mapName").innerHTML = mapName;
+    
     weaponName.innerHTML = weapon;
     weaponNext.innerHTML = weapon_next;
     healthContainer.innerHTML = zeroIsRed(Math.round(health))

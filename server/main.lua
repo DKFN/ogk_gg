@@ -6,10 +6,13 @@ player_count = 0
 -- current_map = "shoots"
 current_map = "western"
 
+avaible_map = {"western", "shoots", "paradise_ville", "chemistry"}
+avaible_map_count = 4
+last_map = 1
+
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
     local assigned_spawn = spawn_location[Random(1, spawns_max[current_map])]
-    -- local assigned_spawn = spawn_location[Random(4, 4)]
     
     SetPlayerSpawnLocation( player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3] + (player * 10), 0 )
 end
@@ -176,6 +179,18 @@ end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
 
 AddEvent("PlayerWin", function(winner)
+
+    local next_map = Random(1, 4)
+
+    if(next_map ~= last_map) then
+        current_map = avaible_map[next_map]
+        last_map = next_map
+    else
+        local next_map = Random(1, 4)
+        current_map = avaible_map[next_map]
+        last_map = next_map
+    end
+    
     local winner_name = GetPlayerName(winner)
 
     players[winner].victory = players[winner].victory + 1 -- add 1 to player victory count
@@ -196,4 +211,5 @@ AddEvent("PlayerWin", function(winner)
             CallRemoteEvent(v, "GameRestarting")
         end)
     end
+
 end)

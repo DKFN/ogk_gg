@@ -44,13 +44,13 @@ AddRemoteEvent("GameRestarting", function()
 	SetWebVisibility(hud, WEB_VISIBLE)
 end)
 
-function SetUIData(weapon_name, weapon_next)
+function SetUIData(weapon_name, weapon_next, current_map)
     if not HUD.started then
         return
     end 
 	local ply_health = GetPlayerHealth()
 	local weapon, ammo, inmag = GetPlayerWeapon()
 
-	ExecuteWebJS(hud, "RefreshPlayerBar("..ply_health..","..inmag.. ",'" .. weapon_name .. "','" .. weapon_next .. "')")
+	ExecuteWebJS(hud, "RefreshPlayerBar("..ply_health..","..inmag.. ",'" .. weapon_name .. "','" .. weapon_next .. "','" .. current_map .. "')")
 end
 AddRemoteEvent("SetUIData", SetUIData)

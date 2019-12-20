@@ -28,6 +28,17 @@ function OnPlayerChat(player, command, exists)
         if command == "win" then
             CallEvent("PlayerWin", player)
         end
+
+        if command == "pos" then
+            local x, y, z = GetPlayerLocation(player)
+            AddPlayerChat(player, "<strong style='color:red;'>X:</strong>" .. x .. " <strong style='color:red;'>Y:</strong>" .. y .. " <strong style='color:red;'>Z:</strong>" .. z)
+        end
+
+        if command == "tptest" then
+            local spawn_location = spawns["shoots"]
+            local assigned_spawn = spawn_location[1]
+            SetPlayerLocation(player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3])
+        end
     end
     
     if command == "kill" then

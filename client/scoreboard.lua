@@ -26,7 +26,7 @@ function Scoreboard.showWinner(winner)
 end
 
 -- Server Sent Events
-AddRemoteEvent("SetScoreBoardData", function(servername, players) 
+AddRemoteEvent("SetScoreBoardData", function(servername, players, map_name) 
 	ExecuteWebJS(scoreboard, "ServerVersion('"..servername.."')")
 	ExecuteWebJS(scoreboard, "RemovePlayers()")
 
