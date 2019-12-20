@@ -150,7 +150,7 @@ function OnPlayerSpawn(playerid)
             assigned_cloth = defaultCloth
         end
 
-        CallRemoteEvent(playerid, "setClothe", assigned_cloth) -- set la tenu des joueurs pour le joueur
+        CallRemoteEvent(playerid, "setClothe", playerid, assigned_cloth) -- set la tenu des joueurs pour le joueur
         CallRemoteEvent(v, "setClothe", playerid, players[playerid].cloth) -- set la tenue du joueur pour les autres joueurs
     end
 
@@ -183,8 +183,9 @@ AddEvent("PlayerWin", function(winner)
     local x, y, z = GetPlayerLocation(winner)
 
     for _, v in ipairs(GetAllPlayers()) do
+        SetPlayerLocation(v, -76011.953125, -162796.140625, 3388.769042988)
+        
         CallRemoteEvent(v, "NotifyPlayerWin", winner_name, x, y, z)
-        SetPlayerSpectate(v, true)
 
 
         -- AddPlayerChat(v, "Restarting game ...")
