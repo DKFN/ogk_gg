@@ -183,8 +183,6 @@ AddEvent("PlayerWin", function(winner)
     local x, y, z = GetPlayerLocation(winner)
 
     for _, v in ipairs(GetAllPlayers()) do
-        SetPlayerLocation(v, -76011.953125, -162796.140625, 3388.769042988)
-        
         CallRemoteEvent(v, "NotifyPlayerWin", winner_name, x, y, z)
 
 

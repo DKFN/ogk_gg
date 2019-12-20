@@ -1,7 +1,7 @@
 Logger = {}
 
 local function printer(level, from, msg)
-    print("[OGK]["..level.."]["..from.."] "..msg)
+    AddPlayerChat("[OGK]["..level.."]["..from.."] "..msg)
 end
 
 function Logger.info(from, msg)

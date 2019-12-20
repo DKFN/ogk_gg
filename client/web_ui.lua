@@ -54,11 +54,11 @@ function WebUIManager.getGUI(gui)
     if gui == nil then
         Logger.err("WebUI", "Nil gui in getGUI")
         return
-    elseif web[gui] == nil then
+    elseif webUI.gui[gui] == nil then
         Logger.err("WebUI", "Unknown gui "..gui.." in getGUI")
         return
     end
-    return webUI[gui] 
+    return webUI.gui[gui] 
 end
 
 function WebUIManager.setVisibility(item, state, visibility)
