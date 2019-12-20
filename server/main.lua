@@ -12,7 +12,11 @@ last_map = 1
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
-    local assigned_spawn = spawn_location[Random(1, spawns_max[current_map])]
+    local spawn_idx = Random(1, spawns_max[current_map])
+    local assigned_spawn = spawn_location[spawn_idx]
+
+    p["last_spawn_index"] = assigned_spawn
+    -- local assigned_spawn = spawn_location[Random(4, 4)]
     
     SetPlayerSpawnLocation( player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3] + (player * 10), 0 )
 end
@@ -33,16 +37,13 @@ end)
 -- Reassigns player weapon to current level weapon
 function RefreshWeapons(killer)
     SetPlayerAnimation(killer, "STOP")
-    local wpn = Ladder.getWeaponId(players[killer].weapon)
-    -- AddPlayerChat(killer, "Assigning .... " .. wpn)
+    local wpn = players[killer].weapon
+
     SetPlayerWeapon(killer, 1, 200, false, 1, false) -- Fixes the need to reload the weapon
-    -- SetPlayerAnimation(killer, "STOP")
+
     EquipPlayerWeaponSlot(killer, 2)
-    SetPlayerWeapon(killer, wpn, 200, true, 1, true)
-    -- SetPlayerAnimation(killer, "STOP")
-    -- Delay(1000, function()
-    --     EquipPlayerWeaponSlot(killer, 1)
-    -- end)
+    SetPlayerWeapon(killer, Ladder.getWeaponId(wpn), Ladder.getWeaponStartAmmo(wpn), true, 1, true)
+
 end
 AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
 
@@ -54,9 +55,7 @@ function level_up(killer)
         
         local tmp =  players[killer].weapon + 1 -- upgrade the killer weapon
         players[killer].weapon = tmp
-        -- players[killer].kills = players[killer].kills + 1 // Kills counted twice ?
         CallRemoteEvent(killer, "PlayerChangeLevel", tostring(players[killer].weapon))
-        -- AddPlayerChat(killer, "LEVEL UP Weapon level: " .. players[killer].weapon)
     else
         CallEvent("PlayerWin", killer)
     end
@@ -77,11 +76,11 @@ function OnPlayerDeath(player, instigator)
 
     players[instigator].kills = players[instigator].kills + 1
 
-    -- TODO: Before level up check that player has changed weapon and not on previous one
+    -- Do not call 
     if players[instigator].weapon == Ladder.getLevelMax() then
+        return
     end
     level_up(instigator)
-    -- RefreshWeapons(instigator)
 end
 
 AddEvent("OnPlayerDeath", OnPlayerDeath)
@@ -99,6 +98,7 @@ function OnPlayerJoin(ply)
     p["id"] = ply
     p["victory"] = 0
     p["fist_spawn"] = 1
+    p["last_spawn_index"] = 0
     p["cloth"] = Random(1, 9)
 
     players[ply] = p
@@ -165,10 +165,9 @@ function OnPlayerSpawn(playerid)
     -- After spawn operations
     Delay(50, function()
         -- Changin weapons for player
-        local wpn = Ladder.getWeaponId(players[playerid].weapon)
-        CallRemoteEvent(playerid, "PlayerChangeLevel",players[playerid].weapon) -- Affiche le niveau du joueur
-        SetPlayerWeapon(playerid, wpn, 200, true, 1, true)
-
+        local level = players[playerid].weapon
+        CallRemoteEvent(playerid, "PlayerChangeLevel", players[playerid].weapon) -- Affiche le niveau du joueur
+        SetPlayerWeapon(playerid, Ladder.getWeaponId(level), Ladder.getWeaponStartAmmo(level), true, 1, true)
     end)
 
     -- Anti spawn kill disable
@@ -200,10 +199,7 @@ AddEvent("PlayerWin", function(winner)
     for _, v in ipairs(GetAllPlayers()) do
         CallRemoteEvent(v, "NotifyPlayerWin", winner_name, x, y, z)
 
-
-        -- AddPlayerChat(v, "Restarting game ...")
         Delay(8000, function()
-            -- AddPlayerChat(v, "Game restarted")
             SetPlayerHealth(v, 0)
             players[v].kills = 0
             players[v].deaths = 0
