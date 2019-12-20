@@ -60,7 +60,11 @@ function OnPackageStart()
 	ShowWeaponHUD(false)
 	
 	HUD.init()
+<<<<<<< HEAD
 	Scoreboard.init()
+=======
+	initScoreboard()
+>>>>>>> 0c6aa281d337f52bd955349dfb9c161fdd1d793c
 	
 
 	-- Someone found fix, ask discord
