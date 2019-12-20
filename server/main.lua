@@ -6,9 +6,9 @@ player_count = 0
 -- current_map = "shoots"
 current_map = "armory"
 
-avaible_map = {"western", "armory",  "shoots" } -- "paradise_ville", "chemistry"}
-avaible_map_count = 3
-last_map = 1
+avaible_map = {"western", "armory"} -- "paradise_ville", "chemistry"}
+avaible_map_count = 2
+last_map = 2
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
@@ -17,6 +17,7 @@ function assign_spawn(player)
     
     if spawn_idx == p["last_spawn_index"] then
         assign_spawn(player)
+        return
     end
     p["last_spawn_index"] = assigned_spawn
     -- local assigned_spawn = spawn_location[Random(4, 4)]
@@ -180,13 +181,14 @@ AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player 
 
 AddEvent("PlayerWin", function(winner)
 
-    local next_map = Random(1, 4)
+    local next_map = Random(1, avaible_map_count)
 
+    -- TODO: Refactor with a while
     if(next_map ~= last_map) then
         current_map = avaible_map[next_map]
         last_map = next_map
     else
-        local next_map = Random(1, 4)
+        local next_map = Random(1, avaible_map_count)
         current_map = avaible_map[next_map]
         last_map = next_map
     end
