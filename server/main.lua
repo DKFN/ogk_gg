@@ -27,11 +27,13 @@ function assign_spawn(player)
 end
 
 function OnPackageStart()
-	LoadMapFromIni("packages/ogk_gg/maps/map_armory.ini")
-	LoadMapFromIni("packages/ogk_gg/maps/map_gg2.ini")
-	LoadMapFromIni("packages/ogk_gg/maps/map_western.ini")
-	LoadMapFromIni("packages/ogk_gg/maps/map_ports1.ini")
-	LoadMapFromIni("packages/ogk_gg/maps/map_ports2.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/armory.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/gg2.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/western.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/western_doorblock1.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/western_doorblock2.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/ports1.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/ports2.ini")
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
