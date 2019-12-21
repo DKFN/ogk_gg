@@ -19,7 +19,6 @@ local _print = function (message)
 end
 
 local function CreateMapEditorObject(player, modelid, x, y, z, rx, ry, rz, sx, sy, sz)
-
     local object = CreateObject(modelid, x, y, z, rx, ry, rz, sx, sy, sz)
 
     SetObjectStreamDistance(object, 100000)

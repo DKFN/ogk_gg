@@ -5,6 +5,8 @@ function setClothe(player, clothId)
 end
 AddRemoteEvent("setClothe", setClothe) 
 
+
+-- TODO : Put in anorther package to avoid wide crashing
 function notifyServerOfCurrentWeapon()
 	local equipped_slot = GetPlayerEquippedWeaponSlot()
 	local weapon, ammo = GetPlayerWeapon() -- Do not put equipped slot as we swap users slot as hack
@@ -13,17 +15,15 @@ end
 
 -- Watchers
 function weapon_refresher()
-	Delay(30, function()
+	CreateTimer(function()
 		notifyServerOfCurrentWeapon()
-        weapon_refresher()
-    end)
+    end, 70)
 end
 
 function ui_refresher()
-	Delay(5, function()
+	CreateTimer(function()
 		CallRemoteEvent("GetWeaponName")
-		ui_refresher()
-	end)
+	end, 15)
 end
 
 
