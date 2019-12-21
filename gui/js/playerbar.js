@@ -29,13 +29,16 @@ const zeroIsRed = (num) => num === 0
     ? '<b style="color: red">' + num + "</b>"
     : "<b>" + num + "</b>";
 
-function RefreshPlayerBar(health, ammo, weapon, weapon_next, mapName) {
+function RefreshPlayerBar(health, ammo, weapon, weapon_next, mapName, armor) {
     const healthContainer = document.getElementById("health");
     const ammoContainer = document.getElementById("ammo");
     const warnMagazine = document.getElementById("reload-prompt");
     const weaponName = document.getElementById("weaponsName");
     const weaponNext = document.getElementById("weaponsNext");
-    
+
+    const progressBar = document.getElementById("levelProgress");
+    progressBar.value = armor;
+
     if (ammo === 0) {
         warnMagazine.style.display = "block";
     } else {
@@ -52,7 +55,6 @@ function RefreshPlayerBar(health, ammo, weapon, weapon_next, mapName) {
 
 function ChangePlayerLevel(newLevel) {
     const warnerContainer = document.getElementById("level");
-    const progressBar = document.getElementById("levelProgress");
 
     const animIn = () => {
         warnerContainer.style.padding = "10px";
