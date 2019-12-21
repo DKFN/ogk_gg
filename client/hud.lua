@@ -30,7 +30,6 @@ end
 AddRemoteEvent("AddFrag", AddFrag) 
 
 function PlayerChangeLevel(newLevel)
-	AddPlayerChat(newLevel)
 	ExecuteWebJS(hud, "ChangePlayerLevel('"..newLevel.."')")
 end
 AddRemoteEvent("PlayerChangeLevel", PlayerChangeLevel)

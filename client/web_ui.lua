@@ -50,7 +50,7 @@ end
 -- the WebUIManager should act like a firewall for all web GUIs 
 -- currently needed on win, will be remove once Foo.setState(state) and a win state are added
 function WebUIManager.getGUI(gui)
-    Logger.info("WebUI", "start getGUI")
+    -- Logger.info("WebUI", "start getGUI")
     if gui == nil then
         Logger.err("WebUI", "Nil gui in getGUI")
         return
@@ -62,7 +62,7 @@ function WebUIManager.getGUI(gui)
 end
 
 function WebUIManager.setVisibility(item, state, visibility)
-    Logger.info("WebUI", "start set visibility")
+    -- Logger.info("WebUI", "start set visibility")
     if state == nil or item == nil or visibility == nil then
         Logger.err("WebUI", "Nil argument in setVisibility")
         return
