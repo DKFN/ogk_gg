@@ -11,7 +11,7 @@ current_map = "port_small"
 
 avaible_map = {"western", "armory", "port", "port_small"} -- "paradise_ville", "chemistry"}
 avaible_map_count = 4
-last_map = 3
+last_map = 4
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
@@ -24,6 +24,9 @@ function assign_spawn(player)
         return
     end
     p["last_spawn_index"] = spawn_idx
+    if OGK_GG_DEBUG then
+        AddPlayerChat(player, "You are assigned spawn #".. spawn_idx.. "")
+    end
     -- local assigned_spawn = spawn_location[Random(4, 4)]
     
     SetPlayerSpawnLocation(player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3] + (player * 10), assigned_spawn[4])
@@ -83,6 +86,7 @@ end
 
 -- This function waits until the plays does not AIM and will then change the level of the player
 function OnPlayerDeath(player, instigator)
+    SetPlayerSpectate(player, true)
     assign_spawn(player)
     for _, plyr in pairs(GetAllPlayers()) do
         local ply_weapon = players[instigator].weapon
@@ -207,7 +211,6 @@ AddEvent("PlayerWin", function(winner)
 
     local next_map = Random(1, avaible_map_count)
 
-    -- TODO: Refactor with a while
     if(next_map ~= last_map) then
         current_map = avaible_map[next_map]
         last_map = next_map
@@ -223,6 +226,8 @@ AddEvent("PlayerWin", function(winner)
         CallEvent('PlayerWin', winner)
         return
     end
+
+    AddPlayerChatAll("Next map is : " .. avaible_map[next_map])
     
     local winner_name = GetPlayerName(winner)
 
