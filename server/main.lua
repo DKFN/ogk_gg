@@ -75,7 +75,11 @@ end
 function OnPlayerDeath(player, instigator)
     assign_spawn(player)
     for _, plyr in pairs(GetAllPlayers()) do
-        CallRemoteEvent(plyr, "AddFrag", GetPlayerName(instigator), "test", GetPlayerName(player))
+        local ply_weapon = players[instigator].weapon
+        if player == instigator then
+            ply_weapon = 0
+        end
+        CallRemoteEvent(plyr, "AddFrag", GetPlayerName(instigator), ply_weapon, GetPlayerName(player))
     end
     
     players[player].deaths = players[player].deaths + 1

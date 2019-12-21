@@ -1,9 +1,5 @@
---[[
+OGK_GG_DEBUG = true
 
-This script contains the initial weapon configuration for the client.
-Addtional configuration on the server is necessary.
-
-]]--
 function setClothe(player, clothId)
 	SetPlayerClothingPreset(player, clothId)
 end

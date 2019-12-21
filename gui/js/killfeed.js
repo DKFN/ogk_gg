@@ -3,6 +3,14 @@
  * 
  * Author: OGK (DKFN)
  */
+// https://wiki.garrysmod.com/page/CS:S_Kill_Icons
+const weaponCharTable = {
+    // TODO: Complete
+    '0': 'C',
+    undefined: 'C',
+    'nil': 'C'
+
+};
 
  const killTemplate = (killRow) => `
     <div class="killfeed-row" id="kf_${killRow.timeOfEntry}">
@@ -34,7 +42,7 @@ class KillFeed {
         const killrow = {
             instigator: playerName,
             victim: victim,
-            weapon: weapon,
+            weapon: weaponCharTable[weapon] || 'D',
             timeOfEntry: Date.now()
         };
 

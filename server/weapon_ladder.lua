@@ -25,7 +25,7 @@ local weapons = {
         ammo = 200
     },
     {
-        id = 12,
+        id = 11,
         name = "M4A1",
         ammo = 200
     },

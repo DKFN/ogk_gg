@@ -1,13 +1,12 @@
 {
     "author": "OGK",
-    "version": "0.1",
+    "version": "0.2",
     "server_scripts": [
         "common/logger.lua",
         "server/main.lua",
         "server/debug.lua",
         "server/spawn.lua",
         "server/gui.lua",
-        "server/map.lua",
         "server/map_loader.lua",
         "server/weapon_ladder.lua"
     ],
@@ -26,6 +25,7 @@
         "gui/fonts/edunline.ttf",
         "gui/fonts/smb.ttf",
         "gui/fonts/RingMatrix.ttf",
+        "gui/fonts/csd.ttf",
         "gui/nuclearbulma.css",
         "gui/ogk_commons.css",
         "gui/ogk_hud.css",

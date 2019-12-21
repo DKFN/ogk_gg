@@ -21,6 +21,11 @@
     color: limegreen;
 }
 
+@font-face {
+    font-family: csswpn;
+    src: url(http://asset/ogk_gg/gui/fonts/csd.ttf);
+}
+
 html, pre {
     background-color: transparent;
     overflow: hidden;

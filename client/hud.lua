@@ -25,7 +25,13 @@ function HUD.hide()
 end
 
 function AddFrag(killer, weapon, victim)
-	ExecuteWebJS(hud, "killfeed.registerKill('"..killer.."', '"..victim.."', '===>')")
+	local jsweapon
+	if weapon then
+		jsweapon = weapon
+	else
+		jsweapon = '0'
+	end
+	ExecuteWebJS(hud, "killfeed.registerKill('"..killer.."', '"..victim.."','"..jsweapon.."')")
 end
 AddRemoteEvent("AddFrag", AddFrag) 
 

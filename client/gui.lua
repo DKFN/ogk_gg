@@ -39,8 +39,11 @@ function OnKeyPress(key)
 		WebUIManager.setVisibility("hud", Player.state, WEB_HIDDEN)
 	end
 
-	if key == "O" then
-		WebUIManager.setVisibility("hud", Player.state, WEB_HIDDEN)
+	if OGK_GG_DEBUG then
+		-- Map editor toogle down HUD
+		if key == "O" then
+			WebUIManager.setVisibility("hud", Player.state, WEB_HIDDEN)
+		end
 	end
 end
 AddEvent("OnKeyPress", OnKeyPress)
