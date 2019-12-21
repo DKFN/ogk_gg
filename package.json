@@ -8,6 +8,7 @@
         "server/spawn.lua",
         "server/gui.lua",
         "server/map.lua",
+        "server/map_loader.lua",
         "server/weapon_ladder.lua"
     ],
     "client_scripts": [

@@ -4,11 +4,12 @@ players = {}
 player_count = 0
 
 -- current_map = "armory"
-current_map = "armory"
+-- current_map = "western"
+current_map = "port"
 
-avaible_map = {"western", "armory"} -- "paradise_ville", "chemistry"}
-avaible_map_count = 2
-last_map = 2
+avaible_map = {"western", "armory", "port"} -- "paradise_ville", "chemistry"}
+avaible_map_count = 3
+last_map = 3
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
@@ -22,11 +23,15 @@ function assign_spawn(player)
     p["last_spawn_index"] = assigned_spawn
     -- local assigned_spawn = spawn_location[Random(4, 4)]
     
-    SetPlayerSpawnLocation( player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3] + (player * 10), 0 )
+    SetPlayerSpawnLocation(player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3] + (player * 10), 0)
 end
 
 function OnPackageStart()
-    LoadMap()
+	LoadMapFromIni("packages/ogk_gg/maps/map_armory.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/map_gg2.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/map_western.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/map_ports1.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/map_ports2.ini")
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
