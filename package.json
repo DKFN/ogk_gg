@@ -38,6 +38,8 @@
         "gui/js/scoreboard.js",
         "gui/js/playerbar.js",
         "gui/scoreboard.html",
-        "sounds/smb/smb_powerup.wav"
+        "sounds/smb/smb_powerup.wav",
+        "sounds/smb/smb_stage_clear.wav",
+        "sounds/smb/smb_gameover.wav"
     ]
 }

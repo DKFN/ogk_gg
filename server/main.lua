@@ -220,8 +220,14 @@ AddEvent("PlayerWin", function(winner)
 
     local x, y, z = GetPlayerLocation(winner)
 
+    CallRemoteEvent(winner, "PlayerIsWinner")
+
     for _, v in ipairs(GetAllPlayers()) do
         CallRemoteEvent(v, "NotifyPlayerWin", winner_name, x, y, z)
+
+        if v ~= winner then
+            CallRemoteEvent(v, "PlayerIsLooser")
+        end
 
         Delay(8000, function()
             SetPlayerHealth(v, 0)
