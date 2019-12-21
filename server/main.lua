@@ -65,6 +65,7 @@ function level_up(killer)
         
         local tmp =  players[killer].weapon + 1 -- upgrade the killer weapon
         players[killer].weapon = tmp
+        CallRemoteEvent(killer, "PlayLevelUp")
         CallRemoteEvent(killer, "PlayerChangeLevel", tostring(players[killer].weapon))
     else
         CallEvent("PlayerWin", killer)
@@ -179,6 +180,10 @@ function OnPlayerSpawn(playerid)
         local level = players[playerid].weapon
         CallRemoteEvent(playerid, "PlayerChangeLevel", players[playerid].weapon) -- Affiche le niveau du joueur
         SetPlayerWeapon(playerid, Ladder.getWeaponId(level), Ladder.getWeaponStartAmmo(level), true, 1, true)
+
+        -- Exploit prevention (Thanks Jan)
+        SetPlayerWeapon(playerid, 1, 0, false, 2, false)
+        SetPlayerWeapon(playerid, 1, 0, false, 3, false)
     end)
 
     -- Anti spawn kill disable

@@ -18,7 +18,8 @@
         "client/gui.lua",
         "client/items.lua",
         "client/scoreboard.lua",
-        "client/hud.lua"
+        "client/hud.lua",
+        "client/sounds.lua"
     ],
     "files": [
         "gui/js/killfeed.js",
@@ -36,6 +37,7 @@
         "gui/js/jquery.js",
         "gui/js/scoreboard.js",
         "gui/js/playerbar.js",
-        "gui/scoreboard.html"
+        "gui/scoreboard.html",
+        "sounds/smb/smb_powerup.wav"
     ]
 }
