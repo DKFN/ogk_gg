@@ -40,6 +40,7 @@
         "gui/scoreboard.html",
         "sounds/smb/smb_powerup.wav",
         "sounds/smb/smb_stage_clear.wav",
-        "sounds/smb/smb_gameover.wav"
+        "sounds/smb/smb_gameover.wav",
+        "sounds/quake/prepare.wav"
     ]
 }

@@ -3,13 +3,15 @@ OGK_GG_DEBUG = true
 players = {}
 player_count = 0
 
-current_map = "armory"
+-- current_map = "armory"
 -- current_map = "western"
 -- current_map = "port"
+current_map = "port_small"
+-- current_map = "gg2"
 
-avaible_map = {"western", "armory", "port", "gg2"} -- "paradise_ville", "chemistry"}
+avaible_map = {"western", "armory", "port", "port_small"} -- "paradise_ville", "chemistry"}
 avaible_map_count = 4
-last_map = 2
+last_map = 3
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
@@ -17,10 +19,11 @@ function assign_spawn(player)
     local assigned_spawn = spawn_location[spawn_idx]
     
     if spawn_idx == p["last_spawn_index"] then
+        print("Reassigning spawn ....")
         assign_spawn(player)
         return
     end
-    p["last_spawn_index"] = assigned_spawn
+    p["last_spawn_index"] = spawn_idx
     -- local assigned_spawn = spawn_location[Random(4, 4)]
     
     SetPlayerSpawnLocation(player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3] + (player * 10), assigned_spawn[4])
@@ -35,6 +38,9 @@ function OnPackageStart()
 	LoadMapFromIni("packages/ogk_gg/maps/western_doorblock3.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/ports1.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/ports2.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/ports_murs.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/port_objects.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/port_small.ini")
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
@@ -131,6 +137,7 @@ function OnPlayerJoin(ply)
     AddPlayerChat( ply, "kill : suicide")
     players[ply]["fist_spawn"] = 1;
         
+    SetPlayerRespawnTime(ply, 5000)
     -- Initial spawn
     assign_spawn(ply)
     
@@ -240,5 +247,4 @@ AddEvent("PlayerWin", function(winner)
             CallRemoteEvent(v, "GameRestarting")
         end)
     end
-
 end)

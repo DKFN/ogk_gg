@@ -13,3 +13,7 @@ end)
 AddRemoteEvent("PlayerIsLooser", function()
     CreateSound("sounds/smb/smb_gameover.wav")
 end)
+
+AddRemoteEvent("GameRestarting", function()
+    CreateSound("sounds/quake/prepare.wav")
+end)
