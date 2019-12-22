@@ -214,7 +214,6 @@ AddEvent("PlayerWin", function(winner)
     print("Last map : "..last_map.." Next : "..next_map.."")
     if(next_map ~= last_map) then
         current_map = avaible_map[next_map]
-        last_map = next_map
         
         local max_players_next = spawns_max[current_map]
         local player_count = GetPlayerCount()
@@ -223,7 +222,7 @@ AddEvent("PlayerWin", function(winner)
            CallEvent('PlayerWin', winner)
            return
         end
-        
+        last_map = next_map
     else
         CallEvent('PlayerWin', winner)
         return
