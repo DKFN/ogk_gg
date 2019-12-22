@@ -1,3 +1,6 @@
+-- 800 = basic health kit
+-- 807 = pills for armor like (maybe find another model)
+
 local items = {
     {
         model = 800, -- model id refer https://dev.playonset.com/wiki/Objects
@@ -18,6 +21,51 @@ local items = {
         x = 37553.515625, -- x pos
         y = 203883.671875, -- y pos
         z = 550.94915771484 -- z pos
+    },
+
+    -- port_small
+    {
+        model = 800,  -- model id refer https://dev.playonset.com/wiki/Objects
+        type = "health", -- type can be "armor" or "health"
+        map = "port_small", -- the map where items are loaded
+        respawn = 10000, -- respawn time (miniscds)
+        amount = 20, -- amount of life or armor given 
+        x = 44164, -- x pos
+        y = 202148, -- y pos
+        z = 551 -- z pos
+    },
+
+    {
+        model = 800,  -- model id refer https://dev.playonset.com/wiki/Objects
+        type = "health", -- type can be "armor" or "health"
+        map = "port_small", -- the map where items are loaded
+        respawn = 10000, -- respawn time (miniscds)
+        amount = 20, -- amount of life or armor given 
+        x = 41987, -- x pos
+        y = 206561, -- y pos
+        z = 572 -- z pos
+    },
+
+    {
+        model = 807,  -- model id refer https://dev.playonset.com/wiki/Objects
+        type = "armor", -- type can be "armor" or "health"
+        map = "port_small", -- the map where items are loaded
+        respawn = 30000, -- respawn time (miniscds)
+        amount = 40, -- amount of life or armor given 
+        x = 44046, -- x pos
+        y = 204322, -- y pos
+        z = 808 -- z pos
+    },
+
+    {
+        model = 807,  -- model id refer https://dev.playonset.com/wiki/Objects
+        type = "armor", -- type can be "armor" or "health"
+        map = "port_small", -- the map where items are loaded
+        respawn = 15000, -- respawn time (miniscds)
+        amount = 15, -- amount of life or armor given 
+        x = 44142, -- x pos
+        y = 203237, -- y pos
+        z = 563 -- z pos
     }
 }
 
