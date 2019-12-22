@@ -1,7 +1,3 @@
-local function roundWasiedBogoss(number)
-    return number % 1 >= 0.5 and math.ceil(number) or math.floor(number)
-  end
-  
 function OnPlayerChat(player, command, exists)
     -- Debug Commands
     if OGK_GG_DEBUG then
@@ -34,8 +30,8 @@ function OnPlayerChat(player, command, exists)
         end
 
         if command == "pos" then
-            local x,y,z = GetPlayerLocation(player)
-            AddPlayerChat(player, "{x="..roundWasiedBogoss(x)..", y="..roundWasiedBogoss(y)..", z="..roundWasiedBogoss(z).."}")
+            local x, y, z = GetPlayerLocation(player)
+            AddPlayerChat(player, "<strong style='color:red;'>X:</strong>" .. x .. " <strong style='color:red;'>Y:</strong>" .. y .. " <strong style='color:red;'>Z:</strong>" .. z)
         end
 
         if command == "tptest" then
