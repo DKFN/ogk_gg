@@ -45,11 +45,12 @@ end
 function ui_refresher()
 	CreateTimer(function()
 		CallRemoteEvent("GetWeaponName")
-	end, 15)
+	end, 200) -- 15ms is a bit too much
 end
 
 
 AddEvent("OnPackageStart", function()
 	weapon_refresher()
 	ui_refresher()
+	MOTDInit()
 end)

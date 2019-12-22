@@ -29,7 +29,7 @@ end
 
 function OpenScoreboard()
 	CallRemoteEvent("GetScoreBoardData")
-	WebUIManager.setVisibility("scoreboard", Player.state, WEB_VISIBLE)
+	WebUIManager.setVisibility("scoreboard", Player.state, WEB_HITINVISIBLE)
 end
 
 -- Client Sent Events
