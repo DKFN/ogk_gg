@@ -11,7 +11,7 @@ function MOTDInit()
     SetWebAlignment(motd, 0.0, 0.0)
     SetWebAnchors(motd, 0.0, 0.0, 1.0, 1.0)
     SetWebVisibility(motd, WEB_VISIBLE)
-    SetInputMode(motd, INPUT_UI)
+    SetInputMode(motd, INPUT_GAMEANDUI)
 
     Delay(20000, closeMotd)
 end
