@@ -48,7 +48,7 @@ local function DisableSprintMode(player)
 		print("Slot refresh")
 		EquipPlayerWeaponSlot(player, 1)
 		locks[player] = true
-		Delay(2500, function()
+		Delay(500, function()
 			locks[player] = false
 		end)
 	end

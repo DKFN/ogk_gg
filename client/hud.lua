@@ -62,5 +62,5 @@ end
 AddRemoteEvent("SetUIData", SetUIData)
 
 AddEvent("WarnShiftToRun", function()
-	ExecuteWebJS(hud, "Warn('<span style=\"color: orange; font-size: 24px;\">PRESS AGAIN TO SPRINT</span>')")
+	ExecuteWebJS(hud, "Warn('<span style=\"color: orange; font-size: 24px;\">PRESS <b>TWICE</b> TO SPRINT</span>')")
 end)

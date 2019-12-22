@@ -27,7 +27,12 @@ function weapon_refresher()
 			end
 		else 
 			if equipped_slot ~= 1 then
-				CallRemoteEvent("SprintStopped")
+				-- Delays allows usr enough time to rpess twice
+				Delay(300, function() 
+					if not IsShiftPressed() then
+						CallRemoteEvent("SprintStopped")
+					end
+				end)
 			end
 		end
 		notifyServerOfCurrentWeapon()
