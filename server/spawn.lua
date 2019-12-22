@@ -1,6 +1,7 @@
 
 spawns = {}
 spawns_max = {}
+map_min_players = {}
 busy_spawns = {}
 
 -- Approved maps
@@ -19,6 +20,7 @@ spawns["western"][10] = {-76897.6171875, -162373.875, 3776.4736328125, 0}
 spawns["western"][11] = {-76217.65625, -160574.078125, 3429.8293457031, 0}
 spawns["western"][12] = {-80027.7890625, -165668.4375, 3222.1259765625, 0}
 spawns_max["western"] = 12
+map_min_players["western"] = 4
 
 
 -- Mapped maps
@@ -28,6 +30,7 @@ spawns["armory"][2] = { -15648.6054, 133113.5625, 1561.6047, 90 }
 spawns["armory"][3] = { -14610.5712, 132762.9218, 1561.6047, 145 }
 spawns["armory"][4] = { -15727.7382, 134334.6718, 1561.6047, 90 }
 spawns_max["armory"] = 4
+map_min_players["armory"] = 1
 
 spawns["port"] = {}
 spawns["port"][1] = { 37885.355468, 200909.421875, 1548.2750, 0 }
@@ -46,6 +49,7 @@ spawns["port"][13] = { 38916.32, 199426.35, 550.94, 0 }
 spawns["port"][14] = { 40670.05, 199346.79, 550.94, 0 }
 spawns["port"][15] = { 37043.66, 206222.75, 565.97, 0 }
 spawns_max["port"] = 15
+map_min_players["port"] = 4
 
 spawns["port_small"] = {}
 -- spawns["port_small"][1] = { 43917.778, 300340.3125, 509.200, 0 }
@@ -53,22 +57,27 @@ spawns["port_small"][1] = { 44147.490, 204403.5500, 562.700, 0 }
 spawns["port_small"][2] = { 43790.27770, 206686.0, 550.701843, 0 }
 spawns["port_small"][3] = { 42180.0, 201287.0, 551.0, 0 }
 spawns_max["port_small"] = 3
+map_min_players["port_small"] = 1
 
 
 -- Mapped maps
 spawns["gg2"] = {}
 spawns["gg2"][1] = { 164173.703125, -163128.578125, 1914.5045166016, 0 }
 spawns_max["gg2"] = 1
+map_min_players["gg2"] = 1
 
 -- Proposal maps
 spawns["paradise_ville"] = {}
 spawns["paradise_ville"][1] = { 42824.6914, 134416.125, 1567.509277 }
 spawns_max["paradise_ville"] = 1
+map_min_players["paradise_ville"] = 1
 
 spawns["chemistry"] = {}
 spawns["chemistry"][1] = { 17655.6113, 132438.515625, 1555.963867 }
 spawns_max["chemistry"] = 1
+map_min_players["chemistry"] = 1
 
 spawns["prison_yard"] = {}
 spawns["prison_yard"][1] = { 178002.09375, 67944.6944, 1528.15002441 }
 spawns_max["prison_yard"] = 1
+map_min_players["prison_yard"] = 1
