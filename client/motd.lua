@@ -1,7 +1,18 @@
-function MOTDInit()
-    scoreboard = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
-    LoadWebFile(scoreboard, "http://asset/ogk_gg/gui/motd.html")
-    SetWebAlignment(scoreboard, 0.0, 0.0)
-    SetWebAnchors(scoreboard, 0.0, 0.0, 1.0, 1.0)
-    SetWebVisibility(scoreboard, WEB_VISIBLE)
+local motd
+
+local function closeMotd()
+    DestroyWebUI(motd)
 end
+AddEvent("CloseMotd",  closeMotd)
+
+function MOTDInit()
+    motd = CreateWebUI(0.0, 0.0, 0.0, 0.0, 99, 60)
+    LoadWebFile(motd, "http://asset/ogk_gg/gui/motd.html")
+    SetWebAlignment(motd, 0.0, 0.0)
+    SetWebAnchors(motd, 0.0, 0.0, 1.0, 1.0)
+    SetWebVisibility(motd, WEB_VISIBLE)
+    SetInputMode(motd, INPUT_UI)
+
+    Delay(20000, closeMotd)
+end
+
