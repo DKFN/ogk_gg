@@ -14,10 +14,27 @@ function notifyServerOfCurrentWeapon()
 end
 
 -- Watchers
+local shift_delay_id
 function weapon_refresher()
 	CreateTimer(function()
+		-- Sprint fixture, put into own function
+		-- Fixes the unabillity to sprint + avoids player from chaging weapon to fists
+		local equipped_slot = GetPlayerEquippedWeaponSlot()
+		if IsShiftPressed() then
+			if equipped_slot == 1 then
+				CallRemoteEvent("Sprint")
+				CallEvent("WarnShiftToRun")
+			end
+		else 
+			if equipped_slot ~= 1 then
+				CallRemoteEvent("SprintStopped")
+			end
+		end
 		notifyServerOfCurrentWeapon()
     end, 70)
+end
+
+function sprint_watchter()
 end
 
 function ui_refresher()

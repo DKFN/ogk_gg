@@ -60,3 +60,7 @@ function SetUIData(weapon_name, weapon_next, current_map)
 	ExecuteWebJS(hud, "RefreshPlayerBar("..ply_health..","..inmag.. ",'" .. weapon_name .. "','" .. weapon_next .. "','" .. current_map .. "'," .. armor .. ")")
 end
 AddRemoteEvent("SetUIData", SetUIData)
+
+AddEvent("WarnShiftToRun", function()
+	ExecuteWebJS(hud, "Warn('<span style=\"color: orange; font-size: 24px;\">PRESS AGAIN TO SPRINT</span>')")
+end)
