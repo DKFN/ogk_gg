@@ -1,7 +1,6 @@
 local motd
 
 local function closeMotd()
-    SetInputMode(INPUT_GAME)
     DestroyWebUI(motd)
 end
 AddEvent("CloseMotd",  closeMotd)
