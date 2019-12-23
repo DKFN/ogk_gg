@@ -6,6 +6,13 @@ AddRemoteEvent("PlayLevelUp", function()
     end    
 end)
 
+AddRemoteEvent("PlayPickupSound", function()
+    local sound = CreateSound("sounds/smb/smb_1-up.wav")
+    if sound == false then
+        AddPlayerChat("Error playing sound")
+    end    
+end)
+
 AddRemoteEvent("PlayerIsWinner", function()
     CreateSound("sounds/smb/smb_stage_clear.wav")
 end)

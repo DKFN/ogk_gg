@@ -238,6 +238,8 @@ AddEvent("PlayerWin", function(winner)
 
     CallRemoteEvent(winner, "PlayerIsWinner")
 
+    spawnPickupsItems()
+
     for _, v in ipairs(GetAllPlayers()) do
         CallRemoteEvent(v, "NotifyPlayerWin", winner_name, x, y, z)
 

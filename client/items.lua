@@ -40,6 +40,7 @@ function OnKeyPress(key)
         local item = GetPickupLookingAt()
 
         if(item ~= 0) then
+            CallRemoteEvent(GetPlayerId(), "PlayLevelUp")
             CallRemoteEvent("playerUsePickupItems", item)
         end
     end
