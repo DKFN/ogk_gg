@@ -208,7 +208,9 @@ end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
 
 AddEvent("PlayerWin", function(winner)
-
+    
+    CallRemoteEvent(winner, "showWinner", winner)
+    
     local next_map = Random(1, avaible_map_count)
 
     print("Last map : "..last_map.." Next : "..next_map.."")
@@ -223,6 +225,8 @@ AddEvent("PlayerWin", function(winner)
            return
         end
         last_map = next_map
+
+        
     else
         CallEvent('PlayerWin', winner)
         return

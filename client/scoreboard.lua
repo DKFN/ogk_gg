@@ -9,6 +9,7 @@ end
 function ScoreboardShowWinner(winner)
     ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
 end
+AddRemoteEvent("showWinner", ScoreboardShowWinner)
 
 -- Server Sent Events
 AddRemoteEvent("SetScoreBoardData", function(servername, players, map_name) 
