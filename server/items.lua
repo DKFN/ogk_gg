@@ -9,21 +9,56 @@ local items = {
         type = "health", -- type can be "armor" or "health"
         map = "port", -- the map where items are loaded 
         respawn = 5000, -- miniscds (miniscds)
-        amount = 10, -- amount of life or armor given  
-        x = 37581.5625, -- x pos
-        y = 203059.046875, -- y pos
-        z = 550.94915711484 -- z pos
+        amount = 20, -- amount of life or armor given  
+        x = 37001, -- x pos
+        y = 206149, -- y pos
+        z = 556 -- z pos
     },
+
+    {
+        model = 800,  -- model id refer https://dev.playonset.com/wiki/Objects
+        type = "health", -- type can be "armor" or "health"
+        respawn = 5000, -- respawn time (miniscds)
+        map = "port", -- the map where items are loaded
+        amount = 20, -- amount of life or armor given 
+        x = 40994, -- x pos
+        y = 199173, -- y pos
+        z = 551 -- z pos
+    },
+
     {
         model = 807,  -- model id refer https://dev.playonset.com/wiki/Objects
         type = "armor", -- type can be "armor" or "health"
-        respawn = 5000, -- respawn time (miniscds)
+        respawn = 10000, -- respawn time (miniscds)
         map = "port", -- the map where items are loaded
-        amount = 5, -- amount of life or armor given 
-        x = 37553.515625, -- x pos
-        y = 203883.671875, -- y pos
-        z = 550.94915771484 -- z pos
+        amount = 10, -- amount of life or armor given 
+        x = 41587, -- x pos
+        y = 205541, -- y pos
+        z = 572 -- z pos
     },
+
+    {
+        model = 807,  -- model id refer https://dev.playonset.com/wiki/Objects
+        type = "armor", -- type can be "armor" or "health"
+        respawn = 10000, -- respawn time (miniscds)
+        map = "port", -- the map where items are loaded
+        amount = 10, -- amount of life or armor given 
+        x = 41256, -- x pos
+        y = 205541, -- y pos
+        z = 565 -- z pos
+    },
+  
+    {
+        model = 807,  -- model id refer https://dev.playonset.com/wiki/Objects
+        type = "armor", -- type can be "armor" or "health"
+        respawn = 10000, -- respawn time (miniscds)
+        map = "port", -- the map where items are loaded
+        amount = 10, -- amount of life or armor given 
+        x = 38992, -- x pos
+        y = 207019, -- y pos
+        z = 551 -- z pos
+    },
+
 
     -- port_small
     {
