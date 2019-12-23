@@ -8,10 +8,6 @@ AddRemoteEvent("UpdatePlayerInfo", UpdatePlayerInfo)
 
 AddRemoteEvent("WelcomeToServer", function()
 	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
-	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
-	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
-	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
-	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
 end)
 
 AddRemoteEvent("NotifyPlayerWin", function(winner, x, y, z)
