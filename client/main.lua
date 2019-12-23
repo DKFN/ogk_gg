@@ -5,7 +5,6 @@ function setClothe(player, clothId)
 end
 AddRemoteEvent("setClothe", setClothe) 
 
-
 -- TODO : Put in anorther package to avoid wide crashing
 function notifyServerOfCurrentWeapon()
 	local equipped_slot = GetPlayerEquippedWeaponSlot()

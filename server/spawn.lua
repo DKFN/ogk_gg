@@ -52,11 +52,11 @@ spawns_max["port"] = 15
 map_min_players["port"] = 4
 
 spawns["port_small"] = {}
--- spawns["port_small"][1] = { 43917.778, 300340.3125, 509.200, 0 }
 spawns["port_small"][1] = { 44147.490, 204403.5500, 562.700, 0 }
 spawns["port_small"][2] = { 43790.27770, 206686.0, 550.701843, 0 }
 spawns["port_small"][3] = { 42180.0, 201287.0, 551.0, 0 }
-spawns_max["port_small"] = 3
+spawns["port_small"][4] = { 43917.778, 200340.3125, 509.200, 0 }
+spawns_max["port_small"] = 4
 map_min_players["port_small"] = 1
 
 
