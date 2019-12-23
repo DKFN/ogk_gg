@@ -7,7 +7,7 @@ function ScoreboardInit()
 end
 
 function ScoreboardShowWinner(winner)
-    ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
+    ExecuteWebJS(scoreboard, "PlayerWonGame('"..GetPlayerName(winner).."')")
 end
 AddRemoteEvent("showWinner", ScoreboardShowWinner)
 
