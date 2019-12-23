@@ -24,3 +24,11 @@ end)
 AddRemoteEvent("GameRestarting", function()
     CreateSound("sounds/quake/prepare.wav")
 end)
+
+local hsInstance
+AddRemoteEvent("TrueDmgHeadShot", function()
+    if hsInstance then
+        DestroySound(hsInstance)
+    end 
+    hsInstance = CreateSound("sounds/quake/headshot.wav")
+end)

@@ -44,6 +44,7 @@
         "sounds/smb/smb_powerup.wav",
         "sounds/smb/smb_stage_clear.wav",
         "sounds/smb/smb_gameover.wav",
-        "sounds/quake/prepare.wav"
+        "sounds/quake/prepare.wav",
+        "sounds/quake/headshot.wav"
     ]
 }
