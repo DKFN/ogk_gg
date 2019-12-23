@@ -55,18 +55,16 @@ function RefreshPlayerBar(health, ammo, weapon, weapon_next, mapName, armor) {
 
 function ChangePlayerLevel(newLevel) {
     const warnerContainer = document.getElementById("level");
-
-    const animIn = () => {
+    warnerContainer.innerHTML = zeroIsRed(newLevel);
+    
+    const animIn = function (){
         warnerContainer.style.padding = "10px";
         warnerContainer.style.backgroundColor = "orange";
     }
 
-    const animOut = () => {
+    const animOut = function(){
         warnerContainer.style.backgroundColor = "transparent";
-    };
+    }
 
-
-    progressBar.value = newLevel;
-    warnerContainer.innerHTML = zeroIsRed(newLevel)
     blink(animIn, animOut);
 }

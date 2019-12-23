@@ -17,8 +17,8 @@ end)
 AddRemoteEvent("NotifyPlayerWin", function(winner, x, y, z)
 	ThrowFirework(x, y, z)
 	OpenScoreboard()
-	WebUIManager.setVisibility("hud", Player.state, WEB_HIDDEN)
-	WebUIManager.getGUI("scoreboard").showWinner(winner)
+	SetWebVisibility(hud, WEB_HIDDEN)
+	SetWebVisibility(scoreboard, WEB_VISIBLE)
 end)
 
 function ThrowFirework(x, y, z)
@@ -29,20 +29,20 @@ end
 
 function OpenScoreboard()
 	CallRemoteEvent("GetScoreBoardData")
-	WebUIManager.setVisibility("scoreboard", Player.state, WEB_HITINVISIBLE)
+	SetWebVisibility(scoreboard, WEB_HITINVISIBLE)
 end
 
 -- Client Sent Events
 function OnKeyPress(key)
 	if key == "Tab" then
 		OpenScoreboard()
-		WebUIManager.setVisibility("hud", Player.state, WEB_HIDDEN)
+		SetWebVisibility(hud, WEB_HIDDEN)
 	end
 
 	if OGK_GG_DEBUG then
 		-- Map editor toogle down HUD
 		if key == "O" then
-			WebUIManager.setVisibility("hud", Player.state, WEB_HIDDEN)
+			SetWebVisibility(hud, WEB_HIDDEN)
 		end
 	end
 end
@@ -50,14 +50,14 @@ AddEvent("OnKeyPress", OnKeyPress)
 
 function OnKeyRelease(key)
 	if key == "Tab" then
-		WebUIManager.setVisibility("hud", Player.state, WEB_VISIBLE)
-		WebUIManager.setVisibility("scoreboard", Player.state, WEB_HIDDEN)
+		SetWebVisibility(hud, WEB_VISIBLE)
+		SetWebVisibility(scoreboard, WEB_HIDDEN)
 	end
 end
 AddEvent("OnKeyRelease", OnKeyRelease)
 
 function OnPlayerSpawn(playerid)
-	WebUIManager.setVisibility("scoreboard", Player.state, WEB_HIDDEN)
+	SetWebVisibility(scoreboard, WEB_HIDDEN)
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn)
 
@@ -65,7 +65,8 @@ function OnPackageStart()
 	ShowHealthHUD(false)
 	ShowWeaponHUD(false)
 	
-	WebUIManager.init()
+	ScoreboardInit()
+	HUDInit()
 	
 	-- Someone found fix, ask discord
 	-- here is the fix

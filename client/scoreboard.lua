@@ -1,10 +1,4 @@
-local scoreboard
-
--- Scoreboard Wrapper
-Scoreboard = {}
-
--- Pseudo constructor for a pseudo object
-function Scoreboard.init() 
+function ScoreboardInit() 
     scoreboard = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
 	LoadWebFile(scoreboard, "http://asset/ogk_gg/gui/scoreboard.html")
 	SetWebAlignment(scoreboard, 0.0, 0.0)
@@ -12,16 +6,7 @@ function Scoreboard.init()
 	SetWebVisibility(scoreboard, WEB_HIDDEN)
 end
 
--- Wrapper function to change item visibility
-function Scoreboard.setVisibility(visibility)
-    SetWebVisibility(scoreboard, visibility)
-end
-
-function Scoreboard.hide()
-    SetWebVisibility(scoreboard, WEB_HIDDEN)
-end
-
-function Scoreboard.showWinner(winner)
+function ScoreboardShowWinner(winner)
     ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
 end
 
