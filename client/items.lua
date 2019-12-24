@@ -37,15 +37,15 @@ end
 
 function OnKeyPress(key)
     if key == "E" then
-        if(GetPlayerPropertyValue(GetPlayerId(), "pickup") == false) then
+        if(GetPlayerPropertyValue(GetPlayerId(), "pickup") == "false") then
             local item = GetPickupLookingAt()
 
             if(item ~= 0) then
                 CallRemoteEvent(GetPlayerId(), "PlayLevelUp")
                 CallRemoteEvent("playerUsePickupItems", item)
-                SetPlayerPropertyValue("pickup", true)
+                SetPlayerPropertyValue("pickup", "true")
                 Delay(5000, function()
-                    SetPlayerPropertyValue("pickup", false)
+                    SetPlayerPropertyValue("pickup", "false")
                 end)
             end
         end
