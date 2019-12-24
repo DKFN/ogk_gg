@@ -52,6 +52,6 @@ AddEvent("OnPackageStart", function()
 	weapon_refresher()
 	ui_refresher()
 	MOTDInit()
-
+	EnableSnowParticles(true)	
 	SetLandscapeSnowAlpha(1)
 end)
