@@ -49,7 +49,6 @@ end
 
 
 AddEvent("OnPackageStart", function()
-	SetPlayerPropertyValue("pickup", "false")
 	weapon_refresher()
 	ui_refresher()
 	MOTDInit()

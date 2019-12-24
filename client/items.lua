@@ -35,17 +35,19 @@ local function GetPickupLookingAt()
     return GetClosestPickup(vx, vy, vz, 300)
 end
 
+local pickuped = false
+
 function OnKeyPress(key)
     if key == "E" then
-        if(GetPlayerPropertyValue(GetPlayerId(), "pickup") == "false") then
+        if(pickuped == false) then
             local item = GetPickupLookingAt()
 
             if(item ~= 0) then
                 CallRemoteEvent(GetPlayerId(), "PlayLevelUp")
                 CallRemoteEvent("playerUsePickupItems", item)
-                SetPlayerPropertyValue("pickup", "true")
+                pickuped = true
                 Delay(5000, function()
-                    SetPlayerPropertyValue("pickup", "false")
+                    pickuped = false
                 end)
             end
         end
