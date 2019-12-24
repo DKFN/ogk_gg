@@ -37,7 +37,7 @@ end
 
 function OnKeyPress(key)
     if key == "E" then
-        if(GetPlayerPropertyValue("pickup") == false) then
+        if(GetPlayerPropertyValue(GetPlayerId(), "pickup") == false) then
             local item = GetPickupLookingAt()
 
             if(item ~= 0) then
