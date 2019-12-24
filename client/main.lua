@@ -52,4 +52,6 @@ AddEvent("OnPackageStart", function()
 	weapon_refresher()
 	ui_refresher()
 	MOTDInit()
+
+	SetLandscapeSnowAlpha(1)
 end)
