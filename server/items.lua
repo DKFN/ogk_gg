@@ -200,8 +200,11 @@ function playerUsePickupItems(player, pickup_id)
         else
             if(health < 100) then
                 SetPlayerHealth(player, 100)
+                spawnPickupsItems(pickup_id)
+                CallRemoteEvent(player, "PlayPickupSound")
+            else
+                AddPlayerChat(player, "You can pickup that because you already have max health !")
             end
-            AddPlayerChat(player, "You can pickup that because you already have max health !")
         end
     end
 
