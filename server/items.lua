@@ -9,7 +9,7 @@ local items = {
         type = "health", -- type can be "armor" or "health"
         map = "port", -- the map where items are loaded 
         respawn = 5000, -- miniscds (miniscds)
-        amount = 20, -- amount of life or armor given  
+        amount = 30, -- amount of life or armor given  
         x = 37001, -- x pos
         y = 206149, -- y pos
         z = 556 -- z pos
@@ -20,7 +20,7 @@ local items = {
         type = "health", -- type can be "armor" or "health"
         respawn = 5000, -- respawn time (miniscds)
         map = "port", -- the map where items are loaded
-        amount = 20, -- amount of life or armor given 
+        amount = 30, -- amount of life or armor given 
         x = 40994, -- x pos
         y = 199173, -- y pos
         z = 551 -- z pos
@@ -198,6 +198,9 @@ function playerUsePickupItems(player, pickup_id)
             CallRemoteEvent(player, "PlayPickupSound")
 
         else
+            if(health < 100) then
+                SetPlayerHealth(player, 100)
+            end
             AddPlayerChat(player, "You can pickup that because you already have max health !")
         end
     end
