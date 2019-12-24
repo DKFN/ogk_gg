@@ -44,10 +44,8 @@ function OnKeyPress(key)
                 CallRemoteEvent(GetPlayerId(), "PlayLevelUp")
                 CallRemoteEvent("playerUsePickupItems", item)
                 SetPlayerPropertyValue("pickup", true)
-                
                 Delay(5000, function()
                     SetPlayerPropertyValue("pickup", false)
-                    
                 end)
             end
         end
