@@ -9,7 +9,7 @@ function RemovePlayers() {
 
 
 function AddPlayer(name, weapon, kills, deaths, victory) {
-    $('#playertable').append('<tr class="player"><td>' + name + '</td><td>' + weapon + '/9</td><td>' + kills + '</td><td>' + deaths + '</td><td>' + victory + '</td></tr>');
+    $('#playertable').append('<tr class="player"><td>' + name + '</td><td>' + weapon + '/12</td><td>' + kills + '</td><td>' + deaths + '</td><td>' + victory + '</td></tr>');
 }
 
 function PlayerWonGame(winner) {
