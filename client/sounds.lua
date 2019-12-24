@@ -16,17 +16,17 @@ AddRemoteEvent("PlayPickupSound", function()
 end)
 
 AddRemoteEvent("PlayerIsWinner", function()
-    CreateSound("sounds/smb/smb_stage_clear.wav")
+    local sound = CreateSound("sounds/smb/smb_stage_clear.wav")
     SetSoundVolume(sound, 0.3)
 end)
 
 AddRemoteEvent("PlayerIsLooser", function()
-    CreateSound("sounds/smb/smb_gameover.wav")
+    local sound = CreateSound("sounds/smb/smb_gameover.wav")
     SetSoundVolume(sound, 0.3)
 end)
 
 AddRemoteEvent("GameRestarting", function()
-    CreateSound("sounds/quake/prepare.wav")
+    local sound = CreateSound("sounds/quake/prepare.wav")
     SetSoundVolume(sound, 0.3)
 end)
 
