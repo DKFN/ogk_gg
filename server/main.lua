@@ -153,6 +153,7 @@ end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
 
 AddEvent("OnPlayerQuit", function(player)
+    players[player] = nil
     player_count = player_count - 1
 end)
 
@@ -208,9 +209,6 @@ end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
 
 AddEvent("PlayerWin", function(winner)
-    
-    CallRemoteEvent(winner, "showWinner", winner)
-    
     local next_map = Random(1, avaible_map_count)
 
     print("Last map : "..last_map.." Next : "..next_map.."")
@@ -250,6 +248,7 @@ AddEvent("PlayerWin", function(winner)
         if v ~= winner then
             CallRemoteEvent(v, "PlayerIsLooser")
         end
+        CallRemoteEvent(winner, "showWinner", winner)
 
         Delay(8000, function()
             SetPlayerHealth(v, 0)
