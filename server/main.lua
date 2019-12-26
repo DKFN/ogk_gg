@@ -6,8 +6,9 @@ player_count = 0
 -- current_map = "armory"
 -- current_map = "western"
 -- current_map = "port"
-current_map = "port_small"
+-- current_map = "prison_yard"
 -- current_map = "gg2"
+current_map = "port_small"
 
 avaible_map = {"western", "armory", "port", "port_small"} -- "paradise_ville", "chemistry"}
 avaible_map_count = 4
@@ -27,7 +28,7 @@ function assign_spawn(player)
     if OGK_GG_DEBUG then
         AddPlayerChat(player, "You are assigned spawn #".. spawn_idx.. "")
     end
-    -- local assigned_spawn = spawn_location[Random(4, 4)]
+    -- local assigned_spawn = spawn_location[Random(1, 1)]
     
     SetPlayerSpawnLocation(player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3] + (player * 10), assigned_spawn[4])
 end
@@ -39,6 +40,7 @@ function OnPackageStart()
 	LoadMapFromIni("packages/ogk_gg/maps/western_doorblock1.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/western_doorblock2.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/western_doorblock3.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/western_doorblock4.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/ports1.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/ports2.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/ports_murs.ini")
@@ -248,7 +250,6 @@ AddEvent("PlayerWin", function(winner)
         if v ~= winner then
             CallRemoteEvent(v, "PlayerIsLooser")
         end
-        CallRemoteEvent(winner, "showWinner", winner)
 
         Delay(8000, function()
             SetPlayerHealth(v, 0)
