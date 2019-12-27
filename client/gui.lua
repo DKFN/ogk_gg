@@ -15,6 +15,7 @@ AddRemoteEvent("NotifyPlayerWin", function(winner, x, y, z)
 	OpenScoreboard()
 	SetWebVisibility(hud, WEB_HIDDEN)
 	SetWebVisibility(scoreboard, WEB_VISIBLE)
+    ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
 end)
 
 function ThrowFirework(x, y, z)

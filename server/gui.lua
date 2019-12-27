@@ -23,15 +23,16 @@ function GetWeaponName(player)
 	local tmp_weapon = ""
 	local tmp_next = ""
 
-	tmp_weapon = Ladder.getWeaponName(tmp) 
-	if(tmp ~= Ladder.getLevelMax()) then
-		tmp_next = Ladder.getWeaponName(tmp + 1)
-	else
-		tmp_next = "WIN"
+	if tmp ~= 0 then
+		tmp_weapon = Ladder.getWeaponName(tmp) 
+		if(tmp ~= Ladder.getLevelMax()) then
+			tmp_next = Ladder.getWeaponName(tmp + 1)
+		else
+			tmp_next = "WIN"
+		end
+
+		CallRemoteEvent(player, "SetUIData", tmp_weapon, tmp_next, current_map)
 	end
-
-	CallRemoteEvent(player, "SetUIData", tmp_weapon, tmp_next, current_map)
-
 
 end
 AddRemoteEvent("GetWeaponName", GetWeaponName)

@@ -1,4 +1,4 @@
-OGK_GG_DEBUG = false
+OGK_GG_DEBUG = true
 
 players = {}
 player_count = 0
@@ -6,12 +6,13 @@ player_count = 0
 -- current_map = "armory"
 -- current_map = "western"
 -- current_map = "port"
-current_map = "port_small"
+-- current_map = "spawn_zone"
 -- current_map = "gg2"
+current_map = "trucks_center"
 
-avaible_map = {"western", "armory", "port", "port_small"} -- "paradise_ville", "chemistry"}
-avaible_map_count = 4
-last_map = 4
+avaible_map = {"western", "armory", "port", "port_small", "trucks_center"} -- "paradise_ville", "chemistry"}
+avaible_map_count = 5
+last_map = 5
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
@@ -20,14 +21,14 @@ function assign_spawn(player)
     
     if spawn_idx == p["last_spawn_index"] then
         print("Reassigning spawn ....")
-        assign_spawn(player)
-        return
+        -- assign_spawn(player)
+        -- return
     end
     p["last_spawn_index"] = spawn_idx
     if OGK_GG_DEBUG then
         AddPlayerChat(player, "You are assigned spawn #".. spawn_idx.. "")
     end
-    -- local assigned_spawn = spawn_location[Random(4, 4)]
+    local assigned_spawn = spawn_location[Random(1, 1)]
     
     SetPlayerSpawnLocation(player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3] + (player * 10), assigned_spawn[4])
 end
@@ -39,18 +40,22 @@ function OnPackageStart()
 	LoadMapFromIni("packages/ogk_gg/maps/western_doorblock1.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/western_doorblock2.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/western_doorblock3.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/western_doorblock4.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/ports1.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/ports2.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/ports_murs.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/port_objects.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/port_small.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/spawn_zone.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/trucks.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/trucks2.ini")
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
 -- This function is responsible to check synchronisation state between client and server because Talos broke something T_T
 AddRemoteEvent("PlayerCheckWeaponSynchro", function(player, weapon, equipped_slot)
     local weaponid = players[player].weapon
-    if Ladder.getWeaponId(weaponid) ~= weapon then
+    if weaponid ~= 0 and Ladder.getWeaponId(weaponid) ~= weapon then
         RefreshWeapons(player)
         -- print("Refreshing weapons for player " .. player .. " Supposed weapon : " .. weapon .. " Current : " .. weaponid)
     end
@@ -87,25 +92,26 @@ end
 -- This function waits until the plays does not AIM and will then change the level of the player
 function OnPlayerDeath(player, instigator)
     SetPlayerSpectate(player, true)
-    assign_spawn(player)
-    for _, plyr in pairs(GetAllPlayers()) do
-        local ply_weapon = players[instigator].weapon
-        if player == instigator then
-            ply_weapon = 0
+    local player_data = players[player]
+    if player_data and player_data.ingame == true then
+        assign_spawn(player)
+        for _, plyr in pairs(GetAllPlayers()) do
+            local ply_weapon = players[instigator].weapon
+            if player == instigator then
+                ply_weapon = 0
+            end
+            CallRemoteEvent(plyr, "AddFrag", GetPlayerName(instigator), ply_weapon, GetPlayerName(player))
         end
-        CallRemoteEvent(plyr, "AddFrag", GetPlayerName(instigator), ply_weapon, GetPlayerName(player))
-    end
-    
-    players[player].deaths = players[player].deaths + 1
-    -- Prevents suicide
-    if player == instigator then
-        return 
-    end
+        
+        players[player].deaths = players[player].deaths + 1
+        -- Prevents suicide
+        if player == instigator then
+            return 
+        end
 
-    players[instigator].kills = players[instigator].kills + 1
-
-    -- Do not call 
-    level_up(instigator)
+        players[instigator].kills = players[instigator].kills + 1
+        level_up(instigator)
+    end
 end
 
 AddEvent("OnPlayerDeath", OnPlayerDeath)
@@ -119,10 +125,10 @@ function OnPlayerJoin(ply)
     p["level"] = 0
     p["kills"] = 0
     p["deaths"] = 0
-    p["weapon"] = 1
+    p["weapon"] = 0
     p["id"] = ply
     p["victory"] = 0
-    p["fist_spawn"] = 1
+    p["ingame"] = false
     p["last_spawn_index"] = 0
     p["cloth"] = Random(2, 9)
 
@@ -142,33 +148,27 @@ function OnPlayerJoin(ply)
     players[ply]["fist_spawn"] = 1;
         
     SetPlayerRespawnTime(ply, 5000)
-    -- Initial spawn
-    assign_spawn(ply)
     
+    -- Initial spawn
+    -- assign_spawn(ply)
+    local initial_player_spawn = spawns["spawn_zone"][1]
+     SetPlayerSpawnLocation(ply, initial_player_spawn[1], initial_player_spawn[2], initial_player_spawn[3] + (ply * 10), initial_player_spawn[4])
+
     -- True spawn in the game, fixes jump in the ocean on slow connections
-    Delay(1500, function()
-        SetPlayerHealth(ply, 0)
-    end)
+    -- Delay(1500, function()
+    --     SetPlayerHealth(ply, 0)
+    -- end)
 end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
 
 AddEvent("OnPlayerQuit", function(player)
+    players[player] = nil
     player_count = player_count - 1
 end)
 
     
 function OnPlayerSpawn(playerid)
-    -- First spawn setup
-    if players[playerid]["fist_spawn"] == 1 then
-        SetPlayerPropertyValue(playerid, "weapons_name", 1, true)
-
-        players[playerid]["fist_spawn"] = 0;
-        Delay(700, function()
-            SetPlayerSpectate(playerid, true)
-            CallRemoteEvent(playerid, "PlayerChangeLevel", 1)
-        end)
-    end
-
+    -- TODO: This is not the great event to specify that
     local defaultCloth = 1
     -- Avoids nude players
     for _, v in ipairs(GetAllPlayers()) do
@@ -189,28 +189,41 @@ function OnPlayerSpawn(playerid)
     -- AddPlayerChat(playerid, "Anti Spawn Kill: actif")
 
     -- After spawn operations
-    Delay(50, function()
-        -- Changin weapons for player
-        local level = players[playerid].weapon
-        CallRemoteEvent(playerid, "PlayerChangeLevel", players[playerid].weapon) -- Affiche le niveau du joueur
-        SetPlayerWeapon(playerid, Ladder.getWeaponId(level), Ladder.getWeaponStartAmmo(level), true, 1, true)
+    if players[playerid]["ingame"] == true then
+        Delay(50, function()
+            -- Changin weapons for player
+            local level = players[playerid].weapon
+            CallRemoteEvent(playerid, "PlayerChangeLevel", players[playerid].weapon) -- Affiche le niveau du joueur
+            SetPlayerWeapon(playerid, Ladder.getWeaponId(level), Ladder.getWeaponStartAmmo(level), true, 1, true)
 
-        -- Exploit prevention (Thanks Jan)
-        SetPlayerWeapon(playerid, 1, 0, false, 2, false)
-        SetPlayerWeapon(playerid, 1, 0, false, 3, false)
-    end)
+            -- Exploit prevention (Thanks Jan)
+            SetPlayerWeapon(playerid, 1, 0, false, 2, false)
+            SetPlayerWeapon(playerid, 1, 0, false, 3, false)
+        end)
 
-    -- Anti spawn kill disable
-    Delay(2000, function()
-        SetPlayerHealth(playerid, 100)
-    end)
+        -- Anti spawn kill disable
+        Delay(2000, function()
+            SetPlayerHealth(playerid, 100)
+        end)
+    end
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
 
+AddRemoteEvent("PlayerReady", function(player)
+    if not players[player].ingame then
+        AddPlayerChat(player, "Received ready message")
+        SetPlayerHealth(player, 0)
+        SetPlayerSpectate(player, true)
+        assign_spawn(player)
+        players[player]["fist_spawn"] = 0;
+        players[player]["ingame"] = true;
+        players[player]["weapon"] = 1;
+        SetPlayerPropertyValue(player, "weapons_name", 1, true)
+        CallRemoteEvent(player, "PlayerChangeLevel", 1)
+    end
+end)
+
 AddEvent("PlayerWin", function(winner)
-    
-    CallRemoteEvent(winner, "showWinner", winner)
-    
     local next_map = Random(1, avaible_map_count)
 
     print("Last map : "..last_map.." Next : "..next_map.."")
@@ -224,9 +237,7 @@ AddEvent("PlayerWin", function(winner)
            CallEvent('PlayerWin', winner)
            return
         end
-        last_map = next_map
-
-        
+        last_map = next_map   
     else
         CallEvent('PlayerWin', winner)
         return
