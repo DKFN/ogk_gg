@@ -3,6 +3,8 @@ local motd
 local function closeMotd()
     SetInputMode(INPUT_GAME)
     DestroyWebUI(motd)
+    CallRemoteEvent("PlayerReady")
+    
 end
 AddEvent("CloseMotd",  closeMotd)
 
@@ -11,7 +13,11 @@ function MOTDInit()
     LoadWebFile(motd, "http://asset/ogk_gg/gui/motd.html")
     SetWebAlignment(motd, 0.0, 0.0)
     SetWebAnchors(motd, 0.0, 0.0, 1.0, 1.0)
-    SetWebVisibility(motd, WEB_VISIBLE)
+    
+    Delay(1500, function()
+        SetWebVisibility(motd, WEB_VISIBLE)
+    end)
+
     SetInputMode(motd, INPUT_GAMEANDUI)
 
     Delay(20000, closeMotd)

@@ -20,7 +20,7 @@ spawns["western"][10] = {-76897.6171875, -162373.875, 3776.4736328125, 0}
 spawns["western"][11] = {-76217.65625, -160574.078125, 3429.8293457031, 0}
 spawns["western"][12] = {-80027.7890625, -165668.4375, 3222.1259765625, 0}
 spawns_max["western"] = 12
-map_min_players["western"] = 4
+map_min_players["western"] = 6
 
 
 -- Mapped maps
@@ -49,7 +49,7 @@ spawns["port"][13] = { 38916.32, 199426.35, 550.94, 0 }
 spawns["port"][14] = { 40670.05, 199346.79, 550.94, 0 }
 spawns["port"][15] = { 37043.66, 206222.75, 565.97, 0 }
 spawns_max["port"] = 15
-map_min_players["port"] = 4
+map_min_players["port"] = 6
 
 spawns["port_small"] = {}
 spawns["port_small"][1] = { 44147.490, 204403.5500, 562.700, 0 }
@@ -60,6 +60,13 @@ spawns_max["port_small"] = 4
 map_min_players["port_small"] = 1
 
 
+-- Player Wait zone outside of game
+spawns["spawn_zone"] = {}
+spawns["spawn_zone"][1] = { 18483.21875, 140415.296875, 1556.962, 160 }
+spawns_max["spawn_zone"] = 1
+map_min_players["spawn_zone"] = 1
+-- End of player wait time
+
 -- Mapped maps
 spawns["gg2"] = {}
 spawns["gg2"][1] = { 164173.703125, -163128.578125, 1914.5045166016, 0 }
@@ -68,16 +75,21 @@ map_min_players["gg2"] = 1
 
 -- Proposal maps
 spawns["paradise_ville"] = {}
-spawns["paradise_ville"][1] = { 42824.6914, 134416.125, 1567.509277 }
+spawns["paradise_ville"][1] = { 42824.6914, 134416.125, 1567.509277, 0 }
 spawns_max["paradise_ville"] = 1
 map_min_players["paradise_ville"] = 1
 
-spawns["chemistry"] = {}
-spawns["chemistry"][1] = { 17655.6113, 132438.515625, 1555.963867 }
-spawns_max["chemistry"] = 1
-map_min_players["chemistry"] = 1
+spawns["trucks_center"] = {}
+spawns["trucks_center"][1] = { 17655.6113, 132438.515625, 1555.963867, 0 }
+spawns["trucks_center"][2] = { 15831.0, 137311.9, 1556.963867, 0 }
+spawns["trucks_center"][3] = { 15856.0, 134755.0, 1556.963867, 0 }
+spawns["trucks_center"][4] = { 19876.0, 132388.0, 1556.963867, 0 }
+spawns["trucks_center"][5] = { 15697.0, 133555.0, 1574.963867, 0 }
+spawns["trucks_center"][6] = { 17737.0, 136405.0, 1556.963867, 0 }
+spawns_max["trucks_center"] = 6
+map_min_players["trucks_center"] = 3
 
 spawns["prison_yard"] = {}
-spawns["prison_yard"][1] = { 178002.09375, 67944.6944, 1528.15002441 }
+spawns["prison_yard"][1] = { 178002.09375, 67944.6944, 1528.15002441, 0 }
 spawns_max["prison_yard"] = 1
 map_min_players["prison_yard"] = 1
