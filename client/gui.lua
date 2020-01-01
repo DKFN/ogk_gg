@@ -34,6 +34,7 @@ function OnKeyPress(key)
 	if key == "Tab" then
 		OpenScoreboard()
 		SetWebVisibility(hud, WEB_HIDDEN)
+		SetWebVisibility(leaderboard, WEB_HIDDEN)
 	end
 
 	if OGK_GG_DEBUG then
@@ -48,6 +49,7 @@ AddEvent("OnKeyPress", OnKeyPress)
 function OnKeyRelease(key)
 	if key == "Tab" then
 		SetWebVisibility(hud, WEB_VISIBLE)
+		SetWebVisibility(leaderboard, WEB_VISIBLE)
 		SetWebVisibility(scoreboard, WEB_HIDDEN)
 	end
 end
@@ -62,6 +64,7 @@ function OnPackageStart()
 	ShowHealthHUD(false)
 	ShowWeaponHUD(false)
 	
+	GameLeaderboardInit()
 	ScoreboardInit()
 	HUDInit()
 	

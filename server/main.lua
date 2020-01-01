@@ -209,6 +209,43 @@ function OnPlayerSpawn(playerid)
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
 
+-- Leaderboard
+AddEvent("OnPlayerSteamAuth", function(playerid)
+    CallEvent("GetPlayerSummaryInfo", playerid)
+end)
+
+-- Timer that notifies all client of changes for the leaderboard
+function fetchPlayerInformations(playerId, requester)
+    local player = players[playerId]
+    if player then
+        CallRemoteEvent(requester, "LeaderboardReceivePlayerAvatar", playerId, player.image)
+    end
+end
+
+AddRemoteEvent("PollPlayerAvatars", function(playerid)
+    print("Received an order to poll all avatars")
+    for _, v in ipairs(GetAllPlayers()) do
+        fetchPlayerInformations(v, playerid)
+    end
+end)
+
+
+AddRemoteEvent("PollPlayerStats", function(playerid)
+    print("Received an order to poll all stats")
+    for _, v in ipairs(GetAllPlayers()) do
+        local player = players[v]
+        if player then
+            CallRemoteEvent(playerid, "LeaderboardReceivePlayerStats", v, json.stringify({
+                lvl = player.weapon,
+                country = player.country,
+                name = GetPlayerName(v),
+                id = v
+            }))
+        end
+    end
+end)
+
+
 AddRemoteEvent("PlayerReady", function(player)
     if not players[player].ingame then
         AddPlayerChat(player, "Received ready message")

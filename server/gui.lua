@@ -13,6 +13,8 @@ function GetScoreBoardData(player)
 			}
 		end
 	end
+
+	print("Sending scoreboard data")
 	CallRemoteEvent(player, "SetScoreBoardData", serverName, PlayerTable, current_map)
 end
 AddRemoteEvent("GetScoreBoardData", GetScoreBoardData)

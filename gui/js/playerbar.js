@@ -38,13 +38,6 @@ function RefreshPlayerBar(health, ammo, weapon, weapon_next, mapName, armor) {
 
     const progressBar = document.getElementById("levelProgress");
     progressBar.value = armor;
-
-    if (ammo === 0) {
-        warnMagazine.style.display = "block";
-    } else {
-        warnMagazine.style.display = "none";
-    }
-
     document.getElementById("mapName").innerHTML = mapName;
     
     weaponName.innerHTML = weapon;

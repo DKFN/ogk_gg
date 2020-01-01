@@ -19,7 +19,9 @@ end
 AddRemoteEvent("AddFrag", AddFrag) 
 
 function PlayerChangeLevel(newLevel)
-	ExecuteWebJS(hud, "ChangePlayerLevel('"..newLevel.."')")
+	if hud then
+		ExecuteWebJS(hud, "ChangePlayerLevel('"..newLevel.."')")	
+	end
 end
 AddRemoteEvent("PlayerChangeLevel", PlayerChangeLevel)
 
@@ -36,8 +38,9 @@ function SetUIData(weapon_name, weapon_next, current_map)
 	local ply_health = GetPlayerHealth()
 	local weapon, ammo, inmag = GetPlayerWeapon()
 	local armor = GetPlayerArmor()	
-
-	ExecuteWebJS(hud, "RefreshPlayerBar("..ply_health..","..inmag.. ",'" .. weapon_name .. "','" .. weapon_next .. "','" .. current_map .. "'," .. armor .. ")")
+	if hud then
+		ExecuteWebJS(hud, "RefreshPlayerBar("..ply_health..","..inmag.. ",'" .. weapon_name .. "','" .. weapon_next .. "','" .. current_map .. "'," .. armor .. ")")
+	end
 end
 AddRemoteEvent("SetUIData", SetUIData)
 
