@@ -1,3 +1,6 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz / Alcayezz
+
 -- Pseudo constructor for a pseudo object
 function HUDInit() 
     hud = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
@@ -32,6 +35,7 @@ end)
 AddRemoteEvent("GameRestarting", function()
 	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[WARNING]</span> GAME STARTING')")
 	SetWebVisibility(hud, WEB_VISIBLE)
+	SetWebVisibility(leaderboard, WEB_VISIBLE)
 end)
 
 function SetUIData(weapon_name, weapon_next, current_map)

@@ -1,3 +1,6 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
+
 OGK_GG_DEBUG = true
 
 function setClothe(player, clothId)

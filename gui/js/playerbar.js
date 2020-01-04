@@ -1,3 +1,6 @@
+// Onset Gaming Kommunity -- Gungame
+// Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz 
+
 function blink(animIn, animOut) {
     animIn();
     setTimeout(animOut, 200);

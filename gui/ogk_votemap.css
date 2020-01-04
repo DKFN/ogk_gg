@@ -1,0 +1,50 @@
+#votemapContent {
+    margin: 200px;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.maps-container {
+    display: flex;
+    justify-content: center;
+}
+
+.map-image {
+    font-family: smb;
+    font-size: 24px;
+    color: orange;
+    vertical-align: baseline;
+    height: 64px;
+    width: 150px;
+    background-size: contain;
+}
+
+.map-item {
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid black;
+    background-color: black;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.map-item:hover {
+    border: 1px solid white;
+}
+
+
+.map-item:active .active {
+    border: 1px solid green;
+    color: green;
+}
+
+.map-name {
+    font-family: atari;
+    color: orange;
+    margin-top: 8px;
+}
+
+.locked {
+    opacity: 0.3;
+}

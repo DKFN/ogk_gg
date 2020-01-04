@@ -1,4 +1,5 @@
-
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
 AddRemoteEvent("PlayLevelUp", function()
     local sound = CreateSound("sounds/smb/smb_powerup.wav")
     SetSoundVolume(sound, 0.3)

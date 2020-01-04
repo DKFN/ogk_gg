@@ -1,3 +1,6 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz 
+
 -- Hard coded player state, next step create a user object which have a state and a GUI
 local Player = {state = "game"}
 
@@ -14,6 +17,7 @@ AddRemoteEvent("NotifyPlayerWin", function(winner, x, y, z)
 	ThrowFirework(x, y, z)
 	OpenScoreboard()
 	SetWebVisibility(hud, WEB_HIDDEN)
+    SetWebVisibility(leaderboard, WEB_VISIBLE)
 	SetWebVisibility(scoreboard, WEB_VISIBLE)
     ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
 end)
@@ -61,11 +65,11 @@ end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn)
 
 function OnPackageStart()
+	ScoreboardInit()
 	ShowHealthHUD(false)
 	ShowWeaponHUD(false)
 	
 	GameLeaderboardInit()
-	ScoreboardInit()
 	HUDInit()
 	
 	-- Someone found fix, ask discord

@@ -1,3 +1,6 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
+
 -- 800 = basic health kit
 -- 807 = pills for armor like (maybe find another model)
 

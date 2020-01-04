@@ -1,3 +1,6 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
+
 -- http_set_user_agent("OGK_GG/0.2")
 
 -- Synchronously send a get request to http://www.httpbin.org/get and print the body

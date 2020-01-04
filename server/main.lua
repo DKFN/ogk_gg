@@ -1,3 +1,6 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
+
 OGK_GG_DEBUG = true
 
 players = {}
@@ -209,42 +212,13 @@ function OnPlayerSpawn(playerid)
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
 
--- Leaderboard
+-- Player avatars Leaderboard
 AddEvent("OnPlayerSteamAuth", function(playerid)
     CallEvent("GetPlayerSummaryInfo", playerid)
+    Delay(10000, function()
+        CallEvent("PushPlayerAvatars")
+    end)
 end)
-
--- Timer that notifies all client of changes for the leaderboard
-function fetchPlayerInformations(playerId, requester)
-    local player = players[playerId]
-    if player then
-        CallRemoteEvent(requester, "LeaderboardReceivePlayerAvatar", playerId, player.image)
-    end
-end
-
-AddRemoteEvent("PollPlayerAvatars", function(playerid)
-    print("Received an order to poll all avatars")
-    for _, v in ipairs(GetAllPlayers()) do
-        fetchPlayerInformations(v, playerid)
-    end
-end)
-
-
-AddRemoteEvent("PollPlayerStats", function(playerid)
-    print("Received an order to poll all stats")
-    for _, v in ipairs(GetAllPlayers()) do
-        local player = players[v]
-        if player then
-            CallRemoteEvent(playerid, "LeaderboardReceivePlayerStats", v, json.stringify({
-                lvl = player.weapon,
-                country = player.country,
-                name = GetPlayerName(v),
-                id = v
-            }))
-        end
-    end
-end)
-
 
 AddRemoteEvent("PlayerReady", function(player)
     if not players[player].ingame then
@@ -261,6 +235,7 @@ AddRemoteEvent("PlayerReady", function(player)
 end)
 
 AddEvent("PlayerWin", function(winner)
+    -- Electing random maps
     local next_map = Random(1, avaible_map_count)
 
     print("Last map : "..last_map.." Next : "..next_map.."")
@@ -279,9 +254,9 @@ AddEvent("PlayerWin", function(winner)
         CallEvent('PlayerWin', winner)
         return
     end
-
-    AddPlayerChatAll("Next map is : " .. avaible_map[next_map])
+    AddPlayerChatAll("Next map if no vote is : " .. avaible_map[next_map])
     
+    -- Notify player win 
     local winner_name = GetPlayerName(winner)
 
     players[winner].victory = players[winner].victory + 1 -- add 1 to player victory count
@@ -292,19 +267,23 @@ AddEvent("PlayerWin", function(winner)
 
     spawnPickupsItems()
 
+    
+    Delay(10000, function()
+        CallEvent("StartVoteMap")
+    end)
+
     for _, v in ipairs(GetAllPlayers()) do
+        SetPlayerSpectate(v, true)
         CallRemoteEvent(v, "NotifyPlayerWin", winner_name, x, y, z)
 
         if v ~= winner then
             CallRemoteEvent(v, "PlayerIsLooser")
         end
 
-        Delay(8000, function()
-            SetPlayerHealth(v, 0)
+        Delay(10000, function()
             players[v].kills = 0
             players[v].deaths = 0
             players[v].weapon = 1
-            CallRemoteEvent(v, "GameRestarting")
         end)
     end
 end)
