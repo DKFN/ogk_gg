@@ -1,3 +1,6 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz 
+
 -- Hard coded player state, next step create a user object which have a state and a GUI
 local Player = {state = "game"}
 
@@ -14,6 +17,7 @@ AddRemoteEvent("NotifyPlayerWin", function(winner, x, y, z)
 	ThrowFirework(x, y, z)
 	OpenScoreboard()
 	SetWebVisibility(hud, WEB_HIDDEN)
+    SetWebVisibility(leaderboard, WEB_VISIBLE)
 	SetWebVisibility(scoreboard, WEB_VISIBLE)
     ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
 end)
@@ -34,12 +38,14 @@ function OnKeyPress(key)
 	if key == "Tab" then
 		OpenScoreboard()
 		SetWebVisibility(hud, WEB_HIDDEN)
+		SetWebVisibility(leaderboard, WEB_HIDDEN)
 	end
 
 	if OGK_GG_DEBUG then
 		-- Map editor toogle down HUD
 		if key == "O" then
 			SetWebVisibility(hud, WEB_HIDDEN)
+			SetWebVisibility(leaderboard, WEB_HIDDEN)
 		end
 	end
 end
@@ -48,6 +54,7 @@ AddEvent("OnKeyPress", OnKeyPress)
 function OnKeyRelease(key)
 	if key == "Tab" then
 		SetWebVisibility(hud, WEB_VISIBLE)
+		SetWebVisibility(leaderboard, WEB_VISIBLE)
 		SetWebVisibility(scoreboard, WEB_HIDDEN)
 	end
 end
@@ -59,14 +66,15 @@ end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn)
 
 function OnPackageStart()
+	ScoreboardInit()
 	ShowHealthHUD(false)
 	ShowWeaponHUD(false)
 	
-	ScoreboardInit()
+	GameLeaderboardInit()
 	HUDInit()
 	
 	-- Someone found fix, ask discord
-	-- here is the fix
+	-- here is the fix thx Logic
 	EnableFirstPersonCamera(true)
 	SetNearClipPlane(15)
 	

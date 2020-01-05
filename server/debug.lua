@@ -1,3 +1,6 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
+
 local function roundWasiedBogoss(number)
     return number % 1 >= 0.5 and math.ceil(number) or math.floor(number)
   end

@@ -1,3 +1,6 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
+
 OGK_GG_DEBUG = true
 
 function setClothe(player, clothId)
@@ -5,7 +8,6 @@ function setClothe(player, clothId)
 end
 AddRemoteEvent("setClothe", setClothe) 
 
--- TODO : Put in anorther package to avoid wide crashing
 function notifyServerOfCurrentWeapon()
 	local equipped_slot = GetPlayerEquippedWeaponSlot()
 	local weapon, ammo = GetPlayerWeapon() -- Do not put equipped slot as we swap users slot as hack
@@ -27,7 +29,7 @@ function weapon_refresher()
 		else 
 			if equipped_slot ~= 1 then
 				-- Delays allows usr enough time to rpess twice
-				Delay(300, function() 
+				Delay(300, function()
 					if not IsShiftPressed() then
 						CallRemoteEvent("SprintStopped")
 					end
@@ -44,7 +46,7 @@ end
 function ui_refresher()
 	CreateTimer(function()
 		CallRemoteEvent("GetWeaponName")
-	end, 200) -- 15ms is a bit too much
+	end, 1000) -- 15ms is a bit too much
 end
 
 
@@ -52,6 +54,6 @@ AddEvent("OnPackageStart", function()
 	weapon_refresher()
 	ui_refresher()
 	MOTDInit()
-	EnableSnowParticles(true)	
-	SetLandscapeSnowAlpha(1)
+	-- EnableSnowParticles(true)	
+	-- SetLandscapeSnowAlpha(1)
 end)

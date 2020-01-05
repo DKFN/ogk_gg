@@ -1,3 +1,6 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
+
 function GetScoreBoardData(player) 
 	local serverName = GetServerName()
 	local PlayerTable = { }
@@ -13,6 +16,8 @@ function GetScoreBoardData(player)
 			}
 		end
 	end
+
+	print("Sending scoreboard data")
 	CallRemoteEvent(player, "SetScoreBoardData", serverName, PlayerTable, current_map)
 end
 AddRemoteEvent("GetScoreBoardData", GetScoreBoardData)

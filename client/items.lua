@@ -1,3 +1,6 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
+
 local function GetViewPoint(maxdistance)
     local width, height = GetScreenSize()
     local sc1, cX, cY, cZ = ScreenToWorld(width / 2, height / 2)

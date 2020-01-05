@@ -1,3 +1,6 @@
+// Onset Gaming Kommunity -- Gungame
+// Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz 
+
 function ServerVersion(servername) {
     document.getElementById("serverAndVersion").innerHTML = '<b>' + servername + '</b>';
 }
