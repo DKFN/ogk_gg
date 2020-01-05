@@ -1,9 +1,8 @@
---[[
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
 
-This script contains the initial weapon configuration for the client.
-Addtional configuration on the server is necessary.
+OGK_GG_DEBUG = true
 
-]]--
 function setClothe(player, clothId)
 	SetPlayerClothingPreset(player, clothId)
 end
@@ -16,23 +15,45 @@ function notifyServerOfCurrentWeapon()
 end
 
 -- Watchers
+local shift_delay_id
 function weapon_refresher()
-	Delay(30, function()
+	CreateTimer(function()
+		-- Sprint fixture, put into own function
+		-- Fixes the unabillity to sprint + avoids player from chaging weapon to fists
+		local equipped_slot = GetPlayerEquippedWeaponSlot()
+		if IsShiftPressed() then
+			if equipped_slot == 1 then
+				CallRemoteEvent("Sprint")
+				CallEvent("WarnShiftToRun")
+			end
+		else 
+			if equipped_slot ~= 1 then
+				-- Delays allows usr enough time to rpess twice
+				Delay(300, function()
+					if not IsShiftPressed() then
+						CallRemoteEvent("SprintStopped")
+					end
+				end)
+			end
+		end
 		notifyServerOfCurrentWeapon()
-        weapon_refresher()
-    end)
+    end, 70)
+end
+
+function sprint_watchter()
 end
 
 function ui_refresher()
-	Delay(5, function()
+	CreateTimer(function()
 		CallRemoteEvent("GetWeaponName")
-		ui_refresher()
-	end)
+	end, 1000) -- 15ms is a bit too much
 end
 
 
 AddEvent("OnPackageStart", function()
 	weapon_refresher()
 	ui_refresher()
+	MOTDInit()
+	-- EnableSnowParticles(true)	
+	-- SetLandscapeSnowAlpha(1)
 end)
-

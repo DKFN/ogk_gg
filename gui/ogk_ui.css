@@ -53,3 +53,8 @@
 .feature-pad {
     margin-right: 40px;
 }
+
+#playertable {
+    max-width: 90%;
+    margin-left: 5%;
+}

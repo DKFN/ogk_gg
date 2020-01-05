@@ -1,69 +1,36 @@
-local hud
-local scoreboard
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz 
 
--- Server Sent Events
-function SetScoreBoardData(servername, players) 
-	ExecuteWebJS(scoreboard, "ServerVersion('"..servername.."')")
-	ExecuteWebJS(scoreboard, "RemovePlayers()")
+-- Hard coded player state, next step create a user object which have a state and a GUI
+local Player = {state = "game"}
 
-	-- table.sort(players, function(ply1, ply2)
-	-- 	return ply1.kills > ply2.kills
-	-- end)
-
-	for k, v in pairs(players) do
-		ExecuteWebJS(scoreboard, "AddPlayer('"..v[1].."', "..v[2]..", "..v[3]..", "..v[4]..")")
-	end
-end
-AddRemoteEvent("SetScoreBoardData", SetScoreBoardData)
-
-
-
-function AddFrag(killer, weapon, victim)
-	ExecuteWebJS(hud, "killfeed.registerKill('"..killer.."', '"..victim.."', '===>')")
-end
-AddRemoteEvent("AddFrag", AddFrag) 
-
-function UpdatePlayerInfo(level) 
-	AddPlayerChat(level)
+function UpdatePlayerInfo(level)
 	local weapon = GetPlayerWeapon()
 end
 AddRemoteEvent("UpdatePlayerInfo", UpdatePlayerInfo) 
 
-function PlayerChangeLevel(newLevel)
-	AddPlayerChat(newLevel)
-	ExecuteWebJS(hud, "ChangePlayerLevel('"..newLevel.."')")
-end
-AddRemoteEvent("PlayerChangeLevel", PlayerChangeLevel)
-
-AddRemoteEvent("WarnDesynchro", function()
-	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[LEVEL UP]</span>')")
-end)
-
-AddRemoteEvent("GameRestarting", function()
-	ExecuteWebJS(hud, "Warn('<span style=\"color:orange\">[WARNING]</span> GAME STARTING')")
-	SetWebVisibility(hud, WEB_VISIBLE)
-end)
-
 AddRemoteEvent("WelcomeToServer", function()
 	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
-	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
-	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
-	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
-	AddPlayerChat('TELEPORTATION DANS LA PARTIE')
 end)
 
-AddRemoteEvent("NotifyPlayerWin", function(winner)
+AddRemoteEvent("NotifyPlayerWin", function(winner, x, y, z)
+	ThrowFirework(x, y, z)
 	OpenScoreboard()
 	SetWebVisibility(hud, WEB_HIDDEN)
-	ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
-	Delay(8000, function()
-		SetWebVisibility(scoreboard, WEB_HIDDEN) 
-	end)
+    SetWebVisibility(leaderboard, WEB_VISIBLE)
+	SetWebVisibility(scoreboard, WEB_VISIBLE)
+    ExecuteWebJS(scoreboard, "PlayerWonGame('"..winner.."')")
 end)
+
+function ThrowFirework(x, y, z)
+	for i=1,12 do 
+		CreateFireworks(i, x, y, z + 600, 60.0 + i * 5.0, 0.0, 0.0)
+	end
+end
 
 function OpenScoreboard()
 	CallRemoteEvent("GetScoreBoardData")
-	SetWebVisibility(scoreboard, WEB_VISIBLE)
+	SetWebVisibility(scoreboard, WEB_HITINVISIBLE)
 end
 
 -- Client Sent Events
@@ -71,10 +38,15 @@ function OnKeyPress(key)
 	if key == "Tab" then
 		OpenScoreboard()
 		SetWebVisibility(hud, WEB_HIDDEN)
+		SetWebVisibility(leaderboard, WEB_HIDDEN)
 	end
 
-	if key == "O" then
-		SetWebVisibility(hud, WEB_HIDDEN)
+	if OGK_GG_DEBUG then
+		-- Map editor toogle down HUD
+		if key == "O" then
+			SetWebVisibility(hud, WEB_HIDDEN)
+			SetWebVisibility(leaderboard, WEB_HIDDEN)
+		end
 	end
 end
 AddEvent("OnKeyPress", OnKeyPress)
@@ -82,40 +54,27 @@ AddEvent("OnKeyPress", OnKeyPress)
 function OnKeyRelease(key)
 	if key == "Tab" then
 		SetWebVisibility(hud, WEB_VISIBLE)
+		SetWebVisibility(leaderboard, WEB_VISIBLE)
 		SetWebVisibility(scoreboard, WEB_HIDDEN)
 	end
 end
 AddEvent("OnKeyRelease", OnKeyRelease)
 
 function OnPlayerSpawn(playerid)
+	SetWebVisibility(scoreboard, WEB_HIDDEN)
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn)
 
-function SetUIData(weapon_name, weapon_next) 
-	local ply_health = GetPlayerHealth()
-	local weapon, ammo, inmag = GetPlayerWeapon()
-
-	ExecuteWebJS(hud, "RefreshPlayerBar("..ply_health..","..inmag.. ",'" .. weapon_name .. "','" .. weapon_next .. "')")
-end
-AddRemoteEvent("SetUIData", SetUIData)
-
 function OnPackageStart()
-	hud = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
-	LoadWebFile(hud, "http://asset/ogk_gg/gui/ui.html")
-	SetWebAlignment(hud, 0.0, 0.0)
-	SetWebAnchors(hud, 0.0, 0.0, 1.0, 1.0)
-	SetWebVisibility(hud, WEB_VISIBLE)
-
-	scoreboard = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
-	LoadWebFile(scoreboard, "http://asset/ogk_gg/gui/scoreboard.html")
-	SetWebAlignment(scoreboard, 0.0, 0.0)
-	SetWebAnchors(scoreboard, 0.0, 0.0, 1.0, 1.0)
-	SetWebVisibility(scoreboard, WEB_HIDDEN)
+	ScoreboardInit()
 	ShowHealthHUD(false)
 	ShowWeaponHUD(false)
-
+	
+	GameLeaderboardInit()
+	HUDInit()
+	
 	-- Someone found fix, ask discord
-	-- here is the fix
+	-- here is the fix thx Logic
 	EnableFirstPersonCamera(true)
 	SetNearClipPlane(15)
 	

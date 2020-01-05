@@ -1,16 +1,24 @@
+-- Onset Gaming Kommunity -- Gungame
+-- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
+
 function GetScoreBoardData(player) 
 	local serverName = GetServerName()
 	local PlayerTable = { }
 
 	for k, v in ipairs(GetAllPlayers()) do
-		PlayerTable[k] = {
-			GetPlayerName(v),
-			players[v].weapon,
-			players[v].kills,
-			players[v].deaths
-		}
+		if (players[v]~= nil) then
+			PlayerTable[k] = {
+				GetPlayerName(v),
+				players[v].weapon,
+				players[v].kills,
+				players[v].deaths,
+				players[v].victory
+			}
+		end
 	end
-	CallRemoteEvent(player, "SetScoreBoardData", serverName, PlayerTable)
+
+	print("Sending scoreboard data")
+	CallRemoteEvent(player, "SetScoreBoardData", serverName, PlayerTable, current_map)
 end
 AddRemoteEvent("GetScoreBoardData", GetScoreBoardData)
 
@@ -20,22 +28,37 @@ function GetWeaponName(player)
 	local tmp_weapon = ""
 	local tmp_next = ""
 
-	if(tmp ~= MAX_WEAPONS) then
-		
-		-- current weapon name
-		tmp_weapon = weapons_name[tmp]
-		
-		-- next weapon name
-		tmp_next = weapons_name[tmp + 1]
+	if tmp ~= 0 then
+		tmp_weapon = Ladder.getWeaponName(tmp) 
+		if(tmp ~= Ladder.getLevelMax()) then
+			tmp_next = Ladder.getWeaponName(tmp + 1)
+		else
+			tmp_next = "WIN"
+		end
 
-	else
-		tmp_weapon = "1 SHOT GUN"
-
-		tmp_next = "WIN"
+		CallRemoteEvent(player, "SetUIData", tmp_weapon, tmp_next, current_map)
 	end
-
-	CallRemoteEvent(player, "SetUIData", tmp_weapon, tmp_next)
-
 
 end
 AddRemoteEvent("GetWeaponName", GetWeaponName)
+
+local locks = {}
+-- Call When sprint mode is enabled
+local function EnableSprintMode(player) 
+	EquipPlayerWeaponSlot(player, 2)
+end
+AddRemoteEvent("Sprint", EnableSprintMode)
+
+local function DisableSprintMode(player)
+	if not locks[player] then
+		print("Slot refresh")
+		EquipPlayerWeaponSlot(player, 1)
+		locks[player] = true
+		Delay(500, function()
+			locks[player] = false
+		end)
+	end
+end
+AddRemoteEvent("SprintStopped", DisableSprintMode)
+
+

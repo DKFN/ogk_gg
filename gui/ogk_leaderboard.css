@@ -1,0 +1,32 @@
+.leaderboard_content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: white;
+    opacity: 0.7;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.leaderboard_row {
+    display: flex;
+    align-items: center;
+    background-color: black;
+    border: 2px solid green;
+    margin: 10px;
+    padding: 2px;
+    border-radius: 5px;
+    width: 150px;
+}
+
+.leaderboard_image {
+    margin-right: 10px;
+}
+
+.leaderboard_level {
+    font-size: 10px;
+}
+
+.leader {
+    border: 2px solid gold;
+}
