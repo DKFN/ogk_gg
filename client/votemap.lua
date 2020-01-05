@@ -17,14 +17,12 @@ AddRemoteEvent("InitVotemap", function()
 end)
 
 AddRemoteEvent("SendVotemapChoices", function(data)
-    AddPlayerChat("VotemapData "..data)
     Delay(1000, function()
         ExecuteWebJS(votemap, "ReceiveVotemapData('"..data.."')")
     end)
 end)
 
 AddRemoteEvent("VotemapVotesStatus", function(status)
-    AddPlayerChat("Status of vote : "..status)
     if votemap then
         ExecuteWebJS(votemap, "ReceiveVotesData('"..status.."')")
     end
@@ -39,4 +37,6 @@ AddRemoteEvent("VotemapStopVoteMap", function()
     SetWebVisibility(votemap, WEB_HIDDEN)
     DestroyWebUI(votemap)
     votemap = nil
+    SetInputMode(INPUT_GAME)
+    
 end)

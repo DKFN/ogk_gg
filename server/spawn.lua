@@ -61,6 +61,65 @@ spawns["port_small"][4] = { 43917.778, 200340.3125, 509.200, 0 }
 spawns_max["port_small"] = 4
 map_min_players["port_small"] = 1
 
+spawns["tropico"] = {}
+spawns["tropico"][1] = { -110019.0, 225094.0, 327.0, 90 }
+
+spawns["tropico"][2] = { 
+    -109550.0,
+    223632.0,
+    179.0,
+    180
+ }
+
+spawns["tropico"][3] = { 
+    -106712.0,
+    226676.0,
+    179.0,
+    180
+ }
+
+spawns["tropico"][4] = { 
+    -106946.0,
+    224033.0,
+    190.0,
+    180
+ }
+
+spawns_max["tropico"] = 4
+map_min_players["tropico"] = 1
+
+spawns["hangar"] = {}
+spawns["hangar"][1] = { 
+    -20424.0,
+    -30459.0,
+    2201.0,
+    0
+ }
+
+ spawns["hangar"][2] = { 
+    -16378.0,
+    -28885.0,
+    2201.0,
+    0
+ }
+
+spawns["hangar"][3] = { 
+    -15271.0,
+    -32003.0,
+    2201.0,
+    0
+}
+
+spawns["hangar"][4] = { 
+    -19692.0,
+    -33597.0,
+    2201.0,
+    0
+}
+
+ spawns_max["hangar"] = 4
+ map_min_players["hangar"] = 1
+
 
 -- Player Wait zone outside of game
 spawns["spawn_zone"] = {}

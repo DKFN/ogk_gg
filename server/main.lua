@@ -1,7 +1,7 @@
 -- Onset Gaming Kommunity -- Gungame
 -- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
 
-OGK_GG_DEBUG = true
+OGK_GG_DEBUG = false
 
 players = {}
 player_count = 0
@@ -11,9 +11,11 @@ player_count = 0
 -- current_map = "port"
 -- current_map = "spawn_zone"
 -- current_map = "gg2"
-current_map = "trucks_center"
+-- current_map = "trucks_center"
+current_map = "tropico"
+-- current_map = "hangar"
 
-avaible_map = {"western", "armory", "port", "port_small", "trucks_center"} -- "paradise_ville", "chemistry"}
+avaible_map = {"western", "armory", "port", "port_small", "trucks_center", "tropico"} -- "paradise_ville", "chemistry"}
 avaible_map_count = 5
 last_map = 5
 
@@ -24,14 +26,14 @@ function assign_spawn(player)
     
     if spawn_idx == p["last_spawn_index"] then
         print("Reassigning spawn ....")
-        -- assign_spawn(player)
-        -- return
+        assign_spawn(player)
+        return
     end
     p["last_spawn_index"] = spawn_idx
     if OGK_GG_DEBUG then
         AddPlayerChat(player, "You are assigned spawn #".. spawn_idx.. "")
     end
-    local assigned_spawn = spawn_location[Random(1, 1)]
+    -- local assigned_spawn = spawn_location[Random(1, 1]
     
     SetPlayerSpawnLocation(player, assigned_spawn[1], assigned_spawn[2], assigned_spawn[3] + (player * 10), assigned_spawn[4])
 end
@@ -52,6 +54,14 @@ function OnPackageStart()
 	LoadMapFromIni("packages/ogk_gg/maps/spawn_zone.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/trucks.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/trucks2.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/trucks3.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/tropico_walls.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/tropico_objects.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/tropicofixblocks.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/tropicofix2.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/hangar.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/hangarwalls.ini")
+	LoadMapFromIni("packages/ogk_gg/maps/hangar_spawns.ini")
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
@@ -66,13 +76,15 @@ end)
 
 -- Reassigns player weapon to current level weapon
 function RefreshWeapons(killer)
-    SetPlayerAnimation(killer, "STOP")
+    SetPlayerAnimation(killer, 0)
     local wpn = players[killer].weapon
 
     SetPlayerWeapon(killer, 1, 200, false, 1, false) -- Fixes the need to reload the weapon
+    SetPlayerAnimation(killer, 0)
 
     EquipPlayerWeaponSlot(killer, 2)
     SetPlayerWeapon(killer, Ladder.getWeaponId(wpn), Ladder.getWeaponStartAmmo(wpn), true, 1, true)
+    SetPlayerAnimation(killer, 0)
 
 end
 AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
@@ -120,8 +132,7 @@ end
 AddEvent("OnPlayerDeath", OnPlayerDeath)
 
 function OnPlayerJoin(ply)
-    player_count = player_count + 1
-    AddPlayerChatAll("Coucou! " .. GetPlayerName(ply).. " Total: " .. player_count)
+    AddPlayerChatAll("Hey ! " .. GetPlayerName(ply))
     
     -- initation du joueur de base
     p = {}
@@ -166,12 +177,11 @@ AddEvent("OnPlayerJoin", OnPlayerJoin)
 
 AddEvent("OnPlayerQuit", function(player)
     players[player] = nil
-    player_count = player_count - 1
 end)
 
     
 function OnPlayerSpawn(playerid)
-    -- TODO: This is not the great event to specify that
+    -- TODO: This is not the best event to specify that
     local defaultCloth = 1
     -- Avoids nude players
     for _, v in ipairs(GetAllPlayers()) do
@@ -205,7 +215,7 @@ function OnPlayerSpawn(playerid)
         end)
 
         -- Anti spawn kill disable
-        Delay(2000, function()
+        Delay(4000, function()            
             SetPlayerHealth(playerid, 100)
         end)
     end
@@ -234,28 +244,7 @@ AddRemoteEvent("PlayerReady", function(player)
     end
 end)
 
-AddEvent("PlayerWin", function(winner)
-    -- Electing random maps
-    local next_map = Random(1, avaible_map_count)
-
-    print("Last map : "..last_map.." Next : "..next_map.."")
-    if(next_map ~= last_map) then
-        current_map = avaible_map[next_map]
-        
-        local max_players_next = spawns_max[current_map]
-        local player_count = GetPlayerCount()
-
-        if max_players_next < player_count or map_min_players[current_map] > player_count then
-           CallEvent('PlayerWin', winner)
-           return
-        end
-        last_map = next_map   
-    else
-        CallEvent('PlayerWin', winner)
-        return
-    end
-    AddPlayerChatAll("Next map if no vote is : " .. avaible_map[next_map])
-    
+AddEvent("PlayerWin", function(winner)  
     -- Notify player win 
     local winner_name = GetPlayerName(winner)
 

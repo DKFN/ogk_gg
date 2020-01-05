@@ -1,7 +1,7 @@
 -- Onset Gaming Kommunity -- Gungame
 -- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
 function ScoreboardInit() 
-    scoreboard = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 60)
+    scoreboard = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 24)
 	LoadWebFile(scoreboard, "http://asset/ogk_gg/gui/scoreboard.html")
 	SetWebAlignment(scoreboard, 0.0, 0.0)
 	SetWebAnchors(scoreboard, 0.0, 0.0, 1.0, 1.0)

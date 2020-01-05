@@ -35,6 +35,9 @@
     "files": [
         "gui/images/ogk.png",
         "gui/images/maps/trucks_center.jpg",
+        "gui/images/maps/tropico.jpg",
+        "gui/images/maps/armory.jpg",
+        "gui/images/maps/port_small.jpg",
         "gui/images/loader.gif",
         "gui/fonts/edunline.ttf",
         "gui/fonts/smb.ttf",

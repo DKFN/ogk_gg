@@ -1,7 +1,6 @@
 -- Onset Gaming Kommunity -- Gungame
 -- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz / Alcayezz
 
--- Pseudo constructor for a pseudo object
 function HUDInit() 
     hud = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
 	LoadWebFile(hud, "http://asset/ogk_gg/gui/ui.html")

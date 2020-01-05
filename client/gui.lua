@@ -45,6 +45,7 @@ function OnKeyPress(key)
 		-- Map editor toogle down HUD
 		if key == "O" then
 			SetWebVisibility(hud, WEB_HIDDEN)
+			SetWebVisibility(leaderboard, WEB_HIDDEN)
 		end
 	end
 end
@@ -73,7 +74,7 @@ function OnPackageStart()
 	HUDInit()
 	
 	-- Someone found fix, ask discord
-	-- here is the fix
+	-- here is the fix thx Logic
 	EnableFirstPersonCamera(true)
 	SetNearClipPlane(15)
 	

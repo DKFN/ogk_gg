@@ -68,6 +68,27 @@ AddEvent("StopVoteMap", function()
         print("Votemap after vote results "..winnerMap)
 
         votes = {}
+    else
+        -- Electing random maps
+        local next_map = Random(1, avaible_map_count)
+
+        print("Last map : "..last_map.." Next : "..next_map.."")
+        if(next_map ~= last_map) then
+            current_map = avaible_map[next_map]
+            
+            local max_players_next = spawns_max[current_map]
+            local player_count = GetPlayerCount()
+
+            if max_players_next < player_count or map_min_players[current_map] > player_count then
+            CallEvent('PlayerWin', winner)
+            return
+            end
+            last_map = next_map   
+        else
+            CallEvent('PlayerWin', winner)
+            return
+        end
+        AddPlayerChatAll("Next map if no vote is : " .. avaible_map[next_map])
     end
     
     print("Restting")
