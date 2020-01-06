@@ -30,6 +30,7 @@
         "client/items.lua",
         "client/hud.lua",
         "client/motd.lua",
+        "client/weapons.lua",
         "client/sounds.lua"
     ],
     "files": [

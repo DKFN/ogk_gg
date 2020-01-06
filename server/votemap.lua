@@ -42,7 +42,6 @@ end)
 
 AddEvent("StopVoteMap", function()
     print("Votemap stopped electing ...")
-
     if #votes ~= 0 then
         local voteCounts = {}
         _.forEach(votes, function(mapName)
@@ -61,13 +60,10 @@ AddEvent("StopVoteMap", function()
                 winnerMap = k
             end
         end)
-
         -- TODO: Rework: Is bad there
         -- local electedNewMap = _.first)
         current_map = winnerMap
         print("Votemap after vote results "..winnerMap)
-
-        votes = {}
     else
         -- Electing random maps
         local next_map = Random(1, avaible_map_count)
@@ -80,12 +76,12 @@ AddEvent("StopVoteMap", function()
             local player_count = GetPlayerCount()
 
             if max_players_next < player_count or map_min_players[current_map] > player_count then
-            CallEvent('PlayerWin', winner)
-            return
+                CallEvent('StopVoteMap')
+                return
             end
             last_map = next_map   
         else
-            CallEvent('PlayerWin', winner)
+            CallEvent('StopVoteMap')
             return
         end
         AddPlayerChatAll("Next map if no vote is : " .. avaible_map[next_map])

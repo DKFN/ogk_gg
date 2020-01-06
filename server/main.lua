@@ -1,7 +1,7 @@
 -- Onset Gaming Kommunity -- Gungame
 -- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
 
-OGK_GG_DEBUG = false
+OGK_GG_DEBUG = true
 
 players = {}
 player_count = 0
@@ -16,8 +16,8 @@ current_map = "tropico"
 -- current_map = "hangar"
 
 avaible_map = {"western", "armory", "port", "port_small", "trucks_center", "tropico"} -- "paradise_ville", "chemistry"}
-avaible_map_count = 5
-last_map = 5
+avaible_map_count = 6
+last_map = 6
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
@@ -65,12 +65,11 @@ function OnPackageStart()
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
--- This function is responsible to check synchronisation state between client and server because Talos broke something T_T
+-- This function is responsible to check synchronisation state between client and server
 AddRemoteEvent("PlayerCheckWeaponSynchro", function(player, weapon, equipped_slot)
     local weaponid = players[player].weapon
     if weaponid ~= 0 and Ladder.getWeaponId(weaponid) ~= weapon then
         RefreshWeapons(player)
-        -- print("Refreshing weapons for player " .. player .. " Supposed weapon : " .. weapon .. " Current : " .. weaponid)
     end
 end)
 
@@ -167,16 +166,12 @@ function OnPlayerJoin(ply)
     -- assign_spawn(ply)
     local initial_player_spawn = spawns["spawn_zone"][1]
      SetPlayerSpawnLocation(ply, initial_player_spawn[1], initial_player_spawn[2], initial_player_spawn[3] + (ply * 10), initial_player_spawn[4])
-
-    -- True spawn in the game, fixes jump in the ocean on slow connections
-    -- Delay(1500, function()
-    --     SetPlayerHealth(ply, 0)
-    -- end)
 end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
 
 AddEvent("OnPlayerQuit", function(player)
     players[player] = nil
+    CallRemoteEvent("PlayerQuit", player)
 end)
 
     
@@ -193,7 +188,7 @@ function OnPlayerSpawn(playerid)
         end
 
         CallRemoteEvent(playerid, "setClothe", playerid, assigned_cloth) -- set la tenu des joueurs pour le joueur
-        CallRemoteEvent(v, "setClothe", playerid, players[playerid].cloth) -- set la tenue du joueur pour les autres joueurs
+        CallRemoteEvent(v, "setClothe", playerid, assigned_cloth) -- set la tenue du joueur pour les autres joueurs
     end
 
     -- Anti spawn kill enable
@@ -256,7 +251,6 @@ AddEvent("PlayerWin", function(winner)
 
     spawnPickupsItems()
 
-    
     Delay(10000, function()
         CallEvent("StartVoteMap")
     end)

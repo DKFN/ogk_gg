@@ -23,9 +23,7 @@ end, 2000)
 
 CreateTimer(function ()
     print("Pushing pictures to players ...")
-    for _, v in ipairs(GetAllPlayers()) do
-        CallEvent("PushPlayerStats", v)
-    end
+    CallEvent("PushPlayerAvatars")
 end, 120000)
 
 
