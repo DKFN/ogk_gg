@@ -21,7 +21,7 @@ end
 local function CreateMapEditorObject(player, modelid, x, y, z, rx, ry, rz, sx, sy, sz)
     local object = CreateObject(modelid, x, y, z, rx, ry, rz, sx, sy, sz)
 
-    SetObjectStreamDistance(object, 100000)
+    SetObjectStreamDistance(object, 15000)
 
 	if object ~= false then
 		EditorObjects[1][object] = true

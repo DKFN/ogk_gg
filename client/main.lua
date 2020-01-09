@@ -36,7 +36,7 @@ function weapon_refresher()
 				end)
 			end
 		end
-		notifyServerOfCurrentWeapon()
+	notifyServerOfCurrentWeapon()
     end, 70)
 end
 
