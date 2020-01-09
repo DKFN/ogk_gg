@@ -61,7 +61,7 @@ local weapons = {
         -- Faire en sorte que le joueur soit downgrade quand son chargeur est vide
         id = 4,
         name = "#1 Gun",
-        ammo = 8 
+        ammo = 24 
     }
 }
 

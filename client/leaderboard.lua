@@ -18,3 +18,7 @@ end)
 AddRemoteEvent("LeaderboardReceivePlayerAvatar", function(playerid, image)
     ExecuteWebJS(leaderboard, "LeaderBoardReceiveAvatar("..playerid..", '"..image.."')");
 end)
+
+AddRemoteEvent("PlayerQuit", function(playerid)
+    ExecuteWebJS(leaderboard, "LeaderBoardClearData("..playerid..")");
+end)

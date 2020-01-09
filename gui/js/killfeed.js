@@ -30,7 +30,7 @@ const weaponCharTable = {
  `;
 
 const ROW_TIME_TO_LIVE = 4000;
-const CLEANER_REFRESH_RATE = 150;
+const CLEANER_REFRESH_RATE = 500;
 
 class KillFeed {
     constructor() {

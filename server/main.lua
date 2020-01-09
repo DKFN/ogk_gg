@@ -1,7 +1,7 @@
 -- Onset Gaming Kommunity -- Gungame
 -- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
 
-OGK_GG_DEBUG = true
+OGK_GG_DEBUG = false
 
 players = {}
 player_count = 0
@@ -171,7 +171,9 @@ AddEvent("OnPlayerJoin", OnPlayerJoin)
 
 AddEvent("OnPlayerQuit", function(player)
     players[player] = nil
-    CallRemoteEvent("PlayerQuit", player)
+    for _,v in ipairs(GetAllPlayers()) do
+        CallRemoteEvent(v, "PlayerQuit", player)
+    end
 end)
 
     
@@ -187,8 +189,8 @@ function OnPlayerSpawn(playerid)
             assigned_cloth = defaultCloth
         end
 
-        CallRemoteEvent(playerid, "setClothe", playerid, assigned_cloth) -- set la tenu des joueurs pour le joueur
-        CallRemoteEvent(v, "setClothe", playerid, assigned_cloth) -- set la tenue du joueur pour les autres joueurs
+        CallRemoteEvent(playerid, "setClothe", v, assigned_cloth) -- set la tenu des joueurs pour le joueur
+        CallRemoteEvent(v, "setClothe", playerid, players[playerid].cloth) -- set la tenue du joueur pour les autres joueurs
     end
 
     -- Anti spawn kill enable
@@ -264,9 +266,11 @@ AddEvent("PlayerWin", function(winner)
         end
 
         Delay(10000, function()
-            players[v].kills = 0
-            players[v].deaths = 0
-            players[v].weapon = 1
+            if players[v] then
+                players[v].kills = 0
+                players[v].deaths = 0
+                players[v].weapon = 1
+            end
         end)
     end
 end)

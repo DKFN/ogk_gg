@@ -14,6 +14,11 @@ const LeaderBoardReceiveData = (playerId, data) => {
     datas[playerId] = JSON.parse(data);
 };
 
+
+const LeaderBoardClearData = (playerId) => {
+    delete datas[playerId];
+};
+
 const renderPlayer = (player, k) => {
     // Cgheck name lenght and if too big then marquee it
     const name = player.name;

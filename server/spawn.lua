@@ -22,7 +22,7 @@ spawns["western"][10] = {-76897.6171875, -162373.875, 3776.4736328125, 0}
 spawns["western"][11] = {-76217.65625, -160574.078125, 3429.8293457031, 0}
 spawns["western"][12] = {-80027.7890625, -165668.4375, 3222.1259765625, 0}
 spawns_max["western"] = 12
-map_min_players["western"] = 6
+map_min_players["western"] = 4
 
 
 -- Mapped maps
@@ -60,6 +60,16 @@ spawns["port_small"][3] = { 42180.0, 201287.0, 551.0, 0 }
 spawns["port_small"][4] = { 43917.778, 200340.3125, 509.200, 0 }
 spawns_max["port_small"] = 4
 map_min_players["port_small"] = 1
+
+spawns["trucks_center"] = {}
+spawns["trucks_center"][1] = { 17655.6113, 132438.515625, 1555.963867, 0 }
+spawns["trucks_center"][2] = { 15831.0, 137311.9, 1556.963867, 0 }
+spawns["trucks_center"][3] = { 15856.0, 134755.0, 1556.963867, 0 }
+spawns["trucks_center"][4] = { 19876.0, 132388.0, 1556.963867, 0 }
+spawns["trucks_center"][5] = { 15697.0, 133555.0, 1574.963867, 0 }
+spawns["trucks_center"][6] = { 17737.0, 136405.0, 1556.963867, 0 }
+spawns_max["trucks_center"] = 6
+map_min_players["trucks_center"] = 3
 
 spawns["tropico"] = {}
 spawns["tropico"][1] = { -110019.0, 225094.0, 327.0, 90 }
@@ -139,16 +149,6 @@ spawns["paradise_ville"] = {}
 spawns["paradise_ville"][1] = { 42824.6914, 134416.125, 1567.509277, 0 }
 spawns_max["paradise_ville"] = 1
 map_min_players["paradise_ville"] = 1
-
-spawns["trucks_center"] = {}
-spawns["trucks_center"][1] = { 17655.6113, 132438.515625, 1555.963867, 0 }
-spawns["trucks_center"][2] = { 15831.0, 137311.9, 1556.963867, 0 }
-spawns["trucks_center"][3] = { 15856.0, 134755.0, 1556.963867, 0 }
-spawns["trucks_center"][4] = { 19876.0, 132388.0, 1556.963867, 0 }
-spawns["trucks_center"][5] = { 15697.0, 133555.0, 1574.963867, 0 }
-spawns["trucks_center"][6] = { 17737.0, 136405.0, 1556.963867, 0 }
-spawns_max["trucks_center"] = 6
-map_min_players["trucks_center"] = 3
 
 spawns["prison_yard"] = {}
 spawns["prison_yard"][1] = { 178002.09375, 67944.6944, 1528.15002441, 0 }
