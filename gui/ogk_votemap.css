@@ -48,3 +48,13 @@
 .locked {
     opacity: 0.3;
 }
+
+.map-name {
+    color: green;
+    font-size: 16px;
+
+}
+
+.map-author {
+    font-size: 10px;
+}

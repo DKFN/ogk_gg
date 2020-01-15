@@ -5,7 +5,7 @@ spawns = {}
 spawns_max = {}
 map_min_players = {}
 busy_spawns = {}
-
+map_author = {}
 -- Approved maps
 spawns["western"] = {}
 -- spawns["western"][1] = {-76523.953125, -164042.0625, 3340.1821289063, 0}
@@ -23,6 +23,7 @@ spawns["western"][11] = {-76217.65625, -160574.078125, 3429.8293457031, 0}
 spawns["western"][12] = {-80027.7890625, -165668.4375, 3222.1259765625, 0}
 spawns_max["western"] = 12
 map_min_players["western"] = 4
+map_author["western"] = "Night_Man1 - PasDeTraduction"
 
 
 -- Mapped maps
@@ -33,6 +34,7 @@ spawns["armory"][3] = { -14610.5712, 132762.9218, 1561.6047, 145 }
 spawns["armory"][4] = { -15727.7382, 134334.6718, 1561.6047, 90 }
 spawns_max["armory"] = 4
 map_min_players["armory"] = 1
+map_author["armory"] = "Night_Man1"
 
 spawns["port"] = {}
 spawns["port"][1] = { 37885.355468, 200909.421875, 1548.2750, 0 }
@@ -52,6 +54,7 @@ spawns["port"][14] = { 40670.05, 199346.79, 550.94, 0 }
 spawns["port"][15] = { 37043.66, 206222.75, 565.97, 0 }
 spawns_max["port"] = 15
 map_min_players["port"] = 6
+map_author["port"] = "Jokinesse - Pas De Trad"
 
 spawns["port_small"] = {}
 spawns["port_small"][1] = { 44147.490, 204403.5500, 562.700, 0 }
@@ -60,6 +63,7 @@ spawns["port_small"][3] = { 42180.0, 201287.0, 551.0, 0 }
 spawns["port_small"][4] = { 43917.778, 200340.3125, 509.200, 0 }
 spawns_max["port_small"] = 4
 map_min_players["port_small"] = 1
+map_author["port_small"] = "Jokinesse - DKFN"
 
 spawns["trucks_center"] = {}
 spawns["trucks_center"][1] = { 17655.6113, 132438.515625, 1555.963867, 0 }
@@ -70,6 +74,7 @@ spawns["trucks_center"][5] = { 15697.0, 133555.0, 1574.963867, 0 }
 spawns["trucks_center"][6] = { 17737.0, 136405.0, 1556.963867, 0 }
 spawns_max["trucks_center"] = 6
 map_min_players["trucks_center"] = 3
+map_author["trucks_center"] = "DKFN"
 
 spawns["tropico"] = {}
 spawns["tropico"][1] = { -110019.0, 225094.0, 327.0, 90 }
@@ -97,6 +102,7 @@ spawns["tropico"][4] = {
 
 spawns_max["tropico"] = 4
 map_min_players["tropico"] = 1
+map_author["tropico"] = "DKFN"
 
 spawns["hangar"] = {}
 spawns["hangar"][1] = { 
@@ -129,7 +135,18 @@ spawns["hangar"][4] = {
 
  spawns_max["hangar"] = 4
  map_min_players["hangar"] = 1
+ map_author["hangar"] = "DKFN"
 
+ spawns["alien_attack"] = {}
+ spawns["alien_attack"][1] = { -223734, 76395, 1892, 0 }
+ spawns["alien_attack"][2] = { -216807, 75891, 2221, 180 }
+ spawns["alien_attack"][3] = { -223558, 72842, 1545, 180 }
+ spawns["alien_attack"][4] = { -217904, 76203, 1724, 0 }
+ spawns["alien_attack"][5] = { -223919, 71170, 1097, 0 }
+ spawns["alien_attack"][6] = { -221385, 78256, 1636, 0 }
+ spawns_max["alien_attack"] = 6
+ map_min_players["alien_attack"] = 1
+ map_author["alien_attack"] = "SalsiTV"
 
 -- Player Wait zone outside of game
 spawns["spawn_zone"] = {}

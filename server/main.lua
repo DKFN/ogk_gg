@@ -13,10 +13,11 @@ player_count = 0
 -- current_map = "gg2"
 -- current_map = "trucks_center"
 current_map = "tropico"
+-- current_map = "alien_attack"
 -- current_map = "hangar"
 
-avaible_map = {"western", "armory", "port", "port_small", "trucks_center", "tropico"} -- "paradise_ville", "chemistry"}
-avaible_map_count = 6
+avaible_map = {"western", "armory", "port", "port_small", "trucks_center", "tropico", "alien_attack"} -- "paradise_ville", "chemistry"}
+avaible_map_count = 7
 last_map = 6
 
 function assign_spawn(player)
