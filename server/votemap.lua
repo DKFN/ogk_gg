@@ -1,10 +1,12 @@
+local OMG = ImportPackage("omg")
+
 -- Onset Gaming Kommunity -- Gungame
 -- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
 
 local votes = {}
 AddRemoteEvent("GetVotemapChoices", function(player)
     print("Began Votemap for "..player)
-    local playerCount = GetPlayerCount()    
+    local playerCount = GetPlayerCount() -- TODO: Provide abstraction
     local allMaps = _.map(avaible_map, function(mapName)
         local mapMax = spawns_max[mapName]
         local mapMin = map_min_players[mapName]
@@ -26,13 +28,13 @@ end)
 
 local refreshTimer
 AddEvent("StartVoteMap", function()
-    for _, v in ipairs(GetAllPlayers()) do
+    for _, v in ipairs(OMG.GetAllPlayers(gmId)) do
         CallRemoteEvent(v, "InitVotemap")
     end
 
     refreshTimer = CreateTimer(function()
         local status = json.stringify(votes)
-        for _, v in ipairs(GetAllPlayers()) do
+        for _, v in ipairs(OMG.GetAllPlayers(gmId)) do
            CallRemoteEvent(v, "VotemapVotesStatus", status)
         end
     end, 500)
@@ -93,7 +95,7 @@ AddEvent("StopVoteMap", function()
     votes = {}
     DestroyTimer(refreshTimer)
     refreshTimer = nil
-    for _, v in ipairs(GetAllPlayers()) do
+    for _, v in ipairs(OMG.GetAllPlayers(gmId)) do
         SetPlayerHealth(v, 0)
         CallRemoteEvent(v, "VotemapStopVoteMap")
         CallRemoteEvent(v, "GameRestarting")

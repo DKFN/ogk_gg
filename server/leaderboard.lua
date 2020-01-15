@@ -1,3 +1,5 @@
+local OMG = ImportPackage("omg")
+
 -- Timer that notifies all client of changes for the leaderboard
 function fetchPlayerInformations(playerId, requester)
     local player = players[playerId]
@@ -7,8 +9,8 @@ function fetchPlayerInformations(playerId, requester)
 end
 
 AddEvent("PushPlayerAvatars", function ()
-    for _, v1 in ipairs(GetAllPlayers()) do
-        for _, v2 in ipairs(GetAllPlayers()) do
+    for _, v1 in ipairs(OMG.GetAllPlayers(gmId)) do
+        for _, v2 in ipairs(OMG.GetAllPlayers(gmId)) do
             fetchPlayerInformations(v1, v2)
             fetchPlayerInformations(v2, v1)
         end
@@ -16,7 +18,7 @@ AddEvent("PushPlayerAvatars", function ()
 end)
 
 CreateTimer(function ()
-    for _, v in ipairs(GetAllPlayers()) do
+    for _, v in ipairs(OMG.GetAllPlayers(gmId)) do
         CallEvent("PushPlayerStats", v)
     end
 end, 2000)
@@ -29,7 +31,7 @@ end, 120000)
 
 AddEvent("PushPlayerStats", function(playerid)
     print("Pushing game state to players ...")
-    for _, v in ipairs(GetAllPlayers()) do
+    for _, v in ipairs(OMG.GetAllPlayers(gmId)) do
         local player = players[v]
         if player then
             CallRemoteEvent(playerid, "LeaderboardReceivePlayerStats", v, json.stringify({

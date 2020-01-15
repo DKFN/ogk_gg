@@ -10,6 +10,7 @@ function HUDInit()
 end
 
 function AddFrag(killer, weapon, victim)
+	AddPlayerChat("Adding a frag")
 	local jsweapon
 	if weapon then
 		jsweapon = weapon

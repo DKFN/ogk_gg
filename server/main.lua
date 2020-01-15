@@ -1,7 +1,8 @@
 -- Onset Gaming Kommunity -- Gungame
 -- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
+local OMG = ImportPackage("omg")
 
-OGK_GG_DEBUG = false
+OGK_GG_DEBUG = true
 
 players = {}
 player_count = 0
@@ -19,6 +20,7 @@ current_map = "tropico"
 avaible_map = {"western", "armory", "port", "port_small", "trucks_center", "tropico", "alien_attack"} -- "paradise_ville", "chemistry"}
 avaible_map_count = 7
 last_map = 6
+gmid = 0
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
@@ -62,12 +64,18 @@ function OnPackageStart()
 	LoadMapFromIni("packages/ogk_gg/maps/tropicofix2.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/hangar.ini")
 	LoadMapFromIni("packages/ogk_gg/maps/hangarwalls.ini")
-	LoadMapFromIni("packages/ogk_gg/maps/hangar_spawns.ini")
+    LoadMapFromIni("packages/ogk_gg/maps/hangar_spawns.ini")
+    
+    if not OMG then
+        print("OMG IS NOT SETUP CORRECTLY")
+        print("GAMEMODE WILL NOT WORK")
+    end
+    gmId = OMG.Register("GG", { author = "OGK", fullName = "GunGame DeathMatch!" })
 end
 AddEvent("OnPackageStart", OnPackageStart)
 
 -- This function is responsible to check synchronisation state between client and server
-AddRemoteEvent("PlayerCheckWeaponSynchro", function(player, weapon, equipped_slot)
+AddRemoteEvent("OMG:GG:PlayerCheckWeaponSynchro", function(player, weapon, equipped_slot)
     local weaponid = players[player].weapon
     if weaponid ~= 0 and Ladder.getWeaponId(weaponid) ~= weapon then
         RefreshWeapons(player)
@@ -87,7 +95,7 @@ function RefreshWeapons(killer)
     SetPlayerAnimation(killer, 0)
 
 end
-AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
+AddRemoteEvent("OMG:GG:OnPlayerPressReload", RefreshWeapons)
 
 function level_up(killer)
     if(players[killer].weapon ~= Ladder.getLevelMax()) then
@@ -106,16 +114,24 @@ end
 
 -- This function waits until the plays does not AIM and will then change the level of the player
 function OnPlayerDeath(player, instigator)
+    local OMG = ImportPackage("omg")
+    print("ON PLAYER DEATH")
+    _.print(OMG.GetAllPlayers_U(gmId))
+    _.print(OMG.GetAllPlayers(gmId))
+    for k, v in ipairs(OMG.GetAllPlayers_U(gmId)) do
+        print(" Sending kill for "..v)
+    end
     SetPlayerSpectate(player, true)
     local player_data = players[player]
     if player_data and player_data.ingame == true then
         assign_spawn(player)
-        for _, plyr in pairs(GetAllPlayers()) do
+        for v in json.parse(OMG.GetAllPlayers(gmId)) do
+            print("PlayerDeath Assign"..v)
             local ply_weapon = players[instigator].weapon
             if player == instigator then
                 ply_weapon = 0
             end
-            CallRemoteEvent(plyr, "AddFrag", GetPlayerName(instigator), ply_weapon, GetPlayerName(player))
+            CallRemoteEvent(v, "AddFrag", GetPlayerName(instigator), ply_weapon, GetPlayerName(player))
         end
         
         players[player].deaths = players[player].deaths + 1
@@ -129,9 +145,10 @@ function OnPlayerDeath(player, instigator)
     end
 end
 
-AddEvent("OnPlayerDeath", OnPlayerDeath)
+AddEvent("OMG:GG:OnPlayerDeath", OnPlayerDeath)
 
 function OnPlayerJoin(ply)
+    print("Joined"..ply)
     AddPlayerChatAll("Hey ! " .. GetPlayerName(ply))
     
     -- initation du joueur de base
@@ -162,34 +179,51 @@ function OnPlayerJoin(ply)
     players[ply]["fist_spawn"] = 1;
         
     SetPlayerRespawnTime(ply, 5000)
-    
+    local plyrs = OMG.GetAllPlayers_U(gmId)
+    local plyrsSafe = OMG.GetAllPlayers(gmId)
+    _.print(plyrs)
+    _.print(plyrsSafe)
+    for k, v in ipairs(plyrs) do
+        print(v)
+    end
+
     -- Initial spawn
     -- assign_spawn(ply)
     local initial_player_spawn = spawns["spawn_zone"][1]
-     SetPlayerSpawnLocation(ply, initial_player_spawn[1], initial_player_spawn[2], initial_player_spawn[3] + (ply * 10), initial_player_spawn[4])
+    SetPlayerLocation(ply, initial_player_spawn[1], initial_player_spawn[2], initial_player_spawn[3] + (ply * 10), initial_player_spawn[4])
 end
-AddEvent("OnPlayerJoin", OnPlayerJoin)
+AddEvent("OMG:GG:OnPlayerJoin", OnPlayerJoin)
 
-AddEvent("OnPlayerQuit", function(player)
+AddEvent("OMG:GG:OnPlayerQuit", function(player)
     players[player] = nil
-    for _,v in ipairs(GetAllPlayers()) do
+    for _,v in ipairs(json.parse(OMG.GetAllPlayers(gmId))) do
         CallRemoteEvent(v, "PlayerQuit", player)
     end
 end)
 
-    
+CreateTimer(function()
+    local allPlayers = OMG.GetAllPlayers(gmId)
+    print("GG Players : ")
+    _.print(allPlayers)
+end, 2000)
+
 function OnPlayerSpawn(playerid)
+    print("Player joined")
     -- TODO: This is not the best event to specify that
     local defaultCloth = 1
+    local allPlayers = OMG.GetAllPlayers(gmId)
+    local allPlayersU = OMG.GetAllPlayers_U(gmId)
+    print(allPlayers)
+    print(allPlayersU)
     -- Avoids nude players
-    for _, v in ipairs(GetAllPlayers()) do
+    for _, v in ipairs(json.parse(allPlayers)) do
         local assigned_cloth -- Production bug found during playtest
         if (players[v]) then
             assigned_cloth = players[v].cloth
         else
             assigned_cloth = defaultCloth
         end
-
+        print("Assigning da clothes ..."..v)
         CallRemoteEvent(playerid, "setClothe", v, assigned_cloth) -- set la tenu des joueurs pour le joueur
         CallRemoteEvent(v, "setClothe", playerid, players[playerid].cloth) -- set la tenue du joueur pour les autres joueurs
     end
@@ -218,17 +252,17 @@ function OnPlayerSpawn(playerid)
         end)
     end
 end
-AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
+AddEvent("OMG:GG:OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
 
 -- Player avatars Leaderboard
-AddEvent("OnPlayerSteamAuth", function(playerid)
+AddEvent("OMG:GG:OnPlayerSteamAuth", function(playerid)
     CallEvent("GetPlayerSummaryInfo", playerid)
     Delay(10000, function()
         CallEvent("PushPlayerAvatars")
     end)
 end)
 
-AddRemoteEvent("PlayerReady", function(player)
+AddRemoteEvent("OMG:GG:PlayerReady", function(player)
     if not players[player].ingame then
         AddPlayerChat(player, "Received ready message")
         SetPlayerHealth(player, 0)
@@ -242,7 +276,7 @@ AddRemoteEvent("PlayerReady", function(player)
     end
 end)
 
-AddEvent("PlayerWin", function(winner)  
+AddEvent("OMG:GG:PlayerWin", function(winner)  
     -- Notify player win 
     local winner_name = GetPlayerName(winner)
 
@@ -258,7 +292,7 @@ AddEvent("PlayerWin", function(winner)
         CallEvent("StartVoteMap")
     end)
 
-    for _, v in ipairs(GetAllPlayers()) do
+    for _, v in ipairs(json.parse(OMG.GetAllPlayers(gmId))) do
         SetPlayerSpectate(v, true)
         CallRemoteEvent(v, "NotifyPlayerWin", winner_name, x, y, z)
 

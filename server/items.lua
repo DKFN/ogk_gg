@@ -209,7 +209,7 @@ function spawnPickupsItems(pickup_id)
         end
     end
 end
-AddEvent("OnPackageStart", spawnPickupsItems)
+AddEvent("OGK:GG:OnPackageStart", spawnPickupsItems)
 
 function playerUsePickupItems(player, pickup_id)
 

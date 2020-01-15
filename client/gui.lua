@@ -35,6 +35,7 @@ end
 
 -- Client Sent Events
 function OnKeyPress(key)
+	AddPlayerChat("Received key event"..key)
 	if key == "Tab" then
 		OpenScoreboard()
 		SetWebVisibility(hud, WEB_HIDDEN)
@@ -49,21 +50,23 @@ function OnKeyPress(key)
 		end
 	end
 end
-AddEvent("OnKeyPress", OnKeyPress)
+AddEvent("OMG:GG:OnKeyPress", OnKeyPress)
 
 function OnKeyRelease(key)
+	AddPlayerChat("Received key event"..key)
+	
 	if key == "Tab" then
 		SetWebVisibility(hud, WEB_VISIBLE)
 		SetWebVisibility(leaderboard, WEB_VISIBLE)
 		SetWebVisibility(scoreboard, WEB_HIDDEN)
 	end
 end
-AddEvent("OnKeyRelease", OnKeyRelease)
+AddEvent("OMG:GG:OnKeyRelease", OnKeyRelease)
 
 function OnPlayerSpawn(playerid)
 	SetWebVisibility(scoreboard, WEB_HIDDEN)
 end
-AddEvent("OnPlayerSpawn", OnPlayerSpawn)
+AddEvent("OMG:GG:OnPlayerSpawn", OnPlayerSpawn)
 
 function OnPackageStart()
 	ScoreboardInit()
@@ -79,4 +82,4 @@ function OnPackageStart()
 	SetNearClipPlane(15)
 	
 end
-AddEvent("OnPackageStart", OnPackageStart)
+AddRemoteEvent("OMG:GG:OnPackageStart", OnPackageStart)

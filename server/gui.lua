@@ -1,3 +1,4 @@
+local OMG = ImportPackage("omg")
 -- Onset Gaming Kommunity -- Gungame
 -- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
 
@@ -5,7 +6,7 @@ function GetScoreBoardData(player)
 	local serverName = GetServerName()
 	local PlayerTable = { }
 
-	for k, v in ipairs(GetAllPlayers()) do
+	for k, v in ipairs(OMG.GetAllPlayers(gmId)) do
 		if (players[v]~= nil) then
 			PlayerTable[k] = {
 				GetPlayerName(v),

@@ -6,7 +6,7 @@ local motd
 local function closeMotd()
     SetInputMode(INPUT_GAME)
     DestroyWebUI(motd)
-    CallRemoteEvent("PlayerReady")
+    CallRemoteEvent("OMG:GG:PlayerReady")
     
 end
 AddEvent("CloseMotd",  closeMotd)

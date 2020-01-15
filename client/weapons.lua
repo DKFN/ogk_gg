@@ -5,7 +5,7 @@ Addtional configuration on the server is necessary.
 
 ]]--
 
-AddEvent("OnPackageStart", function()
+AddEvent("OGK:GG:OnPackageStart", function()
 
 	Weapon = GetWeaponIdentifier():NewWeapon(1)
 	Weapon:SetWeaponType(0)

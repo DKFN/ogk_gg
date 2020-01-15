@@ -50,7 +50,7 @@ function ui_refresher()
 end
 
 
-AddEvent("OnPackageStart", function()
+AddRemoteEvent("OMG:GG:OnPackageStart", function()
 	weapon_refresher()
 	ui_refresher()
 	MOTDInit()
