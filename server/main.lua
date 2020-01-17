@@ -125,7 +125,7 @@ function OnPlayerDeath(player, instigator)
     local player_data = players[player]
     if player_data and player_data.ingame == true then
         assign_spawn(player)
-        for v in json.parse(OMG.GetAllPlayers(gmId)) do
+        for v in OMG.GetAllPlayers(gmId) do
             print("PlayerDeath Assign"..v)
             local ply_weapon = players[instigator].weapon
             if player == instigator then
@@ -196,7 +196,7 @@ AddEvent("OMG:GG:OnPlayerJoin", OnPlayerJoin)
 
 AddEvent("OMG:GG:OnPlayerQuit", function(player)
     players[player] = nil
-    for _,v in ipairs(json.parse(OMG.GetAllPlayers(gmId))) do
+    for _,v in ipairs(OMG.GetAllPlayers(gmId)) do
         CallRemoteEvent(v, "PlayerQuit", player)
     end
 end)
@@ -216,7 +216,7 @@ function OnPlayerSpawn(playerid)
     print(allPlayers)
     print(allPlayersU)
     -- Avoids nude players
-    for _, v in ipairs(json.parse(allPlayers)) do
+    for _, v in ipairs(allPlayers) do
         local assigned_cloth -- Production bug found during playtest
         if (players[v]) then
             assigned_cloth = players[v].cloth
@@ -292,7 +292,7 @@ AddEvent("OMG:GG:PlayerWin", function(winner)
         CallEvent("StartVoteMap")
     end)
 
-    for _, v in ipairs(json.parse(OMG.GetAllPlayers(gmId))) do
+    for _, v in ipairs(OMG.GetAllPlayers(gmId)) do
         SetPlayerSpectate(v, true)
         CallRemoteEvent(v, "NotifyPlayerWin", winner_name, x, y, z)
 
