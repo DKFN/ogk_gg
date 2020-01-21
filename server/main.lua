@@ -146,6 +146,8 @@ function OnPlayerJoin(ply)
     p["last_spawn_index"] = 0
     p["cloth"] = Random(2, 9)
 
+    SetPlayerPropertyValue(player, PropertyName, Value, bSync (optional))
+    
     players[ply] = p
 
     SetPlayerHealth(ply, 99999) -- Avoids spawn kill
@@ -166,7 +168,7 @@ function OnPlayerJoin(ply)
     -- Initial spawn
     -- assign_spawn(ply)
     local initial_player_spawn = spawns["spawn_zone"][1]
-     SetPlayerSpawnLocation(ply, initial_player_spawn[1], initial_player_spawn[2], initial_player_spawn[3] + (ply * 10), initial_player_spawn[4])
+    SetPlayerSpawnLocation(ply, initial_player_spawn[1], initial_player_spawn[2], initial_player_spawn[3] + (ply * 10), initial_player_spawn[4])
 end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
 
