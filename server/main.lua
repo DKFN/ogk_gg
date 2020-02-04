@@ -196,8 +196,7 @@ function OnPlayerSpawn(playerid)
 
     -- Anti spawn kill enable
     SetPlayerSpectate(playerid, false)
-    SetPlayerHealth(playerid, 9999)
-    -- AddPlayerChat(playerid, "Anti Spawn Kill: actif")
+    CallEvent("OGK:SPAWNPROTECTION:SetPlayerProtected", playerid)
 
     -- After spawn operations
     if players[playerid]["ingame"] == true then
@@ -212,10 +211,6 @@ function OnPlayerSpawn(playerid)
             SetPlayerWeapon(playerid, 1, 0, false, 3, false)
         end)
 
-        -- Anti spawn kill disable
-        Delay(4000, function()            
-            SetPlayerHealth(playerid, 100)
-        end)
     end
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
