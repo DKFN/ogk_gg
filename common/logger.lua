@@ -13,6 +13,6 @@ function Logger.err(from, msg)
 end
 
 function OnScriptError(message)
-    AddPlayerChat('<span color="#ff0000bb" style="bold" size="10">'..message..'</>')
+    -- AddPlayerChatAll('<span color="#ff0000bb" style="bold" size="10">'..message..'</>')
 end
 AddEvent("OnScriptError", OnScriptError)

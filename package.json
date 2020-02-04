@@ -5,6 +5,7 @@
         "server/libs/json.lua",
         "server/libs/lodash.lua",
         "server/libs/underscore.lua",
+        "ogk_commons/health_regen/server.lua",
         "common/logger.lua",
         "server/main.lua",
         "server/debug.lua",

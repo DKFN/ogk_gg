@@ -16,8 +16,8 @@ current_map = "tropico"
 -- current_map = "alien_attack"
 -- current_map = "hangar"
 
-avaible_map = {"western", "armory", "port", "port_small", "trucks_center", "tropico", "alien_attack"} -- "paradise_ville", "chemistry"}
-avaible_map_count = 7
+avaible_map = {"western", "armory", "port", "port_small", "trucks_center", "tropico"} -- "paradise_ville", "chemistry"}
+avaible_map_count = 6
 last_map = 6
 
 function assign_spawn(player)
@@ -145,8 +145,6 @@ function OnPlayerJoin(ply)
     p["ingame"] = false
     p["last_spawn_index"] = 0
     p["cloth"] = Random(2, 9)
-
-    SetPlayerPropertyValue(player, PropertyName, Value, bSync (optional))
     
     players[ply] = p
 
