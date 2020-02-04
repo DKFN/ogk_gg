@@ -37,7 +37,7 @@ AddEvent("StartVoteMap", function()
         end
     end, 500)
 
-    Delay(10000, function()
+    Delay(20000, function()
         CallEvent("StopVoteMap")
     end)
 end)
