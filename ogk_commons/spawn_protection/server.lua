@@ -1,7 +1,6 @@
 -- OGK Common Utils - Spawn Protection
 
 -- Author: DeadlyKungFu.Ninja
-
 local SPAWN_PROTECTION_DEBUG = true
 local OGK_SPAWN_PROTECTION_TIMEOUT = 4000
 local function _print(message)
@@ -11,15 +10,17 @@ local function _print(message)
 end
 
 function OGK_spwn_SetPlayerActive(playerid)
-    CallRemoteEvent(playerid, "OGK:SPAWNPROTECTION:ChangeProtectionValue", false)
-    SetPlayerHealth(playerid, 100)
+    if GetPlayerHealth(playerid) > 100 then
+        CallRemoteEvent(playerid, "OGK:SPAWNPROTECTION:ChangeProtectionValue", false)
+        SetPlayerHealth(playerid, 100)
+    end
 end
 
 function OGK_spwn_SetPlayerProtected(playerid)
     CallRemoteEvent(playerid, "OGK:SPAWNPROTECTION:ChangeProtectionValue", true)
     SetPlayerHealth(playerid, 9999)
     -- Anti spawn kill force-disable
-    Delay(OGK_SPAWN_PROTECTION_TIMEOUT, function()            
+    Delay(OGK_SPAWN_PROTECTION_TIMEOUT, function()
         OGK_spwn_SetPlayerActive(playerid)
     end)
 end
