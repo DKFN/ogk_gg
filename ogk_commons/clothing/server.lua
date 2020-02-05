@@ -3,11 +3,21 @@
 -- Author: DeadlyKungFu.Ninja
 
 -- Is Called on Player stream in
-AddRemoteEvent("OGK:CLOTHING:AskPlayerClothes", function(requesterId, playerId)
+
+local function SendPlayerSkin(requesterId, playerId)
+    print("Cloth request by "..requesterId.." for "..playerId)
     if players[playerId] and players[playerId].skin then
-        CallRemoteEvent(requesterId, "OGK:CLOTHING:ReceivePlayerClothes", players[playerId].skin)
+        print("Delayed skin sending")
+        CallRemoteEvent(requesterId, "OGK:CLOTHING:ReceivePlayerClothes", playerId, players[playerId].skin)
+    else
+        print("Delayed skin sending")
+        Delay(2000, function() 
+            SendPlayerSkin(requesterId, playerId)
+        end)
     end
-end)
+end
+AddRemoteEvent("OGK:CLOTHING:AskPlayerClothes", SendPlayerSkin)
+
 
 -- Is called on player spawn so evryone that would have missed it gets the clothing of the person
 AddEvent("OnPlayerSpawn", function(playerid)

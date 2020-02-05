@@ -8,6 +8,6 @@ end
 AddRemoteEvent("OGK:CLOTHING:ReceivePlayerClothes", setClothe)
 
 AddEvent("OnPlayerStreamIn", function(player, otherplayer)
-    CallRemoteEvent("OGK:CLOTHING:AskPlayerClothes", otherplayer)
+    CallRemoteEvent("OGK:CLOTHING:AskPlayerClothes", player, otherplayer)
 end)
 
