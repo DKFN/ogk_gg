@@ -3,11 +3,6 @@
 
 OGK_GG_DEBUG = true
 
-function setClothe(player, clothId)
-	SetPlayerClothingPreset(player, clothId)
-end
-AddRemoteEvent("setClothe", setClothe) 
-
 function notifyServerOfCurrentWeapon()
 	local equipped_slot = GetPlayerEquippedWeaponSlot()
 	local weapon, ammo = GetPlayerWeapon() -- Do not put equipped slot as we swap users slot as hack

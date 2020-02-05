@@ -144,7 +144,7 @@ function OnPlayerJoin(ply)
     p["victory"] = 0
     p["ingame"] = false
     p["last_spawn_index"] = 0
-    p["cloth"] = Random(2, 9)
+    p["skin"] = Random(2, 9)
     
     players[ply] = p
 
@@ -179,21 +179,6 @@ end)
 
     
 function OnPlayerSpawn(playerid)
-    -- TODO: This is not the best event to specify that
-    local defaultCloth = 1
-    -- Avoids nude players
-    for _, v in ipairs(GetAllPlayers()) do
-        local assigned_cloth -- Production bug found during playtest
-        if (players[v]) then
-            assigned_cloth = players[v].cloth
-        else
-            assigned_cloth = defaultCloth
-        end
-
-        CallRemoteEvent(playerid, "setClothe", v, assigned_cloth) -- set la tenu des joueurs pour le joueur
-        CallRemoteEvent(v, "setClothe", playerid, players[playerid].cloth) -- set la tenue du joueur pour les autres joueurs
-    end
-
     -- Anti spawn kill enable
     SetPlayerSpectate(playerid, false)
     CallEvent("OGK:SPAWNPROTECTION:SetPlayerProtected", playerid)
