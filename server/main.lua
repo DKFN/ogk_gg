@@ -106,7 +106,17 @@ end
 
 -- This function waits until the plays does not AIM and will then change the level of the player
 function OnPlayerDeath(player, instigator)
-    SetPlayerSpectate(player, true)
+     -- SetPlayerSpectate(player, true)
+     if player ~= instigator then
+        CallEvent("spectateid", player, instigator)
+        Delay(4000, function()
+            CallRemoteEvent(player, "StopSpec")
+        end)
+     else
+        SetPlayerSpectate(player, true)
+     end
+
+
     local player_data = players[player]
     if player_data and player_data.ingame == true then
         assign_spawn(player)

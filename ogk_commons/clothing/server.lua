@@ -4,8 +4,8 @@
 
 -- Is Called on Player stream in
 AddRemoteEvent("OGK:CLOTHING:AskPlayerClothes", function(requesterId, playerId)
-    if Players[playerId] and Players[playerId].skin then
-        CallRemoteEvent(requesterId, "OGK:CLOTHING:ReceivePlayerClothes", Players[playerId].skin)
+    if players[playerId] and players[playerId].skin then
+        CallRemoteEvent(requesterId, "OGK:CLOTHING:ReceivePlayerClothes", players[playerId].skin)
     end
 end)
 

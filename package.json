@@ -1,6 +1,6 @@
 {
     "author": "OGK",
-    "version": "0.2",
+    "version": "0.4",
     "server_scripts": [
         "server/libs/json.lua",
         "server/libs/lodash.lua",
@@ -8,6 +8,7 @@
         "ogk_commons/health_regen/server.lua",
         "ogk_commons/spawn_protection/server.lua",
         "ogk_commons/hit_origin/server.lua",
+        "ogk_commons/clothing/server.lua",
         "common/logger.lua",
         "server/main.lua",
         "server/debug.lua",
@@ -26,6 +27,7 @@
         "client/libs/lodash.lua",
         "ogk_commons/spawn_protection/client.lua",
         "ogk_commons/hit_origin/client.lua",
+        "ogk_commons/clothing/client.lua",
         "common/logger.lua",
         "client/main.lua",
         "client/leaderboard.lua",
