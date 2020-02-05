@@ -3,12 +3,23 @@
     <head>
         <link rel="stylesheet" href="http://asset/ogk_gg/gui/nuclearbulma.css" />
         <link rel="stylesheet" href="http://asset/ogk_gg/gui/ogk_commons.css" />
+        <link rel="stylesheet" href="http://asset/ogk_gg/gui/ogk_hitmarker.css" />
         <link rel="stylesheet" href="http://asset/ogk_gg/gui/ogk_hud.css" />
     </head>
     <body>
-       <div class="hud-titletext">
+
+        <div id="left-hit-marker" class="hit-marker">
+        </div>
+        <div id="front-hit-marker" class="hit-marker">
+        </div>
+        <div id="right-hit-marker" class="hit-marker">
+        </div>
+        <div id="back-hit-marker" class="hit-marker">
+        </div>
+
+        <div class="hud-titletext">
             <span class="hud-titletext-content" id="mapName"></span>
-       </div>
+        </div>
 
         <div class="killfeed" id="killfeed">
             <div class="killfeed-row">
@@ -45,7 +56,9 @@
                 </div>
         </div>
         </div>
+        <script type="text/javascript" src="http://asset/ogk_gg/gui/js/jquery.js"></script>
         <script type="text/javascript" src="http://asset/ogk_gg/gui/js/killfeed.js"></script>
+        <script type="text/javascript" src="http://asset/ogk_gg/gui/js/hitmarker.js"></script>
         <script type="text/javascript" src="http://asset/ogk_gg/gui/js/playerbar.js"></script>
     </body>
 </html>

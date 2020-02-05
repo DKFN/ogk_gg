@@ -80,3 +80,7 @@ function OnPackageStart()
 	
 end
 AddEvent("OnPackageStart", OnPackageStart)
+
+AddEvent("OGK:HIT_LOCATION:HitLocation", function(hitLocation)
+	ExecuteWebJS(hud, "DisplayHit('"..hitLocation.."')")
+end)

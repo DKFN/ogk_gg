@@ -59,3 +59,10 @@ AddEvent("OnPlayerWeaponShot", function(player, wpn, hittype, hitid, hitX, hitY,
         _print("After cancel".._.str(awaitRegen))
     end
 end)
+
+AddEvent("OnPlayerQuit", function(player)
+    awaitRegen = _.filter(awaitRegen, function(p)
+        return p.id ~= player 
+    end)
+end)
+
