@@ -34,6 +34,7 @@ AddEvent("OnPackageStart", function()
 	http_set_target(keyRequest, "/game-server")
     http_set_verb(keyRequest, "post")
     
+
     -- if not OGK_GG_DEBUG then -- FIXME : Coupling (Introduce naming for debug variable ?)
         local file = io.open('ogk_key', 'r')
         if file == nil then
@@ -42,6 +43,7 @@ AddEvent("OnPackageStart", function()
             officialKey = file:read("*a")
             file.close()
         end
+
     -- else
     --    print("[OGK][API] Server is not allowed to register an official key on debug mode")
     -- end

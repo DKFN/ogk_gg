@@ -17,7 +17,6 @@ AddEvent("OGK:API:ReceivePlayerProfile", function(id, data)
             CallEvent("OGK:API:ReceivePlayerProfile", id, data)
         end)
     else
-        print("ACKed ...")
         local data = json.parse(data)
         players[id]["image"] = data["imageb64"]
         players[id]["country"] = data["country"]

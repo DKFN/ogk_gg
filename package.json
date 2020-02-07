@@ -25,8 +25,9 @@
         "server/map_loader.lua",
         "server/votemap.lua",
         "server/leaderboard.lua",
-        "server/leaderboards.lua",
-        "server/weapon_ladder.lua"
+        "server/weapon_ladder.lua",
+        "weapon_sprint/server/wsprint.lua",
+        "weapon_sprint/server/json.lua"
     ],
     "client_scripts": [
         "client/libs/b64.lua",
@@ -45,7 +46,9 @@
         "client/hud.lua",
         "client/motd.lua",
         "client/weapons.lua",
-        "client/sounds.lua"
+        "client/sounds.lua",
+        "weapon_sprint/client/cl_wsprint.lua",
+        "weapon_sprint/client/wsprint_weapons.lua"
     ],
     "files": [
         "gui/images/ogk.png",

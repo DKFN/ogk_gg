@@ -71,7 +71,7 @@ AddEvent("OnPackageStart", OnPackageStart)
 -- This function is responsible to check synchronisation state between client and server
 AddRemoteEvent("PlayerCheckWeaponSynchro", function(player, weapon, equipped_slot)
     local weaponid = players[player].weapon
-    if weaponid ~= 0 and Ladder.getWeaponId(weaponid) ~= weapon then
+    if (weaponid ~= 0 and Ladder.getWeaponId(weaponid) ~= weapon and Ladder.getWeaponId(weaponid)+20 ~= weapon and Ladder.getWeaponId(weaponid)+40 ~= weapon) then
         RefreshWeapons(player)
     end
 end)
