@@ -1,7 +1,8 @@
 -- OGK Common Utils - API Common interface
 
 -- Author: DeadlyKungFu.Ninja
-local TIMER_REFRESH_RATE = 10000
+
+local TIMER_REFRESH_RATE = 120000
 
 local function OnWinRequestComplete(winRequest)
     local status = http_result_status(winRequest)
@@ -10,6 +11,7 @@ local function OnWinRequestComplete(winRequest)
     print("[OGK][API] Player already won "..playerStats.count.." times")
     if status == 200 then
         print("[OGK][API] Win corretly send to Global Stats")
+        CallEvent("OGK:API:GetGamemodeStats")
     elseif status == 202 then
         print("[OGK][API] Win will not be saved in global leaderboard")
     else
@@ -42,11 +44,11 @@ local function OnLeaderBoardGetComplete(leaderBoardRequest)
     else
         print("[OGK][API] Unexpected error ["..status.."]")
     end
-    -- AddRemoteEvent("OGK", LuaFunction)
+    CallEvent("OGK:INMAP_LEADERBOARD:ReceiveData", json.stringify(leaders))
 end
 
 -- LeaderBoard stats watcher
-CreateTimer(function()
+AddEvent("OGK:API:GetGamemodeStats", function()
     local leaderBoardRequest = makeApiRequest()
     
     http_set_target(leaderBoardRequest, "/victory/?gamemode="..OGK_GAMEMODE)
@@ -57,5 +59,8 @@ CreateTimer(function()
         http_destroy(winRequest)
 		error("[OGK][API] ERROR : Login request failed due to gameserver problem (things will break)")
 	end
-    
+end)
+
+CreateTimer(function()
+   CallEvent("OGK:API:GetGamemodeStats")
 end, TIMER_REFRESH_RATE)

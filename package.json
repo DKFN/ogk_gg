@@ -8,6 +8,7 @@
         "server/libs/underscore.lua",
         "ogk_commons/health_regen/server.lua",
         "ogk_commons/spawn_protection/server.lua",
+        "ogk_commons/inmap_leaderboards/server.lua",
         "ogk_commons/hit_origin/server.lua",
         "ogk_commons/clothing/server.lua",
         "ogk_commons/api/http.lua",
@@ -24,6 +25,7 @@
         "server/map_loader.lua",
         "server/votemap.lua",
         "server/leaderboard.lua",
+        "server/leaderboards.lua",
         "server/weapon_ladder.lua"
     ],
     "client_scripts": [

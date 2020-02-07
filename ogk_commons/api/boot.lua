@@ -16,6 +16,7 @@ local function OnLoginComplete(keyRequest)
         else
             print("[OGK][API] Server is not official or debug enabled. PM DeadlyKungFu.Ninja#8294 to get an official server key")
         end
+        CallEvent("OGK:API:GetGamemodeStats")
     else
         print("[OGK][API] /!\\ ERROR : Gameserver could not connect to OGK ["..status.."]")
         print("[OGK][API] /!\\ ERROR : Ui and gamemode might be broken, users will not be rewarded by playing on your server ")
