@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="http://asset/ogk_gg/gui/nuclearbulma.css" />
         <link rel="stylesheet" href="http://asset/ogk_gg/gui/ogk_commons.css" />
         <link rel="stylesheet" href="http://asset/ogk_gg/gui/ogk_ui.css" />
+        <script src="http://asset/ogk_gg/gui/js/trad.js"></script>
         <script src="http://asset/ogk_gg/gui/js/jquery.js"></script>
         <script src="http://asset/ogk_gg/gui/js/scoreboard.js"></script>
     </head>
@@ -36,13 +37,12 @@ _______/\\\\\_______/\\\\\_____/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\__/\\\\\
             <div class="notification is-white" id="winContainer" style="opacity: 0; color: green">
                     <div id="winText" style="color: green">
                     </div>
-                    <div>
-                        WON THE GAME
+                    <div data-trad="scoreboard_won">
                     </div>
                     <!-- 
                     <div class="column"><div class="columns">
                         <div class="column">
-                            <b>Rank:</b> #3 </div>
+                            <b>World Rank:</b> #3 </div>
                             <div class="column">
                             <b>Total wins:</b> 2 </div>
                             <div class="column">
@@ -59,16 +59,16 @@ _______/\\\\\_______/\\\\\_____/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\__/\\\\\
             <div class="columns">
                 <div class="column">
                     <div></div>
-                    <h1 class="title is-1" id="test">Score Board</h1>
+                    <h1 class="title is-1" id="test"><span data-trad="scoreboard"></h1>
                     <table class="table" id="playertable">
 
                         <thead>
                             <tr>
-                                <th>PSEUDO</th>
-                                <th>STADE</th>
-                                <th>KILLS</th>
-                                <th>DEATHS</th>
-                                <th>VICTORY</th>
+                                <th data-trad="scoreboard_login"></th>
+                                <th data-trad="scoreboard_level"></th>
+                                <th data-trad="scoreboard_kills"></th>
+                                <th data-trad="scoreboard_death"></th>
+                                <th data-trad="scoreboard_victories"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,16 +79,16 @@ _______/\\\\\_______/\\\\\_____/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\__/\\\\\
                             <h1 class="title is-1">Alpha note</h1>
                             <div class="splash-container">
                                 <div class="ogk-shadowbox" style="text-align: left;">                      
-                                    -> Submit your <span style="color:orange">suggestions</span>. <br />
-                                    -> Submit your <span style="color:orange">maps</span>. <br />
-                                    -> Please report any <span style="color:orange">bugs</span>. <br />
-                                    -> Please report any <span style="color:orange">cheaters</span>. <br />
-                                    -> Come say <span style="color:orange">hello</span>! <br />
+                                    -> <span data-trad="scoreboard_submit"></span> <span style="color:orange" data-trad="scoreboard_suggestions"></span>. <br />
+                                    -> <span data-trad="scoreboard_submit"></span> <span style="color:orange" data-trad="scoreboard_maps"></span>. <br />
+                                    -> <span data-trad="scoreboard_report"></span> <span style="color:orange" data-trad="scoreboard_maps"></span>. <br />
+                                    -> <span data-trad="scoreboard_report"></span> <span style="color:orange" data-trad="scoreboard_cheaters"></span>. <br />
+                                    -> <span data-trad="scoreboard_say"></span> <span style="color:orange" data-trad="scoreboard_hello"></span>! <br />
 
                                     <center>
                                         <br />
-                                        => <span style="color:orange">In the Discord server</span> <= <br />
-                                        Have Fun and Good Luck
+                                        => <span style="color:orange" data-trad="scoreboard_in_discord"></span> <= <br />
+                                        <span data-trad="scoreboard_hfgl"></span>
                                     </center>
                                 </div>
                             </div>
@@ -96,9 +96,8 @@ _______/\\\\\_______/\\\\\_____/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\__/\\\\\
                         <div class="column">
                             <div class="splash-container">
                                 <div class="ogk-shadowbox partner-pad">
-                                    <h4>Join Our Discord</h4>
-                                    <span style="font-family: atari; font-size: 24px;">
-                                        https://discord.gg/TjmEANe
+                                    <h4 data-trad="scoreboard_discord"></h4>
+                                    <span style="font-family: atari; font-size: 24px;" data-trad="scoreboard_discord_link">
                                     </span>
                                 </div>
                             </div>
@@ -113,8 +112,7 @@ _______/\\\\\_______/\\\\\_____/\\\_____/\\\\\\\\\\\____/\\\\\\\\\\\\\\\__/\\\\\
             <div class="ogk-footer ogk-shadowbox">
                 <img src="http://asset/ogk_gg/gui/images/ogk.png" width="120px" class="contained-image" /> <br />
                 DeadlyKungFu.Ninja - Azgin - Pas de traduction - Night_Man - Alcayezz - Jokinesse - Bambo <br />
-                External contributions: SalsiTV - Digital - Aimague
-                <!-- <p class="subtitle"><a href="">Discord - Report Player - Report Bug - Github</a></p> !-->
+                <span data-trad="scoreboard_external_constributors"></span>: Votaism - SalsiTV - Digital - Aimague
             </div>
         </div>
 

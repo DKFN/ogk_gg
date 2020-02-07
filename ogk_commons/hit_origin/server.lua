@@ -1,7 +1,7 @@
 -- OGK Common Utils - Hit Origin FeedBack
 
 -- Author: DeadlyKungFu.Ninja
-local HITORIGIN_DEBUG = false
+local HITORIGIN_DEBUG = true
 local function _print(message)
     if HITORIGIN_DEBUG then
         _.print(message)

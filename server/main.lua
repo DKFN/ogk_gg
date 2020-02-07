@@ -20,6 +20,8 @@ avaible_map = {"western", "armory", "port", "port_small", "trucks_center", "trop
 avaible_map_count = 6
 last_map = 6
 
+OGK_GAMEMODE = "OGK_GG"
+
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
     local spawn_idx = Random(1, spawns_max[current_map])

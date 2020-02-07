@@ -75,8 +75,8 @@ function OnPackageStart()
 	
 	-- Someone found fix, ask discord
 	-- here is the fix thx Logic
-	EnableFirstPersonCamera(true)
-	SetNearClipPlane(15)
+	-- EnableFirstPersonCamera(true)
+	-- SetNearClipPlane(15)
 	
 end
 AddEvent("OnPackageStart", OnPackageStart)
