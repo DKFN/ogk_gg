@@ -13,7 +13,6 @@ AddEvent("OnPackageStart",function()
                     if i ~= 1 then
                        local tbltoinsert = v
                        tbltoinsert.Name = tbltoinsert.Name.."2"
-                       print(tbltoinsert.Name)
                        table.insert(tbls1,tbltoinsert)
                     end
                    end
@@ -21,7 +20,6 @@ AddEvent("OnPackageStart",function()
                     if i ~= 1  then
                        local tbltoinsert = v
                        tbltoinsert.Name = tbltoinsert.Name.."3"
-                       print(tbltoinsert.Name)
                        table.insert(tbls2,tbltoinsert)
                     end
                    end
@@ -36,6 +34,7 @@ AddEvent("OnPackageStart",function()
                       local contents = json_encode(weaptable)
                       wfile:write(contents)
                       io.close(wfile)
+                      ServerExit("Reload weapons.json")
                     end
                 else
                     print("Remove Custom Weapons")
