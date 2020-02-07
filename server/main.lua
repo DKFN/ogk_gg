@@ -1,7 +1,7 @@
 -- Onset Gaming Kommunity -- Gungame
 -- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
 
-OGK_GG_DEBUG = false
+OGK_GG_DEBUG = true
 
 players = {}
 player_count = 0
@@ -245,7 +245,7 @@ AddEvent("PlayerWin", function(winner)
     CallRemoteEvent(winner, "PlayerIsWinner")
 
     spawnPickupsItems()
-
+    CallEvent("OGK:API:AddPlayerWin", winner)
     Delay(10000, function()
         CallEvent("StartVoteMap")
     end)
