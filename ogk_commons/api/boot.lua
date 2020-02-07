@@ -20,6 +20,7 @@ local function OnLoginComplete(keyRequest)
         print("[OGK][API] /!\\ ERROR : Gameserver could not connect to OGK ["..status.."]")
         print("[OGK][API] /!\\ ERROR : Ui and gamemode might be broken, users will not be rewarded by playing on your server ")
     end
+    http_destroy(keyRequest)
 end
 
 AddEvent("OnPackageStart", function()
@@ -32,7 +33,7 @@ AddEvent("OnPackageStart", function()
 	http_set_target(keyRequest, "/game-server")
     http_set_verb(keyRequest, "post")
     
-    if not OGK_GG_DEBUG then -- FIXME : Coupling (Introduce naming for debug variable ?)
+    -- if not OGK_GG_DEBUG then -- FIXME : Coupling (Introduce naming for debug variable ?)
         local file = io.open('ogk_key', 'r')
         if file == nil then
             print("[OGK][API] No official server key found (Player stats will not be saved)")
@@ -40,9 +41,9 @@ AddEvent("OnPackageStart", function()
             officialKey = file:read("*a")
             file.close()
         end
-    else
-        print("[OGK][API] Server is not allowed to register an official key on debug mode")
-    end
+    -- else
+    --    print("[OGK][API] Server is not allowed to register an official key on debug mode")
+    -- end
 
     if OGK_GAMEMODE then
         gamemode = OGK_GAMEMODE

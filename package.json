@@ -13,6 +13,7 @@
         "ogk_commons/api/http.lua",
         "ogk_commons/api/boot.lua",
         "ogk_commons/api/profile.lua",
+        "ogk_commons/api/leaderboard.lua",
         "common/logger.lua",
         "server/main.lua",
         "server/debug.lua",

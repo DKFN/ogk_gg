@@ -19,7 +19,7 @@ function makeApiRequest()
     http_set_field(r, "user-agent", "Onset Server / "..GetGameVersionString())
 
     if SERVER_PRIVATE_KEY then
-        http_set_field(r, "xx-server-key", SERVER_PRIVATE_KEY)
+        http_set_field(r, "x-server-key", SERVER_PRIVATE_KEY)
     end
     return r
 end
