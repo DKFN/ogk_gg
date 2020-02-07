@@ -38,7 +38,7 @@ const renderPlayer = (player, k) => {
             <div>
             </div>
             <div>
-                Level ${player.lvl}
+                ${tradKey('leaderboard_level')}. ${player.lvl}
             </div>
         </div>
     `;

@@ -8,9 +8,11 @@ AddRemoteEvent("GetVotemapChoices", function(player)
     local allMaps = _.map(avaible_map, function(mapName)
         local mapMax = spawns_max[mapName]
         local mapMin = map_min_players[mapName]
+        local author = map_author[mapName]
         return {
             available = mapMax >= playerCount and mapMin <= playerCount,
             name = mapName,
+            author = author,
         }
     end)
     local mapsString = json.stringify(allMaps)
@@ -35,7 +37,7 @@ AddEvent("StartVoteMap", function()
         end
     end, 500)
 
-    Delay(10000, function()
+    Delay(20000, function()
         CallEvent("StopVoteMap")
     end)
 end)

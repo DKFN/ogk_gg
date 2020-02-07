@@ -1,0 +1,31 @@
+.hit-marker {
+    position: fixed;
+}
+
+#left-hit-marker {
+    left: 0;
+    height: 100%;
+    width: 100px;
+    background: linear-gradient(90deg, red, transparent);
+}
+
+#front-hit-marker {
+    top: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(180deg, red, transparent);
+}
+
+#right-hit-marker {
+    right: 0;
+    height: 100%;
+    width: 100px;
+    background: linear-gradient(-90deg, red, transparent);
+}
+
+#back-hit-marker {
+    bottom: 0%;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(transparent, red);
+}

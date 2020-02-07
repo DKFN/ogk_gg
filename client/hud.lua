@@ -2,7 +2,7 @@
 -- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz / Alcayezz
 
 function HUDInit() 
-    hud = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 10)
+    hud = CreateWebUI(0.0, 0.0, 0.0, 0.0, 5, 24)
 	LoadWebFile(hud, "http://asset/ogk_gg/gui/ui.html")
 	SetWebAlignment(hud, 0.0, 0.0)
 	SetWebAnchors(hud, 0.0, 0.0, 1.0, 1.0)
@@ -50,3 +50,13 @@ AddRemoteEvent("SetUIData", SetUIData)
 AddEvent("WarnShiftToRun", function()
 	ExecuteWebJS(hud, "Warn('<span style=\"color: orange; font-size: 24px;\">PRESS <b>TWICE</b> TO SPRINT</span>')")
 end)
+
+AddEvent("OnWebLoadComplete", function(web)
+	if web == hud then	
+		ExecuteWebJS(hud, "DisplayHit('left')")
+		ExecuteWebJS(hud, "DisplayHit('right')")
+		ExecuteWebJS(hud, "DisplayHit('front')")
+		ExecuteWebJS(hud, "DisplayHit('back')")
+	end
+end)
+

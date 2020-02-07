@@ -1210,7 +1210,7 @@ function OnPlayWeaponHitEffects(PlayerId, Weapon, HitType, HitId, StartLocation,
 		
 	elseif HitType == HIT_WATER then
 	
-		local HitEffect = GetWorld():SpawnEmitterAtLocation(UParticleSystem.LoadFromAsset(HitParticles["Water"]), HitLocation, HitNormal)
+		local HitEffect = GetWorld():SpawnEmitterAtLocation(UParticleSystem.LoadFromAsset(HitParticles["Water"]), HitLocation, HitNormal, FVector(1.0, 1.0, 1.0))
 		HitEffect:SetWorldScale3D(FVector(0.3, 0.3, 0.3))
 		
 		GetWorld():SpawnSoundAtLocation(USoundCue.LoadFromAsset(HitSounds["Water"]), HitLocation, HitNormal)
