@@ -95,7 +95,7 @@ function level_up(killer)
     if(players[killer].weapon ~= Ladder.getLevelMax()) then
         local killWeaponId = GetPlayerWeapon(killer, 1)
         local expectedWeapon = Ladder.getWeaponId(players[killer].weapon)
-        if (killWeaponId ~= expectedWeapon or killWeaponId ~= expectedWeapon + 20 or killWeaponId ~= expectedWeapon + 40) then
+        if (killWeaponId ~= expectedWeapon and killWeaponId ~= expectedWeapon + 20 and killWeaponId ~= expectedWeapon + 40) then
             return
         end
         
