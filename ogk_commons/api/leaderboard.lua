@@ -7,9 +7,9 @@ local TIMER_REFRESH_RATE = 120000
 local function OnWinRequestComplete(winRequest)
     local status = http_result_status(winRequest)
     local data = http_result_body(winRequest)
-    local playerStats = json.parse(data);
-    print("[OGK][API] Player already won "..playerStats.count.." times")
     if status == 200 then
+        local playerStats = json.parse(data);
+        print("[OGK][API] Player already won "..playerStats.count.." times")
         print("[OGK][API] Win corretly send to Global Stats")
         CallEvent("OGK:API:GetGamemodeStats")
     elseif status == 202 then

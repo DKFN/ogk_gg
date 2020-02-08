@@ -93,7 +93,9 @@ AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
 
 function level_up(killer)
     if(players[killer].weapon ~= Ladder.getLevelMax()) then
-        if (GetPlayerWeapon(killer, 1) ~= Ladder.getWeaponId(players[killer].weapon)) then
+        local killWeaponId = GetPlayerWeapon(killer, 1)
+        local expectedWeapon = Ladder.getWeaponId(players[killer].weapon)
+        if (killWeaponId ~= expectedWeapon or killWeaponId ~= expectedWeapon + 20 or killWeaponId ~= expectedWeapon + 40) then
             return
         end
         

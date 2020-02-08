@@ -25,6 +25,7 @@
         "server/map_loader.lua",
         "server/votemap.lua",
         "server/leaderboard.lua",
+        "server/leaderboards.lua",
         "server/weapon_ladder.lua",
         "weapon_sprint/server/wsprint.lua",
         "weapon_sprint/server/json.lua"
