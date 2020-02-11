@@ -1,4 +1,4 @@
-Logger = {}
+--[[Logger = {}
 
 local function printer(level, from, msg)
     AddPlayerChat("[OGK]["..level.."]["..from.."] "..msg)
@@ -13,6 +13,6 @@ function Logger.err(from, msg)
 end
 
 function OnScriptError(message)
-    AddPlayerChat('<span color="#ff0000bb" style="bold" size="10">'..message..'</>')
+    -- AddPlayerChatAll('<span color="#ff0000bb" style="bold" size="10">'..message..'</>')
 end
-AddEvent("OnScriptError", OnScriptError)
+AddEvent("OnScriptError", OnScriptError)]]--

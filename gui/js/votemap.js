@@ -20,6 +20,9 @@ const buildMap = (map, container) => {
             <div class="map-name">
                 ${map.name.toUpperCase()}
             </div>
+            <div class="map-author">
+                By ${map.author.toUpperCase()}
+            </div>
         </div>
     `);
 

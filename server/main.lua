@@ -1,7 +1,7 @@
 -- Onset Gaming Kommunity -- Gungame
 -- Authors : DeadlyKungFu.ninja / Mr Jack / Alcayezz
 
-OGK_GG_DEBUG = false
+OGK_GG_DEBUG = true
 
 players = {}
 player_count = 0
@@ -13,11 +13,14 @@ player_count = 0
 -- current_map = "gg2"
 -- current_map = "trucks_center"
 current_map = "tropico"
+-- current_map = "alien_attack"
 -- current_map = "hangar"
 
 avaible_map = {"western", "armory", "port", "port_small", "trucks_center", "tropico"} -- "paradise_ville", "chemistry"}
 avaible_map_count = 6
 last_map = 6
+
+OGK_GAMEMODE = "OGK_GG"
 
 function assign_spawn(player)
     local spawn_location = spawns[current_map]
@@ -68,7 +71,7 @@ AddEvent("OnPackageStart", OnPackageStart)
 -- This function is responsible to check synchronisation state between client and server
 AddRemoteEvent("PlayerCheckWeaponSynchro", function(player, weapon, equipped_slot)
     local weaponid = players[player].weapon
-    if weaponid ~= 0 and Ladder.getWeaponId(weaponid) ~= weapon then
+    if (weaponid ~= 0 and Ladder.getWeaponId(weaponid) ~= weapon and Ladder.getWeaponId(weaponid)+20 ~= weapon and Ladder.getWeaponId(weaponid)+40 ~= weapon) then
         RefreshWeapons(player)
     end
 end)
@@ -90,7 +93,9 @@ AddRemoteEvent("OnPlayerPressReload", RefreshWeapons)
 
 function level_up(killer)
     if(players[killer].weapon ~= Ladder.getLevelMax()) then
-        if (GetPlayerWeapon(killer, 1) ~= Ladder.getWeaponId(players[killer].weapon)) then
+        local killWeaponId = GetPlayerWeapon(killer, 1)
+        local expectedWeapon = Ladder.getWeaponId(players[killer].weapon)
+        if (killWeaponId ~= expectedWeapon and killWeaponId ~= expectedWeapon + 20 and killWeaponId ~= expectedWeapon + 40) then
             return
         end
         
@@ -105,7 +110,17 @@ end
 
 -- This function waits until the plays does not AIM and will then change the level of the player
 function OnPlayerDeath(player, instigator)
-    SetPlayerSpectate(player, true)
+     -- SetPlayerSpectate(player, true)
+     if player ~= instigator then
+        CallEvent("spectateid", player, instigator)
+        Delay(4000, function()
+            CallRemoteEvent(player, "StopSpec")
+        end)
+     else
+        SetPlayerSpectate(player, true)
+     end
+
+
     local player_data = players[player]
     if player_data and player_data.ingame == true then
         assign_spawn(player)
@@ -143,8 +158,8 @@ function OnPlayerJoin(ply)
     p["victory"] = 0
     p["ingame"] = false
     p["last_spawn_index"] = 0
-    p["cloth"] = Random(2, 9)
-
+    p["skin"] = Random(2, 9)
+    
     players[ply] = p
 
     SetPlayerHealth(ply, 99999) -- Avoids spawn kill
@@ -165,7 +180,7 @@ function OnPlayerJoin(ply)
     -- Initial spawn
     -- assign_spawn(ply)
     local initial_player_spawn = spawns["spawn_zone"][1]
-     SetPlayerSpawnLocation(ply, initial_player_spawn[1], initial_player_spawn[2], initial_player_spawn[3] + (ply * 10), initial_player_spawn[4])
+    SetPlayerSpawnLocation(ply, initial_player_spawn[1], initial_player_spawn[2], initial_player_spawn[3] + (ply * 10), initial_player_spawn[4])
 end
 AddEvent("OnPlayerJoin", OnPlayerJoin)
 
@@ -178,25 +193,9 @@ end)
 
     
 function OnPlayerSpawn(playerid)
-    -- TODO: This is not the best event to specify that
-    local defaultCloth = 1
-    -- Avoids nude players
-    for _, v in ipairs(GetAllPlayers()) do
-        local assigned_cloth -- Production bug found during playtest
-        if (players[v]) then
-            assigned_cloth = players[v].cloth
-        else
-            assigned_cloth = defaultCloth
-        end
-
-        CallRemoteEvent(playerid, "setClothe", v, assigned_cloth) -- set la tenu des joueurs pour le joueur
-        CallRemoteEvent(v, "setClothe", playerid, players[playerid].cloth) -- set la tenue du joueur pour les autres joueurs
-    end
-
     -- Anti spawn kill enable
     SetPlayerSpectate(playerid, false)
-    SetPlayerHealth(playerid, 9999)
-    -- AddPlayerChat(playerid, "Anti Spawn Kill: actif")
+    CallEvent("OGK:SPAWNPROTECTION:SetPlayerProtected", playerid)
 
     -- After spawn operations
     if players[playerid]["ingame"] == true then
@@ -211,10 +210,6 @@ function OnPlayerSpawn(playerid)
             SetPlayerWeapon(playerid, 1, 0, false, 3, false)
         end)
 
-        -- Anti spawn kill disable
-        Delay(4000, function()            
-            SetPlayerHealth(playerid, 100)
-        end)
     end
 end
 AddEvent("OnPlayerSpawn", OnPlayerSpawn) -- spawn and respawn handle the player die and downgrade 
@@ -252,7 +247,7 @@ AddEvent("PlayerWin", function(winner)
     CallRemoteEvent(winner, "PlayerIsWinner")
 
     spawnPickupsItems()
-
+    CallEvent("OGK:API:AddPlayerWin", winner)
     Delay(10000, function()
         CallEvent("StartVoteMap")
     end)

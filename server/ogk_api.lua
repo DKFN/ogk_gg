@@ -6,13 +6,19 @@
 -- Synchronously send a get request to http://www.httpbin.org/get and print the body
 function getPlayerSummary(playerId)
     local steam64id = GetPlayerSteamId(playerId)
-    print(steam64id .. " Getting player summary for  " .. playerId)
-    local _res = http_get("http://node03.ogk.infra.tetel.in:3000/steam/profile/"..steam64id)
-    if (_res.body) then
-        local userProfile = json.parse(_res.body)
-        _.print(userProfile["image"])
-        players[playerId].image = userProfile["image"]
-        players[playerId].country = userProfile["country"]
-    end
+    CallEvent("OGK:API:GetPlayerProfile", playerId, tostring(steam64id))
 end 
 AddEvent("GetPlayerSummaryInfo", getPlayerSummary)
+
+AddEvent("OGK:API:ReceivePlayerProfile", function(id, data)
+    if not players[id] then
+        print("Delayed ...")
+        Delay(200, function()
+            CallEvent("OGK:API:ReceivePlayerProfile", id, data)
+        end)
+    else
+        local data = json.parse(data)
+        players[id]["image"] = data["imageb64"]
+        players[id]["country"] = data["country"]
+    end
+end)

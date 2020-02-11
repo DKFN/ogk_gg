@@ -75,8 +75,12 @@ function OnPackageStart()
 	
 	-- Someone found fix, ask discord
 	-- here is the fix thx Logic
-	EnableFirstPersonCamera(true)
-	SetNearClipPlane(15)
+	-- EnableFirstPersonCamera(true)
+	-- SetNearClipPlane(15)
 	
 end
 AddEvent("OnPackageStart", OnPackageStart)
+
+AddEvent("OGK:HIT_LOCATION:HitLocation", function(hitLocation)
+	ExecuteWebJS(hud, "DisplayHit('"..hitLocation.."')")
+end)
